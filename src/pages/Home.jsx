@@ -121,67 +121,111 @@ export default function Home() {
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
-      {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background */}
+      {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background & Founder Showcase */}
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 min-h-[calc(100vh-4.5rem)] flex flex-col justify-center bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
         {/* Continuous Moving Triangular Background (Matching Logo Color) */}
         <HeroTriangularBackground />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 text-center my-auto">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-white border border-brand-border text-brand-primary shadow-xs mb-3 sm:mb-4">
-            <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
-            <span>19+ Years Mentorship Legacy • Pune, Maharashtra</span>
-          </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 my-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left Column: Academy Branding, Headline, Proposition & CTAs */}
+            <div className="lg:col-span-7 text-center lg:text-left">
+              {/* Eyebrow badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-white/95 backdrop-blur-sm border border-brand-border text-brand-primary shadow-xs mb-3 sm:mb-4">
+                <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
+                <span>The Consistent Academy • 19+ Years Legacy</span>
+              </div>
 
-          {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-extrabold text-slate-900 tracking-tight leading-[1.12] max-w-4xl mx-auto mb-3 sm:mb-4">
-            Achieve Your Global Dreams with{' '}
-            <span className="bg-gradient-to-r from-brand-primary to-brand-dark bg-clip-text text-transparent">
-              Consistent English Mastery
-            </span>
-          </h1>
+              {/* Main Headline */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[2.85rem] xl:text-[3.25rem] font-extrabold text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4">
+                Master Global English with{' '}
+                <span className="bg-gradient-to-r from-brand-primary via-purple-600 to-brand-dark bg-clip-text text-transparent">
+                  The Consistent Academy
+                </span>
+              </h1>
 
-          {/* Value proposition subtext */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-4 sm:mb-5">
-            Targeted IELTS, TOEFL, PTE & CELPIP coaching and Corporate Communication by Author <strong className="text-slate-900 font-semibold">Vidya Wankhade</strong> with over 19 years of verified teaching excellence.
-          </p>
+              {/* Value proposition */}
+              <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-5 sm:mb-6">
+                Targeted coaching for IELTS, TOEFL, PTE & CELPIP alongside executive Corporate Communication. Personally coached by Author & Master Trainer <strong className="text-slate-900 font-semibold">Vidya Wankhade</strong>.
+              </p>
 
-          {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-3 sm:mb-4">
-            <Button to="/courses" variant="primary" size="md" icon={ArrowRight} iconPosition="right" className="w-full sm:w-auto shadow-brand">
-              Explore Programmes
-            </Button>
-            <Button to="/contact" variant="secondary" size="md" className="w-full sm:w-auto">
-              Talk to Counselor
-            </Button>
-            <a
-              href={`tel:${academyInfo.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 hover:border-brand-primary bg-white text-slate-700 hover:text-brand-primary text-xs sm:text-sm font-semibold transition-all shadow-xs w-full sm:w-auto"
-            >
-              <Phone className="w-3.5 h-3.5 text-brand-primary" />
-              <span>Call: {academyInfo.phone}</span>
-            </a>
-          </div>
+              {/* Action buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-4 sm:mb-5">
+                <Button to="/courses" variant="primary" size="md" icon={ArrowRight} iconPosition="right" className="w-full sm:w-auto shadow-brand">
+                  Explore Programmes
+                </Button>
+                <Button to="/contact" variant="secondary" size="md" className="w-full sm:w-auto">
+                  Talk to Counselor
+                </Button>
+                <a
+                  href={`tel:${academyInfo.phoneRaw}`}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 hover:border-brand-primary bg-white/90 backdrop-blur-xs text-slate-700 hover:text-brand-primary text-xs sm:text-sm font-semibold transition-all shadow-xs w-full sm:w-auto"
+                >
+                  <Phone className="w-3.5 h-3.5 text-brand-primary" />
+                  <span>Call: {academyInfo.phone}</span>
+                </a>
+              </div>
 
-          {/* Verified Student Score Strip */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-600 mb-4 sm:mb-5">
-            <span className="flex items-center gap-1 font-semibold text-slate-800">
-              <Award className="w-3.5 h-3.5 text-brand-primary" />
-              Verified Results:
-            </span>
-            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
-              Ninoshka: IELTS Band 7.5 (Canada)
-            </span>
-            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
-              Sucharita: Band 7.0 (Global Admissions)
-            </span>
-            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
-              Deepak S.: Band 6.5 (Australia)
-            </span>
+              {/* Trust highlights */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-600 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
+                  Author of 3 Published Books
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
+                  Pune Classroom & Online Batches
+                </span>
+              </div>
+            </div>
+
+            {/* Right Column: Founder & Master Trainer Executive Portrait */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative group w-full max-w-[320px] sm:max-w-[340px]">
+                {/* Ambient glow behind card */}
+                <div className="absolute -inset-1.5 bg-gradient-to-r from-brand-primary/25 to-purple-400/25 rounded-3xl blur-lg opacity-70 group-hover:opacity-100 transition duration-500" />
+
+                <div className="relative bg-white/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-brand-border/70 shadow-xl overflow-hidden">
+                  {/* Photo container */}
+                  <div className="relative h-64 sm:h-72 lg:h-[310px] w-full rounded-xl overflow-hidden bg-slate-100">
+                    <img
+                      src="/assets/academy/vidya.png"
+                      alt="Vidya Wankhade - Founder of The Consistent Academy"
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
+                      loading="eager"
+                    />
+                    {/* Shadow overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
+
+                    {/* Floating top badge */}
+                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md border border-brand-border/60 text-[11px] font-bold text-brand-primary shadow-sm flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-brand-primary" />
+                      <span>Founder & Master Trainer</span>
+                    </div>
+
+                    {/* Bottom overlay info */}
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
+                      <div className="font-extrabold text-base sm:text-lg leading-tight tracking-tight">
+                        Vidya Wankhade
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-brand-200 font-medium">
+                        IELTS Master Trainer • Author of 3 Books
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom credential bar */}
+                  <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600 px-1">
+                    <span className="font-semibold text-slate-800">The Consistent Academy</span>
+                    <span className="text-brand-primary font-bold">19+ Yrs Mentorship</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Concept 2 Signature Trust Bar */}
-          <TrustBar className="mt-1" />
+          <TrustBar className="mt-6 sm:mt-8" />
         </div>
       </section>
 

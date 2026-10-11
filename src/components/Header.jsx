@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, Mail, Menu, X, ChevronRight } from 'lucide-react';
+import { Phone, Mail, Menu, X, ChevronRight, Instagram, Linkedin, MessageCircle } from 'lucide-react';
 import { academyInfo } from '../data/academyData';
 import Button from './Button';
 
@@ -25,9 +25,8 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Courses', path: '/courses' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Careers', path: '/careers' },
     { name: 'Tests', path: '/tests' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -53,14 +52,14 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap ${
+                  className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap ${
                     isActive
                       ? 'text-brand-primary bg-brand-soft font-bold'
                       : 'text-slate-700 hover:text-brand-primary hover:bg-slate-50'
@@ -72,8 +71,42 @@ export default function Header() {
             })}
           </nav>
 
-          {/* CTA & Actions */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Quick Social Connect & CTA Actions */}
+          <div className="hidden sm:flex items-center gap-2.5">
+            {/* Quick Social Icons */}
+            <div className="hidden xl:flex items-center gap-1 pr-2.5 border-r border-slate-200">
+              <a
+                href="https://www.instagram.com/the_consistent_academy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                title="Follow on Instagram"
+                className="w-8 h-8 rounded-lg text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-all flex items-center justify-center cursor-pointer"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://wa.me/917709109830?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20courses%20at%20The%20Consistent%20Academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                title="Chat on WhatsApp"
+                className="w-8 h-8 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all flex items-center justify-center cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/the-consistent-academy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                title="Connect on LinkedIn"
+                className="w-8 h-8 rounded-lg text-slate-500 hover:text-sky-600 hover:bg-sky-50 transition-all flex items-center justify-center cursor-pointer"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </div>
+
             <Button to="/courses" variant="primary" size="md">
               Enroll Now
             </Button>

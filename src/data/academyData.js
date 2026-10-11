@@ -9,15 +9,17 @@ export const academyInfo = {
   logo: "/assets/academy/logo.png",
   logoAlt: "/assets/academy/logo_alt.png",
   socials: [
-    { label: "Instagram", href: "https://www.instagram.com/the_consistent_academy/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/the-consistent-academy/" },
-    { label: "WhatsApp", href: "https://chat.whatsapp.com/Kw2YbntkWMqG66MVI9xSJq?mode=ac_t" }
+    { label: "Instagram", id: "instagram", href: "https://www.instagram.com/the_consistent_academy/", handle: "@the_consistent_academy" },
+    { label: "LinkedIn", id: "linkedin", href: "https://www.linkedin.com/company/the-consistent-academy/", handle: "The Consistent Academy" },
+    { label: "WhatsApp", id: "whatsapp", href: "https://wa.me/917709109830?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20courses%20at%20The%20Consistent%20Academy", handle: "+91 77091 09830" },
+    { label: "Community", id: "community", href: "https://chat.whatsapp.com/Kw2YbntkWMqG66MVI9xSJq?mode=ac_t", handle: "Consistent Learners Club" },
+    { label: "YouTube", id: "youtube", href: "https://www.youtube.com/@theconsistentacademy", handle: "@theconsistentacademy" }
   ],
   thinkbuild: {
     name: "ThinkBuild",
     url: "https://www.thinkbuild.in/",
     logo: "/assets/thinkbuild-logo.png",
-    creditText: "© 2026 The Consistent Academy. All rights reserved. | Website developed by ThinkBuild"
+    creditText: "Developed and maintained by ThinkBuild."
   }
 };
 
