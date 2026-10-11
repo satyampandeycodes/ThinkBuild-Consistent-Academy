@@ -865,3 +865,63 @@ export const testimonials = [
     text: "I managed to score 6.5 in IELTS through consistency and regular practice. This achievement helped me move closer to my goal of studying in Germany."
   }
 ];
+
+export const faqList = [
+  {
+    id: "tests-offered",
+    category: "tests",
+    categoryLabel: "Test Preparation",
+    question: "Which global proficiency tests does The Consistent Academy prepare students for?",
+    answer: "We provide specialized, high-yield coaching for IELTS (Academic & General Training), TOEFL, PTE Academic, and CELPIP (for Canadian Immigration & PR). Each curriculum is designed to help students clear their target band in the very first attempt with modular speaking, writing, reading, and listening drills."
+  },
+  {
+    id: "mode-of-learning",
+    category: "general",
+    categoryLabel: "Batches & Location",
+    question: "Are classes held in-person in Pune, online, or in hybrid mode?",
+    answer: "Both! We conduct offline classroom batches at our Pune center (serving students across Maharashtra) as well as live interactive online cohorts for aspirants across India and abroad (including students targeting Canada, the UK, Germany, and Australia)."
+  },
+  {
+    id: "trainer-credentials",
+    category: "general",
+    categoryLabel: "Faculty & Mentorship",
+    question: "Who conducts the training sessions at the academy?",
+    answer: "All masterclasses and core modules are led directly by Author & IELTS Master Trainer Vidya Wankhade. With 19+ years of teaching excellence, TEFL/TESOL certification, and three published books (Cakewalk IELTS, The Reading Detective, and 101 Management Books), she provides personalized diagnostic evaluations and 1-on-1 feedback."
+  },
+  {
+    id: "ielts-duration-fees",
+    category: "tests",
+    categoryLabel: "Test Preparation",
+    question: "What is the duration, format, and fee for the IELTS preparation course?",
+    answer: "Our comprehensive IELTS / TOEFL / PTE / CELPIP program spans 20 intensive hours across 4 modules (Listening, Reading, Writing, and Speaking) priced at ₹12,000/-. Batches feature flexible weekday and weekend timings, authentic Cambridge materials, and full-length simulated mock tests."
+  },
+  {
+    id: "interview-corporate-programs",
+    category: "corporate",
+    categoryLabel: "Corporate & Career",
+    question: "What career and corporate communication courses are available?",
+    answer: "We offer targeted corporate programs including 'Crack Your Interview (Fresher-Focused)' (6 hours, ₹3,000/-), 'Corporate Survival & Success', 'Corporate Dining & Social Etiquette', and 'Advanced English & Leadership Presence for Managers'. These courses focus on resume positioning, mock interviews, boardroom eloquence, and cross-cultural communication."
+  },
+  {
+    id: "kids-programs",
+    category: "kids",
+    categoryLabel: "Young Learners",
+    question: "What courses are designed specifically for young learners and school students?",
+    answer: "Our Young Learners series includes Kids Elocution & Public Speaking (4 weeks, ₹3,000/-), Grammar Foundations (4 weeks, ₹3,000/-), Creative Writing (4 weeks, ₹3,000/-), and the popular monthly Online Reading Club (₹500/month) aimed at developing deep comprehension, vocabulary, and confident articulation from an early age."
+  },
+  {
+    id: "student-band-scores",
+    category: "tests",
+    categoryLabel: "Results & Success",
+    question: "What verified band scores have your students achieved?",
+    answer: "Our alumni consistently achieve outstanding scores: Ninoshka secured an overall Band 7.5 and is now in Canada; Sucharita achieved Band 7.0 for global university admissions; Deepak S. secured Band 6.5 for Australian higher education; and Atharv, Shreya, and Monika achieved Band 6.5+ for Germany and Canada PR."
+  },
+  {
+    id: "demo-counseling",
+    category: "general",
+    categoryLabel: "Admissions",
+    question: "How can I enroll or book an exploratory counseling session?",
+    answer: "You can get in touch directly by calling or messaging +91 77091 09830 on WhatsApp, sending an email to theconsistentacademy@gmail.com, or submitting an inquiry via our Contact page. Our admissions desk will schedule a diagnostic discussion based on your target exam or career goal."
+  }
+];
+

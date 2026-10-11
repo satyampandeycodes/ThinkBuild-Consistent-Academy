@@ -8,8 +8,7 @@ import TrustBar from '../components/TrustBar';
 import CourseCard from '../components/CourseCard';
 import BookCard from '../components/BookCard';
 import TestimonialCard from '../components/TestimonialCard';
-import ContactForm from '../components/ContactForm';
-import MapEmbed from '../components/MapEmbed';
+import FAQSection from '../components/FAQSection';
 import HeroTriangularBackground from '../components/HeroTriangularBackground';
 
 export default function Home() {
@@ -873,23 +872,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTACT & MAP SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-8">
-        <SectionHeading
-          badge="Get in Touch"
-          title="Connect with The Consistent Academy"
-          subtitle="Discuss your learning goals, target test band, or schedule an exploratory counseling session."
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7">
-            <ContactForm />
-          </div>
-          <div className="lg:col-span-5 space-y-6">
-            <MapEmbed />
-          </div>
-        </div>
-      </section>
+      {/* FREQUENTLY ASKED QUESTIONS SECTION (Replaces home contact form as per ThinkBuild sitemap brief) */}
+      <FAQSection />
 
       {/* LIGHTBOX MODAL */}
       {currentLightboxImage && (
