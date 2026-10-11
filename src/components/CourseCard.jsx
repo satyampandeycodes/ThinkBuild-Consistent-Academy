@@ -7,23 +7,46 @@ export default function CourseCard({ course }) {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-brand transition-all duration-300 flex flex-col group hover:-translate-y-1">
-        {/* Card Image Banner */}
-        <div className="relative h-48 bg-brand-soft overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-[0_18px_38px_-12px_rgba(79,70,229,0.22)] transition-all duration-300 flex flex-col group hover:-translate-y-1.5 relative">
+        {/* Top Active Indicator Beam */}
+        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary via-purple-500 to-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
+
+        {/* Card Image Banner with Interactive Hover Reveal */}
+        <div
+          onClick={() => setShowModal(true)}
+          className="relative h-48 sm:h-52 bg-brand-soft overflow-hidden cursor-pointer"
+        >
           <img
             src={course.image}
             alt={course.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
             onError={(e) => {
               e.currentTarget.src = '/assets/academy/logo.png';
               e.currentTarget.className = 'w-full h-full object-contain p-8';
             }}
           />
-          <div className="absolute top-3 left-3 bg-brand-dark/90 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
-            {course.hours}
+
+          {/* Frosted Interactive Vignette Overlay on Hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            {/* Center Floating Glass Action Pill */}
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-slate-900 text-xs font-bold shadow-xl backdrop-blur-md transform translate-y-3 group-hover:translate-y-0 transition-all duration-300">
+              <BookOpen className="w-3.5 h-3.5 text-brand-primary" />
+              <span>Preview Syllabus</span>
+            </span>
           </div>
+
+          {/* Light Sheen Sweep Across Banner */}
+          <div className="book-sheen" />
+
+          {/* Duration Badge */}
+          <div className="absolute top-3 left-3 bg-slate-950/80 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md border border-white/10 shadow-xs flex items-center gap-1 group-hover:border-brand-primary/50 transition-colors">
+            <Clock className="w-3 h-3 text-brand-300" />
+            <span>{course.hours}</span>
+          </div>
+
+          {/* Price Badge with dynamic color transition */}
           {course.price && (
-            <div className="absolute top-3 right-3 bg-white/95 text-brand-primary text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+            <div className="absolute top-3 right-3 bg-white text-brand-primary group-hover:bg-brand-primary group-hover:text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-xs group-hover:shadow-md transition-all duration-300 border border-slate-100 group-hover:border-transparent">
               ₹ {course.price}
             </div>
           )}
@@ -46,17 +69,17 @@ export default function CourseCard({ course }) {
 
             {/* Quick Metrics */}
             <div className="flex items-center gap-4 text-xs text-slate-500 mb-4 pb-4 border-b border-slate-100">
-              <span className="flex items-center gap-1.5 font-medium">
-                <Clock className="w-4 h-4 text-brand-primary" />
+              <span className="flex items-center gap-1.5 font-medium group-hover:text-slate-700 transition-colors">
+                <Clock className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                 {course.hours}
               </span>
-              <span className="flex items-center gap-1.5 font-medium">
-                <BookOpen className="w-4 h-4 text-brand-primary" />
+              <span className="flex items-center gap-1.5 font-medium group-hover:text-slate-700 transition-colors">
+                <BookOpen className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                 {course.modules} Modules
               </span>
               {course.price && (
                 <span className="flex items-center gap-1.5 font-medium text-slate-700">
-                  <Tag className="w-4 h-4 text-brand-primary" />
+                  <Tag className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   ₹ {course.price}
                 </span>
               )}
@@ -76,16 +99,16 @@ export default function CourseCard({ course }) {
           <div className="flex items-center gap-2 pt-2">
             <button
               onClick={() => setShowModal(true)}
-              className="flex-1 py-2.5 px-4 rounded-xl border border-brand-border text-brand-primary hover:bg-brand-soft font-semibold text-xs transition-colors flex items-center justify-center gap-1"
+              className="flex-1 py-2.5 px-4 rounded-xl border border-brand-border text-brand-primary hover:bg-brand-soft group-hover:border-brand-primary/50 font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer group/btn"
             >
               <span>View Syllabus</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
             </button>
             <Button
               to={`/contact?course=${encodeURIComponent(course.title)}`}
               variant="primary"
               size="sm"
-              className="px-4 py-2.5 text-xs"
+              className="px-4 py-2.5 text-xs shadow-xs hover:shadow-brand transition-shadow"
             >
               Enquire
             </Button>

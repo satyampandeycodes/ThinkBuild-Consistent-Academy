@@ -212,9 +212,9 @@ export default function Home() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${selectedCategory === cat.id
-                  ? 'bg-brand-primary text-white shadow-sm'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary'
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${selectedCategory === cat.id
+                  ? 'bg-brand-primary text-white shadow-brand shadow-brand-primary/20 scale-102'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary hover:text-brand-primary hover:bg-brand-soft/50 hover:-translate-y-0.5 shadow-xs'
                 }`}
             >
               {cat.label}
