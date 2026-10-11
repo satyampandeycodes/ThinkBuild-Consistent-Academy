@@ -1,0 +1,5 @@
+# robots.txt for The Consistent Academy
+User-agent: *
+Allow: /
+
+Sitemap: https://www.theconsistentacademy.in/sitemap.xml
