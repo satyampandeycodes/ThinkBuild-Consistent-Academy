@@ -477,29 +477,29 @@ export default function Home() {
         )}
       </section>
 
-      {/* VERIFIED TESTIMONIALS SHOWCASE - All 10 Testimonials with Interactive Effects */}
-      <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white py-24 relative overflow-hidden">
-        {/* Glowing atmospheric auras */}
+      {/* VERIFIED TESTIMONIALS SHOWCASE - Matching Prestigious Academy Palette */}
+      <section className="bg-gradient-to-b from-brand-soft/70 via-white to-slate-50 text-slate-900 py-20 relative overflow-hidden border-y border-brand-border/40">
+        {/* Glowing atmospheric auras in brand colors */}
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 -right-32 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 -right-32 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10 space-y-10">
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-primary/20 border border-brand-primary/40 text-brand-300">
-              <Award className="w-3.5 h-3.5" />
-              Verified Student Outcomes
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-white border border-brand-border text-brand-primary shadow-xs">
+              <Award className="w-3.5 h-3.5 text-brand-primary" />
+              <span>Verified Student Outcomes</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
               Real Student Testimonials ({testimonials.length})
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
               Authentic first-attempt band scores and overseas university admits achieved through consistent mentorship with Vidya Wankhade.
             </p>
           </div>
 
           {/* Controls Bar: Destination Filter Tabs & 3-Mode View Switcher */}
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-6">
             {/* Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-2 lg:pb-0">
               {[
@@ -515,9 +515,9 @@ export default function Home() {
                     setTestimonialFilter(tab.id);
                     setTestimonialIndex(0);
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${testimonialFilter === tab.id
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${testimonialFilter === tab.id
                       ? 'bg-brand-primary text-white shadow-brand shadow-xs'
-                      : 'bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-500'
+                      : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary hover:text-brand-primary shadow-xs'
                     }`}
                 >
                   {tab.label}
@@ -526,12 +526,12 @@ export default function Home() {
             </div>
 
             {/* 3 Interactive Display Modes */}
-            <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1 rounded-xl shrink-0">
+            <div className="flex items-center gap-1.5 bg-slate-100 border border-slate-200 p-1 rounded-xl shrink-0">
               <button
                 onClick={() => setTestimonialViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'carousel'
-                    ? 'bg-brand-primary text-white'
-                    : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${testimonialViewMode === 'carousel'
+                    ? 'bg-brand-primary text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 title="Interactive Carousel Slider"
               >
@@ -541,9 +541,9 @@ export default function Home() {
 
               <button
                 onClick={() => setTestimonialViewMode('stream')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'stream'
-                    ? 'bg-brand-primary text-white'
-                    : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${testimonialViewMode === 'stream'
+                    ? 'bg-brand-primary text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 title="Continuous Gliding Marquee Stream"
               >
@@ -553,9 +553,9 @@ export default function Home() {
 
               <button
                 onClick={() => setTestimonialViewMode('grid')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'grid'
-                    ? 'bg-brand-primary text-white'
-                    : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${testimonialViewMode === 'grid'
+                    ? 'bg-brand-primary text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 title="Show all 10 stories in grid"
               >
@@ -573,9 +573,9 @@ export default function Home() {
               onMouseLeave={() => setIsTestimonialAutoPlaying(true)}
             >
               {/* Auto-play Status & Progress Indicator Bar */}
-              <div className="flex items-center justify-between text-xs text-slate-400 pb-1">
+              <div className="flex items-center justify-between text-xs text-slate-500 pb-1">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${isTestimonialAutoPlaying ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+                  <span className={`w-2 h-2 rounded-full ${isTestimonialAutoPlaying ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
                   <span className="font-medium">
                     {isTestimonialAutoPlaying ? 'Auto-playing slider • Hover to pause' : 'Paused on hover • Resume by moving mouse out'}
                   </span>
@@ -586,9 +586,9 @@ export default function Home() {
               </div>
 
               {/* Progress bar */}
-              <div className="w-full bg-slate-800/80 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-brand-primary to-purple-400 transition-all duration-500 rounded-full"
+                  className="h-full bg-gradient-to-r from-brand-primary to-purple-500 transition-all duration-500 rounded-full"
                   style={{
                     width: `${((testimonialIndex + 1) / (maxTestimonialIndex + 1)) * 100}%`
                   }}
@@ -608,7 +608,7 @@ export default function Home() {
                       key={item.id}
                       className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-3"
                     >
-                      <div className="h-full bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-7 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+                      <div className="h-full bg-white border border-slate-200/90 hover:border-brand-primary/50 rounded-3xl p-7 shadow-xs hover:shadow-xl hover:shadow-brand-primary/10 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                         <div>
                           {/* Rating & Band Score Badge */}
                           <div className="flex items-center justify-between mb-4">
@@ -619,8 +619,8 @@ export default function Home() {
                             </div>
 
                             {item.band && (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
-                                <Award className="w-3 h-3 text-brand-300" />
+                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-soft text-brand-primary border border-brand-border/60">
+                                <Award className="w-3 h-3 text-brand-primary" />
                                 <span>{item.band}</span>
                               </span>
                             )}
@@ -628,32 +628,32 @@ export default function Home() {
 
                           {/* Quote Text */}
                           <div className="relative mb-6">
-                            <Quote className="w-8 h-8 text-slate-700 absolute -top-3 -left-2 pointer-events-none" />
-                            <p className="relative z-10 text-slate-200 text-sm sm:text-base leading-relaxed italic">
+                            <Quote className="w-8 h-8 text-brand-100 absolute -top-3 -left-2 pointer-events-none" />
+                            <p className="relative z-10 text-slate-700 text-sm sm:text-base leading-relaxed italic">
                               "{item.text}"
                             </p>
                           </div>
                         </div>
 
                         {/* Student Info Footer */}
-                        <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-brand-soft border border-brand-border/60 flex items-center justify-center text-brand-primary font-bold text-sm shrink-0">
                               {item.name.charAt(0)}
                             </div>
                             <div>
-                              <h4 className="font-bold text-white text-sm group-hover:text-brand-300 transition-colors">
+                              <h4 className="font-bold text-slate-900 text-sm group-hover:text-brand-primary transition-colors">
                                 {item.name}
                               </h4>
-                              <p className="text-xs text-slate-400">
+                              <p className="text-xs text-slate-500">
                                 {item.role}
                               </p>
                             </div>
                           </div>
 
                           {item.country && (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-300 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-700 shrink-0">
-                              <MapPin className="w-3 h-3 text-brand-400" />
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-primary bg-brand-soft px-2.5 py-1 rounded-lg border border-brand-border/60 shrink-0">
+                              <MapPin className="w-3 h-3 text-brand-primary" />
                               <span>{item.country}</span>
                             </span>
                           )}
@@ -669,19 +669,19 @@ export default function Home() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={prevTestimonial}
-                    className="p-3 rounded-full bg-slate-800 hover:bg-brand-primary border border-slate-700 hover:border-brand-primary text-white transition-all shadow-md active:scale-95"
+                    className="p-3 rounded-full bg-white hover:bg-brand-primary border border-slate-200 hover:border-brand-primary text-slate-700 hover:text-white transition-all shadow-xs hover:shadow-md active:scale-95 cursor-pointer"
                     aria-label="Previous testimonials"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={nextTestimonial}
-                    className="p-3 rounded-full bg-slate-800 hover:bg-brand-primary border border-slate-700 hover:border-brand-primary text-white transition-all shadow-md active:scale-95"
+                    className="p-3 rounded-full bg-white hover:bg-brand-primary border border-slate-200 hover:border-brand-primary text-slate-700 hover:text-white transition-all shadow-xs hover:shadow-md active:scale-95 cursor-pointer"
                     aria-label="Next testimonials"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
-                  <span className="text-xs text-slate-400 ml-2">
+                  <span className="text-xs text-slate-500 ml-2">
                     Showing stories {testimonialIndex + 1} to {Math.min(testimonialIndex + cardsPerView, filteredTestimonials.length)} of {filteredTestimonials.length}
                   </span>
                 </div>
@@ -692,9 +692,9 @@ export default function Home() {
                     <button
                       key={dotIdx}
                       onClick={() => setTestimonialIndex(dotIdx)}
-                      className={`h-2 rounded-full transition-all ${testimonialIndex === dotIdx
+                      className={`h-2 rounded-full transition-all cursor-pointer ${testimonialIndex === dotIdx
                           ? 'w-6 bg-brand-primary'
-                          : 'w-2 bg-slate-700 hover:bg-slate-500'
+                          : 'w-2 bg-slate-300 hover:bg-slate-400'
                         }`}
                       aria-label={`Go to slide ${dotIdx + 1}`}
                     />
@@ -707,15 +707,11 @@ export default function Home() {
           {/* 2. CONTINUOUS GLIDE STREAM / MARQUEE EFFECT */}
           {testimonialViewMode === 'stream' && (
             <div className="relative overflow-hidden py-4 -my-4">
-              {/* Fade masks on sides */}
-              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
-
               <div className="animate-marquee gap-6">
                 {[...filteredTestimonials, ...filteredTestimonials].map((item, idx) => (
                   <div
                     key={`${item.id}-${idx}`}
-                    className="w-80 sm:w-96 shrink-0 bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-6 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group"
+                    className="w-80 sm:w-96 shrink-0 bg-white border border-slate-200/90 hover:border-brand-primary/50 rounded-3xl p-6 shadow-xs hover:shadow-xl hover:shadow-brand-primary/10 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
                   >
                     <div>
                       {/* Rating & Band Score Badge */}
@@ -727,8 +723,8 @@ export default function Home() {
                         </div>
 
                         {item.band && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
-                            <Award className="w-3 h-3 text-brand-300" />
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-soft text-brand-primary border border-brand-border/60">
+                            <Award className="w-3.5 h-3.5 text-brand-primary" />
                             <span>{item.band}</span>
                           </span>
                         )}
@@ -736,32 +732,32 @@ export default function Home() {
 
                       {/* Quote Text */}
                       <div className="relative mb-4">
-                        <Quote className="w-6 h-6 text-slate-700 absolute -top-2 -left-2 pointer-events-none" />
-                        <p className="relative z-10 text-slate-200 text-xs sm:text-sm leading-relaxed italic line-clamp-4">
+                        <Quote className="w-6 h-6 text-brand-100 absolute -top-2 -left-2 pointer-events-none" />
+                        <p className="relative z-10 text-slate-700 text-xs sm:text-sm leading-relaxed italic line-clamp-4">
                           "{item.text}"
                         </p>
                       </div>
                     </div>
 
                     {/* Student Info Footer */}
-                    <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between">
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-brand-soft border border-brand-border/60 flex items-center justify-center text-brand-primary font-bold text-xs shrink-0">
                           {item.name.charAt(0)}
                         </div>
                         <div>
-                          <h4 className="font-bold text-white text-xs group-hover:text-brand-300 transition-colors">
+                          <h4 className="font-bold text-slate-900 text-xs group-hover:text-brand-primary transition-colors">
                             {item.name}
                           </h4>
-                          <p className="text-[10px] text-slate-400">
+                          <p className="text-[10px] text-slate-500">
                             {item.role}
                           </p>
                         </div>
                       </div>
 
                       {item.country && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded-md border border-slate-700 shrink-0">
-                          <MapPin className="w-2.5 h-2.5 text-brand-400" />
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-brand-primary bg-brand-soft px-2 py-0.5 rounded-md border border-brand-border/60 shrink-0">
+                          <MapPin className="w-2.5 h-2.5 text-brand-primary" />
                           <span>{item.country}</span>
                         </span>
                       )}
@@ -770,7 +766,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <p className="text-center text-xs text-slate-400 pt-6">
+              <p className="text-center text-xs text-slate-500 pt-6">
                 Hover over any story to pause the live stream.
               </p>
             </div>
@@ -782,7 +778,7 @@ export default function Home() {
               {filteredTestimonials.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-7 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
+                  className="bg-white border border-slate-200/90 hover:border-brand-primary/50 rounded-3xl p-7 shadow-xs hover:shadow-xl hover:shadow-brand-primary/10 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
                 >
                   <div>
                     {/* Rating & Band Score Badge */}
@@ -794,8 +790,8 @@ export default function Home() {
                       </div>
 
                       {item.band && (
-                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
-                          <Award className="w-3 h-3 text-brand-300" />
+                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-soft text-brand-primary border border-brand-border/60">
+                          <Award className="w-3 h-3 text-brand-primary" />
                           <span>{item.band}</span>
                         </span>
                       )}
@@ -803,32 +799,32 @@ export default function Home() {
 
                     {/* Quote Text */}
                     <div className="relative mb-6">
-                      <Quote className="w-8 h-8 text-slate-700 absolute -top-3 -left-2 pointer-events-none" />
-                      <p className="relative z-10 text-slate-200 text-sm leading-relaxed italic">
+                      <Quote className="w-8 h-8 text-brand-100 absolute -top-3 -left-2 pointer-events-none" />
+                      <p className="relative z-10 text-slate-700 text-sm leading-relaxed italic">
                         "{item.text}"
                       </p>
                     </div>
                   </div>
 
                   {/* Student Info Footer */}
-                  <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-brand-soft border border-brand-border/60 flex items-center justify-center text-brand-primary font-bold text-xs shrink-0">
                         {item.name.charAt(0)}
                       </div>
                       <div>
-                        <h4 className="font-bold text-white text-sm group-hover:text-brand-300 transition-colors">
+                        <h4 className="font-bold text-slate-900 text-sm group-hover:text-brand-primary transition-colors">
                           {item.name}
                         </h4>
-                        <p className="text-[11px] text-slate-400">
+                        <p className="text-[11px] text-slate-500">
                           {item.role}
                         </p>
                       </div>
                     </div>
 
                     {item.country && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded-lg border border-slate-700 shrink-0">
-                        <MapPin className="w-3 h-3 text-brand-400" />
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-primary bg-brand-soft px-2 py-0.5 rounded-lg border border-brand-border/60 shrink-0">
+                        <MapPin className="w-3 h-3 text-brand-primary" />
                         <span>{item.country}</span>
                       </span>
                     )}
