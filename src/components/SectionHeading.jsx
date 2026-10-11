@@ -10,7 +10,7 @@ export default function SectionHeading({
   const alignmentClass = align === 'center' ? 'text-center mx-auto items-center' : 'text-left items-start';
 
   return (
-    <div className={`flex flex-col max-w-3xl mb-12 sm:mb-16 ${alignmentClass} ${className}`}>
+    <div className={`flex flex-col max-w-3xl mb-6 sm:mb-8 ${alignmentClass} ${className}`}>
       {badge && (
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">
           {badge}

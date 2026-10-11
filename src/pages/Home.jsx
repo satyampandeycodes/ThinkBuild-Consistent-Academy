@@ -119,7 +119,7 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-24 sm:space-y-32 pb-20">
+    <div className="space-y-12 sm:space-y-16 pb-16">
       {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background & Founder Showcase */}
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 min-h-[calc(100vh-4.5rem)] flex flex-col justify-center bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
         {/* Continuous Moving Triangular Background (Matching Logo Color) */}
