@@ -119,7 +119,7 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-16">
+    <div className="space-y-8 sm:space-y-10 pb-12">
       {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background & Founder Showcase */}
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 min-h-[calc(100vh-4.5rem)] flex flex-col justify-center bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
         {/* Continuous Moving Triangular Background (Matching Logo Color) */}
@@ -267,7 +267,7 @@ export default function Home() {
       </section>
 
       {/* MEET THE FOUNDER PREVIEW */}
-      <section className="bg-brand-soft/60 border-y border-brand-border/40 py-20">
+      <section className="bg-brand-soft/60 border-y border-brand-border/40 py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Image with Continuous Moving Boundary Beam Effect */}
@@ -514,7 +514,7 @@ export default function Home() {
       </section>
 
       {/* VERIFIED TESTIMONIALS SHOWCASE - Matching Prestigious Academy Palette */}
-      <section className="bg-gradient-to-b from-brand-soft/70 via-white to-slate-50 text-slate-900 py-20 relative overflow-hidden border-y border-brand-border/40">
+      <section className="bg-gradient-to-b from-brand-soft/70 via-white to-slate-50 text-slate-900 py-10 sm:py-12 relative overflow-hidden border-y border-brand-border/40">
         {/* Glowing atmospheric auras in brand colors */}
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-purple-300/15 rounded-full blur-3xl pointer-events-none" />
