@@ -28,9 +28,6 @@ export default function Header() {
     { name: 'Blog', path: '/blog' },
     { name: 'Careers', path: '/careers' },
     { name: 'Tests', path: '/tests' },
-    { name: 'About Founder', path: '/about' },
-    { name: 'Books', path: '/books' },
-    { name: 'Testimonials', path: '/testimonials' },
     { name: 'Contact', path: '/contact' }
   ];
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, ArrowRight, BookOpen, Award, CheckCircle2, ChevronRight, Star, ChevronLeft, X, Maximize2, Sparkles, Camera } from 'lucide-react';
+import { Phone, ArrowRight, BookOpen, Award, CheckCircle2, ChevronRight, Star, ChevronLeft, X, Maximize2, Sparkles, Camera, Quote, Play, Pause, LayoutGrid, Sliders, Globe, MapPin } from 'lucide-react';
 import { academyInfo, allCourses, founderProfile, publishedBooks, testimonials, galleryImages } from '../data/academyData';
 import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
@@ -16,6 +16,32 @@ export default function Home() {
   const [galleryFilter, setGalleryFilter] = useState('all');
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  // Books layout toggle: 'vertical' | 'horizontal'
+  const [booksLayout, setBooksLayout] = useState('vertical');
+
+  // Testimonials interactive slider state
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [isTestimonialAutoPlaying, setIsTestimonialAutoPlaying] = useState(true);
+  const [testimonialFilter, setTestimonialFilter] = useState('all');
+  const [testimonialViewMode, setTestimonialViewMode] = useState('carousel'); // 'carousel' | 'stream' | 'grid'
+  const [cardsPerView, setCardsPerView] = useState(3);
+
+  // Responsive cards per view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setCardsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsPerView(2);
+      } else {
+        setCardsPerView(3);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const filteredCourses = selectedCategory === 'all'
     ? allCourses.slice(0, 3)
@@ -51,6 +77,33 @@ export default function Home() {
   };
 
   const currentLightboxImage = lightboxIndex !== null ? filteredGalleryImages[lightboxIndex] : null;
+
+  // Filtered testimonials
+  const filteredTestimonials = testimonialFilter === 'all'
+    ? testimonials
+    : testimonials.filter((t) => {
+        const countryStr = (t.country || '').toLowerCase();
+        return countryStr.includes(testimonialFilter.toLowerCase());
+      });
+
+  const maxTestimonialIndex = Math.max(0, filteredTestimonials.length - cardsPerView);
+
+  // Auto-play interval for testimonial carousel
+  useEffect(() => {
+    if (!isTestimonialAutoPlaying || testimonialViewMode !== 'carousel') return;
+    const interval = setInterval(() => {
+      setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1));
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isTestimonialAutoPlaying, maxTestimonialIndex, testimonialViewMode]);
+
+  const prevTestimonial = () => {
+    setTestimonialIndex((prev) => (prev <= 0 ? maxTestimonialIndex : prev - 1));
+  };
+
+  const nextTestimonial = () => {
+    setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1));
+  };
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
@@ -313,53 +366,425 @@ export default function Home() {
         )}
       </section>
 
-      {/* PUBLISHED BOOKS SHOWCASE */}
+      {/* PUBLISHED BOOKS SHOWCASE - All 3 Authored Books */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8">
-        <SectionHeading
-          badge="Author Credentials"
-          title="Books Authored by Vidya Wankhade"
-          subtitle="Directly authored literature simplifying IELTS test preparation, youth reading comprehension, and business management."
-        />
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+          <SectionHeading
+            badge="Author Credentials"
+            title="Books Authored by Vidya Wankhade"
+            subtitle="Directly authored literature simplifying IELTS test preparation, youth reading comprehension, and business management."
+            align="left"
+            className="mb-4 md:mb-0"
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {publishedBooks.slice(0, 2).map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
+          {/* Books layout view toggle */}
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200 self-start md:self-auto">
+            <button
+              onClick={() => setBooksLayout('vertical')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                booksLayout === 'vertical'
+                  ? 'bg-brand-primary text-white shadow-xs'
+                  : 'text-slate-600 hover:text-brand-primary'
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>3-Column Grid</span>
+            </button>
+            <button
+              onClick={() => setBooksLayout('horizontal')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                booksLayout === 'horizontal'
+                  ? 'bg-brand-primary text-white shadow-xs'
+                  : 'text-slate-600 hover:text-brand-primary'
+              }`}
+            >
+              <Sliders className="w-3.5 h-3.5" />
+              <span>Detailed Cards</span>
+            </button>
+          </div>
         </div>
 
-        <div className="text-center pt-4">
-          <Button to="/books" variant="secondary" size="md" icon={ChevronRight} iconPosition="right">
-            View All 3 Books & Store Links
-          </Button>
-        </div>
+        {/* Display ALL 3 books side-by-side or detailed rows */}
+        {booksLayout === 'vertical' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {publishedBooks.map((book) => (
+              <BookCard key={book.id} book={book} layout="vertical" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6">
+            {publishedBooks.map((book) => (
+              <BookCard key={book.id} book={book} layout="horizontal" />
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* VERIFIED TESTIMONIALS PREVIEW */}
-      <section className="bg-slate-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-primary/20 border border-brand-primary/40 text-brand-300 mb-3">
-              Stories of Success
+      {/* VERIFIED TESTIMONIALS SHOWCASE - All 10 Testimonials with Interactive Effects */}
+      <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white py-24 relative overflow-hidden">
+        {/* Glowing atmospheric auras */}
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 -right-32 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10 space-y-10">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-primary/20 border border-brand-primary/40 text-brand-300">
+              <Award className="w-3.5 h-3.5" />
+              Verified Student Outcomes
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-              Real Student Testimonials
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+              Real Student Testimonials ({testimonials.length})
             </h2>
-            <p className="text-slate-400 text-base sm:text-lg">
-              Authentic scores and life-changing milestones achieved through consistent practice and personalized mentorship.
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+              Authentic first-attempt band scores and overseas university admits achieved through consistent mentorship with Vidya Wankhade.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {testimonials.slice(0, 3).map((t) => (
-              <TestimonialCard key={t.id} testimonial={t} />
-            ))}
+          {/* Controls Bar: Destination Filter Tabs & 3-Mode View Switcher */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-6">
+            {/* Filter Pills */}
+            <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-2 lg:pb-0">
+              {[
+                { id: 'all', label: `All Stories (${testimonials.length})` },
+                { id: 'canada', label: 'Canada (2)' },
+                { id: 'germany', label: 'Germany (4)' },
+                { id: 'australia', label: 'Australia (1)' },
+                { id: 'global', label: 'Global Admissions' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setTestimonialFilter(tab.id);
+                    setTestimonialIndex(0);
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    testimonialFilter === tab.id
+                      ? 'bg-brand-primary text-white shadow-brand shadow-xs'
+                      : 'bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-500'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* 3 Interactive Display Modes */}
+            <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1 rounded-xl shrink-0">
+              <button
+                onClick={() => setTestimonialViewMode('carousel')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  testimonialViewMode === 'carousel'
+                    ? 'bg-brand-primary text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Interactive Carousel Slider"
+              >
+                <Sliders className="w-3.5 h-3.5" />
+                <span>Slider Effect</span>
+              </button>
+
+              <button
+                onClick={() => setTestimonialViewMode('stream')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  testimonialViewMode === 'stream'
+                    ? 'bg-brand-primary text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Continuous Gliding Marquee Stream"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Live Stream</span>
+              </button>
+
+              <button
+                onClick={() => setTestimonialViewMode('grid')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  testimonialViewMode === 'grid'
+                    ? 'bg-brand-primary text-white'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+                title="Show all 10 stories in grid"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Grid View (All 10)</span>
+              </button>
+            </div>
           </div>
 
-          <div className="text-center">
-            <Button to="/testimonials" variant="secondary" size="md" className="bg-slate-800 text-white border-slate-700 hover:bg-slate-700">
-              Read All 10 Student Stories
-            </Button>
-          </div>
+          {/* 1. INTERACTIVE GLIDING CAROUSEL SLIDER */}
+          {testimonialViewMode === 'carousel' && (
+            <div
+              className="relative space-y-6"
+              onMouseEnter={() => setIsTestimonialAutoPlaying(false)}
+              onMouseLeave={() => setIsTestimonialAutoPlaying(true)}
+            >
+              {/* Auto-play Status & Progress Indicator Bar */}
+              <div className="flex items-center justify-between text-xs text-slate-400 pb-1">
+                <div className="flex items-center gap-2">
+                  <span className={`w-2 h-2 rounded-full ${isTestimonialAutoPlaying ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+                  <span className="font-medium">
+                    {isTestimonialAutoPlaying ? 'Auto-playing slider • Hover to pause' : 'Paused on hover • Resume by moving mouse out'}
+                  </span>
+                </div>
+                <div className="font-mono text-slate-400">
+                  Slide {testimonialIndex + 1} of {maxTestimonialIndex + 1}
+                </div>
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full bg-slate-800/80 h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-brand-primary to-purple-400 transition-all duration-500 rounded-full"
+                  style={{
+                    width: `${((testimonialIndex + 1) / (maxTestimonialIndex + 1)) * 100}%`
+                  }}
+                />
+              </div>
+
+              {/* Smooth Gliding Track Window */}
+              <div className="overflow-hidden p-2 -m-2">
+                <div
+                  className="flex -mx-3 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  style={{
+                    transform: `translateX(-${testimonialIndex * (100 / cardsPerView)}%)`
+                  }}
+                >
+                  {filteredTestimonials.map((item) => (
+                    <div
+                      key={item.id}
+                      className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-3"
+                    >
+                      <div className="h-full bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-7 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+                        <div>
+                          {/* Rating & Band Score Badge */}
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-1">
+                              {Array.from({ length: item.rating || 5 }).map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                              ))}
+                            </div>
+
+                            {item.band && (
+                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
+                                <Award className="w-3 h-3 text-brand-300" />
+                                <span>{item.band}</span>
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Quote Text */}
+                          <div className="relative mb-6">
+                            <Quote className="w-8 h-8 text-slate-700 absolute -top-3 -left-2 pointer-events-none" />
+                            <p className="relative z-10 text-slate-200 text-sm sm:text-base leading-relaxed italic">
+                              "{item.text}"
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Student Info Footer */}
+                        <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                              {item.name.charAt(0)}
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-white text-sm group-hover:text-brand-300 transition-colors">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs text-slate-400">
+                                {item.role}
+                              </p>
+                            </div>
+                          </div>
+
+                          {item.country && (
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-300 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-700 shrink-0">
+                              <MapPin className="w-3 h-3 text-brand-400" />
+                              <span>{item.country}</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Controls: Prev, Next & Progress Dots */}
+              <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={prevTestimonial}
+                    className="p-3 rounded-full bg-slate-800 hover:bg-brand-primary border border-slate-700 hover:border-brand-primary text-white transition-all shadow-md active:scale-95"
+                    aria-label="Previous testimonials"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextTestimonial}
+                    className="p-3 rounded-full bg-slate-800 hover:bg-brand-primary border border-slate-700 hover:border-brand-primary text-white transition-all shadow-md active:scale-95"
+                    aria-label="Next testimonials"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                  <span className="text-xs text-slate-400 ml-2">
+                    Showing stories {testimonialIndex + 1} to {Math.min(testimonialIndex + cardsPerView, filteredTestimonials.length)} of {filteredTestimonials.length}
+                  </span>
+                </div>
+
+                {/* Dots indicator */}
+                <div className="flex items-center gap-1.5">
+                  {Array.from({ length: maxTestimonialIndex + 1 }).map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      onClick={() => setTestimonialIndex(dotIdx)}
+                      className={`h-2 rounded-full transition-all ${
+                        testimonialIndex === dotIdx
+                          ? 'w-6 bg-brand-primary'
+                          : 'w-2 bg-slate-700 hover:bg-slate-500'
+                      }`}
+                      aria-label={`Go to slide ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2. CONTINUOUS GLIDE STREAM / MARQUEE EFFECT */}
+          {testimonialViewMode === 'stream' && (
+            <div className="relative overflow-hidden py-4 -my-4">
+              {/* Fade masks on sides */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
+
+              <div className="animate-marquee gap-6">
+                {[...filteredTestimonials, ...filteredTestimonials].map((item, idx) => (
+                  <div
+                    key={`${item.id}-${idx}`}
+                    className="w-80 sm:w-96 shrink-0 bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-6 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* Rating & Band Score Badge */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: item.rating || 5 }).map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
+
+                        {item.band && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
+                            <Award className="w-3 h-3 text-brand-300" />
+                            <span>{item.band}</span>
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Quote Text */}
+                      <div className="relative mb-4">
+                        <Quote className="w-6 h-6 text-slate-700 absolute -top-2 -left-2 pointer-events-none" />
+                        <p className="relative z-10 text-slate-200 text-xs sm:text-sm leading-relaxed italic line-clamp-4">
+                          "{item.text}"
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Student Info Footer */}
+                    <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                          {item.name.charAt(0)}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white text-xs group-hover:text-brand-300 transition-colors">
+                            {item.name}
+                          </h4>
+                          <p className="text-[10px] text-slate-400">
+                            {item.role}
+                          </p>
+                        </div>
+                      </div>
+
+                      {item.country && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded-md border border-slate-700 shrink-0">
+                          <MapPin className="w-2.5 h-2.5 text-brand-400" />
+                          <span>{item.country}</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-center text-xs text-slate-400 pt-6">
+                Hover over any story to pause the live stream.
+              </p>
+            </div>
+          )}
+
+          {/* 3. GRID VIEW (ALL 10 TESTIMONIALS DISPLAYED SIMULTANEOUSLY) */}
+          {testimonialViewMode === 'grid' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
+              {filteredTestimonials.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-slate-800/90 border border-slate-700/80 hover:border-brand-primary rounded-3xl p-7 shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5"
+                >
+                  <div>
+                    {/* Rating & Band Score Badge */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: item.rating || 5 }).map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+
+                      {item.band && (
+                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/20 text-brand-300 border border-brand-primary/40">
+                          <Award className="w-3 h-3 text-brand-300" />
+                          <span>{item.band}</span>
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Quote Text */}
+                    <div className="relative mb-6">
+                      <Quote className="w-8 h-8 text-slate-700 absolute -top-3 -left-2 pointer-events-none" />
+                      <p className="relative z-10 text-slate-200 text-sm leading-relaxed italic">
+                        "{item.text}"
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Student Info Footer */}
+                  <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-brand-primary/30 border border-brand-primary/60 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                        {item.name.charAt(0)}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white text-sm group-hover:text-brand-300 transition-colors">
+                          {item.name}
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          {item.role}
+                        </p>
+                      </div>
+                    </div>
+
+                    {item.country && (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded-lg border border-slate-700 shrink-0">
+                        <MapPin className="w-3 h-3 text-brand-400" />
+                        <span>{item.country}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
