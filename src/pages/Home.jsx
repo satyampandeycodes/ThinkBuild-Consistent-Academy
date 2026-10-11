@@ -10,6 +10,7 @@ import BookCard from '../components/BookCard';
 import TestimonialCard from '../components/TestimonialCard';
 import ContactForm from '../components/ContactForm';
 import MapEmbed from '../components/MapEmbed';
+import HeroTriangularBackground from '../components/HeroTriangularBackground';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -120,11 +121,10 @@ export default function Home() {
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
-      {/* HERO SECTION - Concept 2 Implementation */}
-      <section className="relative overflow-hidden pt-12 sm:pt-20 pb-16 lg:pb-24 bg-gradient-to-b from-brand-soft/80 via-white to-slate-50">
-        {/* Subtle geometric background aura */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-tr from-brand-300/20 via-brand-100/30 to-transparent rounded-full blur-3xl pointer-events-none -z-0" />
-        <div className="absolute top-20 -right-20 w-80 h-80 bg-brand-200/20 rounded-full blur-2xl pointer-events-none -z-0" />
+      {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background */}
+      <section className="relative overflow-hidden pt-12 sm:pt-20 pb-16 lg:pb-24 bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
+        {/* Continuous Moving Triangular Background (Matching Logo Color) */}
+        <HeroTriangularBackground />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 text-center">
           {/* Eyebrow badge */}
