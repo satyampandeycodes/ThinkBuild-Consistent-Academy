@@ -222,39 +222,67 @@ export default function Home() {
       <section className="bg-brand-soft/60 border-y border-brand-border/40 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Image & Badges */}
+            {/* Image with Continuous Moving Boundary Beam Effect */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative">
-                <div className="w-72 sm:w-80 aspect-[4/5] rounded-3xl overflow-hidden border-4 border-white shadow-brand-lg bg-white">
-                  <img
-                    src={founderProfile.image}
-                    alt={founderProfile.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = '/assets/academy/logo.png';
-                      e.currentTarget.className = 'w-full h-full object-contain p-8';
+              <div className="relative group">
+                {/* Continuous atmospheric radiant backlight glow */}
+                <div className="absolute -inset-3 rounded-[36px] bg-gradient-to-r from-brand-primary/30 via-purple-500/25 to-indigo-500/30 blur-2xl opacity-75 animate-pulse pointer-events-none" />
+
+                {/* Outer frame with Continuous Moving Boundary Light Beam */}
+                <div className="relative p-[3.5px] rounded-[30px] overflow-hidden shadow-2xl bg-slate-100">
+                  {/* Primary continuous laser beam traveling along boundary */}
+                  <div
+                    className="absolute w-[260%] h-[260%] top-1/2 left-1/2 origin-center animate-border-beam pointer-events-none"
+                    style={{
+                      background:
+                        'conic-gradient(from 0deg, transparent 0deg, transparent 240deg, #7C3AED 280deg, #C084FC 320deg, #FFFFFF 345deg, transparent 360deg)'
                     }}
                   />
-                </div>
-                <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-2xl shadow-brand border border-brand-border/60 max-w-[200px]">
-                  <p className="text-xs font-bold text-slate-900 leading-tight">
-                    {founderProfile.role}
-                  </p>
-                  <p className="text-[11px] text-brand-primary font-bold mt-1">
-                    19+ Years of Excellence
-                  </p>
+
+                  {/* Secondary subtle counter-flowing beam for organic depth */}
+                  <div
+                    className="absolute w-[260%] h-[260%] top-1/2 left-1/2 origin-center animate-border-beam-slow pointer-events-none opacity-60"
+                    style={{
+                      background:
+                        'conic-gradient(from 180deg, transparent 0deg, transparent 290deg, #9333EA 330deg, transparent 360deg)'
+                    }}
+                  />
+
+                  {/* Inner frame containing founder image - 100% clean, no text box overlay */}
+                  <div className="relative w-72 sm:w-80 aspect-[4/5] rounded-[26.5px] overflow-hidden bg-white">
+                    <img
+                      src={founderProfile.image}
+                      alt={founderProfile.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      onError={(e) => {
+                        e.currentTarget.src = '/assets/academy/logo.png';
+                        e.currentTarget.className = 'w-full h-full object-contain p-8';
+                      }}
+                    />
+                    {/* Subtle bottom gradient tint */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none" />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Profile Bio */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-white border border-brand-border text-brand-primary">
-                Meet the Founder
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-white border border-brand-border text-brand-primary">
+                  Meet the Founder
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-soft text-brand-primary border border-brand-border/40">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>19+ Years Mentorship Legacy</span>
+                </span>
+              </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 Vidya Wankhade
               </h2>
+              <p className="text-sm sm:text-base font-bold text-brand-primary -mt-3">
+                {founderProfile.role}
+              </p>
               <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
                 {founderProfile.bio}
               </p>

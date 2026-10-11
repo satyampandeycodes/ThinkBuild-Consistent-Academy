@@ -48,3 +48,35 @@
   animation-play-state: paused;
 }
 
+/* Continuous moving boundary beam effect */
+@keyframes border-beam-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.animate-border-beam {
+  animation: border-beam-rotate 3.5s linear infinite;
+}
+
+.animate-border-beam-slow {
+  animation: border-beam-rotate 6s linear infinite reverse;
+}
+
+/* Subtle continuous floating motion */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float-subtle 3s ease-in-out infinite;
+}
+
