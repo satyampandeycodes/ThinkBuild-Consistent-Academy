@@ -25,8 +25,9 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Courses', path: '/courses' },
-    { name: 'Tests', path: '/tests' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'Tests', path: '/tests' },
     { name: 'About Founder', path: '/about' },
     { name: 'Books', path: '/books' },
     { name: 'Testimonials', path: '/testimonials' },
@@ -101,15 +102,15 @@ export default function Header() {
 
           {/* CTA & Actions */}
           <div className="hidden sm:flex items-center gap-3">
-            <Button to="/contact" variant="primary" size="md">
-              Enquire Now
+            <Button to="/courses" variant="primary" size="md">
+              Enroll Now
             </Button>
           </div>
 
           {/* Mobile Menu Trigger */}
           <div className="lg:hidden flex items-center gap-2">
-            <Link to="/contact" className="sm:hidden px-3 py-1.5 bg-brand-primary text-white text-xs font-semibold rounded-lg">
-              Enquire
+            <Link to="/courses" className="sm:hidden px-3 py-1.5 bg-brand-primary text-white text-xs font-semibold rounded-lg">
+              Enroll Now
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}

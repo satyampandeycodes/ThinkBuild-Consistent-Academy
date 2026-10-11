@@ -91,134 +91,383 @@ export const allCourses = [
     description: "Comprehensive training for all four modules with real proficiency focus, not just exam tricks.",
     image: "/assets/academy/courses/img1.png",
     hours: "20 Hours",
-    price: "12,000/-",
+    price: "12000/-",
     modules: 4,
     targetAudience: "Students & professionals aiming for international study, migration, work, or permanent residency.",
     promise: "To build real English proficiency and test confidence, not just exam tricks.",
+    highlights: [
+      "Full course (All 4 skills): ₹12,000",
+      "Single skill option (Speaking / Writing / Reading): ₹4,000",
+      "7 hours per individual skill module",
+      "Study material provided",
+      "Regular practice tasks",
+      "Mock tests",
+      "Writing assessments & detailed feedback",
+      "Speaking evaluations"
+    ],
     moduleDetails: [
-      { title: "Speaking Module", topics: ["Fluency & Coherence", "Lexical Resource", "Grammatical Range & Accuracy", "Pronunciation & Mock Interviews"] },
-      { title: "Listening Module", topics: ["Active Listening Techniques", "Handling Multiple Accents", "Note-taking strategies", "Practice with real test simulations"] },
-      { title: "Reading Module", topics: ["Skimming & Scanning", "Identifying Key Concepts & Vocabulary", "Time management across complex passages", "Speed reading exercises"] },
-      { title: "Writing Module", topics: ["Task 1 & Task 2 structure", "Vocabulary enhancement & Cohesive devices", "Essay planning & argument development", "Individual personalized feedback"] }
+      {
+        title: "Module 1: Listening Mastery",
+        duration: "5 Hours",
+        topics: [
+          "Listening test formats (IELTS / TOEFL / PTE / CELPIP)",
+          "MCQs, Sentence completion, Form/note completion",
+          "Matching, Maps & diagrams",
+          "Identifying distractors",
+          "Handling fast speech & unfamiliar vocabulary",
+          "Note-taking strategies",
+          "Time management"
+        ]
+      },
+      {
+        title: "Module 2: Reading Mastery",
+        duration: "5 Hours",
+        topics: [
+          "Reading formats (all exams)",
+          "Skimming & scanning techniques",
+          "True/False/Not Given, Yes/No/Not Given",
+          "Matching headings",
+          "Sentence & summary completion",
+          "MCQs and vocabulary in context",
+          "Paraphrasing recognition",
+          "Time allocation per passage"
+        ]
+      },
+      {
+        title: "Module 3: Writing Mastery",
+        duration: "5 Hours",
+        topics: [
+          "Task 1: Academic (graphs, charts, processes, maps)",
+          "Task 1: General (formal/semi-formal/informal letters)",
+          "Report structure & data comparison",
+          "Task 2: Essay types (opinion, discussion, problem-solution)",
+          "Planning & paragraph structure",
+          "Introductions & conclusions",
+          "Cohesive devices",
+          "Avoiding common grammar errors"
+        ]
+      },
+      {
+        title: "Module 4: Speaking Mastery",
+        duration: "5 Hours",
+        topics: [
+          "Speaking formats (all exams)",
+          "Introductions & warm-up",
+          "Cue card / long response",
+          "Discussion & opinion questions",
+          "Fluency-building techniques",
+          "Pronunciation & intonation",
+          "Expanding answers naturally",
+          "Handling difficult questions",
+          "Thinking-time strategies"
+        ]
+      }
     ]
   },
   {
     id: "corporate-survival-success",
     category: "corporate",
     title: "Corporate Survival & Success Program",
-    subtitle: "Workplace Communication & Executive Skills",
-    description: "Essential skills for corporate communication, stakeholder management, presentation and ethical leadership.",
+    subtitle: "Fresher-Focused",
+    description: "Transform into a corporate-ready professional with essential workplace skills and business etiquette.",
     image: "/assets/academy/courses/img2.png",
     hours: "12 Hours",
-    price: "6,000/-",
+    price: "6000/-",
     modules: 6,
-    targetAudience: "Working professionals, aspiring managers, and executives.",
-    promise: "To empower professionals with assertive communication and executive presence.",
+    targetAudience: "Freshers, graduate trainees, management trainees, first-job professionals (0–2 years experience).",
+    promise: "Participants will think, speak, behave, and perform like corporate-ready professionals.",
     moduleDetails: [
-      { title: "Module 1: Workplace Communication Essentials", topics: ["Speaking professionally with seniors & colleagues", "Structuring clear responses", "Asking questions the right way", "Telephone & virtual meeting etiquette"] },
-      { title: "Module 2: Email, Chat & Workplace Writing", topics: ["Professional emails (requests, follow-ups, apologies)", "Corporate WhatsApp / Teams / Slack etiquette", "Subject lines, tone & clarity", "Avoiding casual or passive-aggressive language"] },
-      { title: "Module 3: Meeting Mastery & Assertive Speaking", topics: ["Speaking up with confidence in meetings", "Disagreeing politely & constructively", "Handling interruptions smoothly", "Summarizing discussions & action items"] },
-      { title: "Module 4: Presentations & Business Updates", topics: ["Structuring short business presentations", "Simplifying data into spoken insights", "Body language & vocal delivery", "Handling Q&A with poise"] },
-      { title: "Module 5: Workplace Dynamics & Professional Etiquette", topics: ["Managing stress and high-pressure conversations", "Cross-cultural sensitivity", "Client engagement fundamentals"] },
-      { title: "Module 6: Career Growth & Corporate Intelligence", topics: ["Handling feedback positively", "Managing office politics ethically", "Speaking up for growth", "Early career goal setting"] }
+      {
+        title: "Module 1: Corporate Mindset & Workplace Reality",
+        topics: [
+          "Corporate culture & unwritten rules",
+          "Professional behaviour & work ethics",
+          "Ownership, accountability & attitude",
+          "Hierarchy & reporting lines"
+        ]
+      },
+      {
+        title: "Module 2: Professional Communication Essentials",
+        topics: [
+          "Speaking professionally with seniors & colleagues",
+          "Structuring clear responses",
+          "Asking questions the right way",
+          "Telephone & virtual meeting etiquette"
+        ]
+      },
+      {
+        title: "Module 3: Email, Chat & Workplace Writing",
+        topics: [
+          "Professional emails (requests, follow-ups, apologies)",
+          "Corporate WhatsApp / Teams / Slack etiquette",
+          "Subject lines, tone & clarity",
+          "Avoiding casual or risky language"
+        ]
+      },
+      {
+        title: "Module 4: Meetings, Teamwork & Office Dynamics",
+        topics: [
+          "Behaviour in meetings",
+          "When to speak & when to stay silent",
+          "Giving updates & status reports",
+          "Team collaboration etiquette"
+        ]
+      },
+      {
+        title: "Module 5: Personal Effectiveness & Image",
+        topics: [
+          "Time management & prioritisation",
+          "Handling pressure & deadlines",
+          "Dressing, body language & presence",
+          "Managing mistakes professionally"
+        ]
+      },
+      {
+        title: "Module 6: Career Growth & Corporate Intelligence",
+        topics: [
+          "Handling feedback positively",
+          "Managing office politics ethically",
+          "Speaking up for growth",
+          "Early career goal setting"
+        ]
+      }
     ]
   },
   {
     id: "crack-your-interview",
     category: "career",
     title: "Crack Your Interview",
-    subtitle: "Fresher-Focused Intensive",
+    subtitle: "Fresher-Focused",
     description: "Transform from nervous fresher to confident, clear, and convincing interviewee.",
     image: "/assets/academy/courses/img3.png",
     hours: "6 Hours",
-    price: "3,000/-",
+    price: "3000/-",
     modules: 6,
     targetAudience: "Final-year students, fresh graduates, job seekers (0–1 year).",
     promise: "To transform nervous freshers into confident, clear, and convincing interviewees.",
     moduleDetails: [
-      { title: "Module 1: Interview Mindset & Recruiter Psychology", topics: ["What interviewers look for", "Common rejection reasons", "Confidence over perfection", "Overcoming fear & hesitation"] },
-      { title: "Module 2: Self-Introduction & Personal Branding", topics: ["'Tell me about yourself'", "Presenting education & projects", "Turning weaknesses into strengths", "'Why should we hire you?'"] },
-      { title: "Module 3: Answer Structuring & HR Questions", topics: ["STAR & PREP frameworks", "Strengths & weaknesses", "Failure & challenges", "Salary & availability questions"] },
-      { title: "Module 4: Communication & Body Language", topics: ["Eye contact & posture", "Tone, pace, & voice modulation", "Handling awkward silences", "Virtual interview setup"] },
-      { title: "Module 5: Handling Difficult Questions & Scenarios", topics: ["Gaps in education or career", "Questions you don't know the answer to", "Situational & behavioral queries"] },
-      { title: "Module 6: Live Mock Interview & Action Plan", topics: ["1-on-1 personalized simulation", "Immediate actionable critique", "Final polish checklist"] }
+      {
+        title: "Module 1: Interview Mindset & Recruiter Psychology",
+        topics: [
+          "What interviewers look for",
+          "Common rejection reasons",
+          "Confidence over perfection",
+          "Overcoming fear & hesitation"
+        ]
+      },
+      {
+        title: "Module 2: Self-Introduction & Personal Branding",
+        topics: [
+          "'Tell me about yourself'",
+          "Presenting education & projects",
+          "Turning weaknesses into strengths",
+          "'Why should we hire you?'"
+        ]
+      },
+      {
+        title: "Module 3: Answer Structuring & HR Questions",
+        topics: [
+          "STAR & PREP frameworks",
+          "Strengths & weaknesses",
+          "Failure & challenges",
+          "Salary & availability"
+        ]
+      },
+      {
+        title: "Module 4: Communication & Body Language",
+        topics: [
+          "Eye contact & posture",
+          "Voice modulation",
+          "Handling nervousness",
+          "Listening skills"
+        ]
+      },
+      {
+        title: "Module 5: Domain & Situational Questions",
+        topics: [
+          "Basic technical answers",
+          "Behavioral questions",
+          "Thinking on the spot",
+          "Saying 'I don't know' professionally"
+        ]
+      },
+      {
+        title: "Module 6: Mock Interviews & Final Polishing",
+        topics: [
+          "Full mock interviews",
+          "Individual feedback",
+          "Last-round mistakes",
+          "Follow-up etiquette"
+        ]
+      }
     ]
   },
   {
     id: "corporate-dining-etiquette",
     category: "corporate",
     title: "Corporate Dining & Social Etiquette Masterclass",
-    subtitle: "Executive Polish & Table Manners",
-    description: "Master the art of formal business dinners, client networking, and social protocol.",
+    subtitle: "Because your career is also built outside the meeting room",
+    description: "Master professional dining and social etiquette for corporate success.",
     image: "/assets/academy/courses/img4.png",
-    hours: "4 Hours",
-    price: "2,500/-",
-    modules: 4,
-    targetAudience: "Managers, client-facing professionals, business leaders.",
-    promise: "Gain effortless grace during formal dining and high-stakes social interactions.",
+    hours: "6 Hours",
+    price: "3000/-",
+    modules: 6,
+    targetAudience: "Freshers, management trainees, graduate hires, young professionals (0–3 years). Separate batches for boys and girls.",
     moduleDetails: [
-      { title: "Module 1: Table Settings & Cutlery Guide", topics: ["Formal silverware placement", "Glassware navigation", "Napkin etiquette"] },
-      { title: "Module 2: Business Dining Protocols", topics: ["Hosting vs being a guest", "Ordering professionally", "Managing business conversations over meals"] },
-      { title: "Module 3: Networking & Cocktails", topics: ["Holding glass and food comfortably", "Entering and exiting conversations", "Business card exchange"] },
-      { title: "Module 4: Cross-Cultural Dining Norms", topics: ["International customs", "Dietary considerations", "Tipping etiquette"] }
+      {
+        title: "Module 1: Social Presence & First Impressions",
+        topics: ["Corporate social culture", "Professional greetings", "Confidence without arrogance"]
+      },
+      {
+        title: "Module 2: Dining Etiquette (Indian & Global)",
+        topics: ["Table manners", "Cutlery & seating", "Ordering food", "Do's & don'ts"]
+      },
+      {
+        title: "Module 3: Wine & Beverage Etiquette",
+        topics: ["Beverage basics", "Declining drinks gracefully", "Professional boundaries"]
+      },
+      {
+        title: "Module 4: Conversation & Networking",
+        topics: ["Small talk", "Safe vs risky topics", "Exiting conversations politely"]
+      },
+      {
+        title: "Module 5: Dress, Grooming & Presentation",
+        topics: ["Event dressing", "Hygiene & grooming", "Cultural sensitivity"]
+      },
+      {
+        title: "Module 6: Emotional & Social Intelligence",
+        topics: ["Respect & empathy", "Handling awkward moments", "Professional ethics"]
+      }
     ]
   },
   {
     id: "advanced-leadership-presence",
     category: "corporate",
     title: "Advanced English & Leadership Presence for Managers",
-    subtitle: "High-Impact Executive Coaching",
-    description: "Elevate your authority, persuasive speaking, and leadership clarity.",
+    subtitle: "Because managers are watched before they are heard",
+    description: "Build executive presence, clarity, and leadership communication credibility.",
     image: "/assets/academy/courses/img5.png",
-    hours: "15 Hours",
-    price: "8,500/-",
-    modules: 5,
-    targetAudience: "Team leads, senior managers, department heads.",
-    promise: "Command respect and communicate strategic visions with absolute clarity.",
+    hours: "12 Hours",
+    price: "6000/-",
+    modules: 12,
+    targetAudience: "Mid-level managers, team leads, first-time managers, senior executives.",
+    promise: "To build executive presence, clarity, and leadership communication credibility.",
     moduleDetails: [
-      { title: "Module 1: Executive Articulation", topics: ["Concise leadership phrasing", "Eliminating filler words", "Gravitas & vocal authority"] },
-      { title: "Module 2: Persuasive Storytelling for Business", topics: ["Framing corporate narratives", "Using metaphors and analogies", "Inspiring action"] },
-      { title: "Module 3: Crisis & Difficult Conversations", topics: ["Delivering tough feedback", "De-escalating friction", "Maintaining empathy with authority"] },
-      { title: "Module 4: High-Stakes Stakeholder Alignment", topics: ["Executive summaries", "Boardroom presentation style", "Handling adversarial questions"] },
-      { title: "Module 5: Personal Leadership Brand", topics: ["Authentic leadership voice", "Written communication standard", "Mentoring presence"] }
+      { title: "Leadership Communication Essentials", duration: "1 Hour", topics: ["Executive presence fundamentals", "Leadership communication styles", "Building credibility through communication"] },
+      { title: "Advanced Business Writing", duration: "1 Hour", topics: ["Strategic emails and reports", "Executive summaries", "Persuasive business proposals"] },
+      { title: "Leading Meetings & Presentations", duration: "1 Hour", topics: ["Facilitating productive meetings", "Commanding attention in presentations", "Handling difficult discussions"] },
+      { title: "Influencing & Persuasion", duration: "1 Hour", topics: ["Persuasive communication techniques", "Stakeholder management", "Negotiation skills"] },
+      { title: "Conflict Resolution", duration: "1 Hour", topics: ["Managing team conflicts", "Difficult conversations", "Mediation techniques"] },
+      { title: "Cross-Cultural Communication", duration: "1 Hour", topics: ["Global business etiquette", "Cultural sensitivity", "Virtual team management"] },
+      { title: "Strategic Thinking & Articulation", duration: "1 Hour", topics: ["Communicating vision", "Strategic storytelling", "Thought leadership"] },
+      { title: "Crisis Communication", duration: "1 Hour", topics: ["Managing communication in crisis", "Damage control", "Transparent leadership"] },
+      { title: "Coaching & Feedback", duration: "1 Hour", topics: ["Giving constructive feedback", "Coaching conversations", "Performance discussions"] },
+      { title: "Personal Branding for Leaders", duration: "1 Hour", topics: ["Building executive brand", "LinkedIn presence", "Thought leadership content"] },
+      { title: "Public Speaking for Leaders", duration: "1 Hour", topics: ["Conference presentations", "Panel discussions", "Media interactions"] },
+      { title: "Emotional Intelligence in Leadership", duration: "1 Hour", topics: ["Self-awareness in communication", "Empathetic leadership", "Managing emotions under pressure"] }
     ]
   },
   {
     id: "communication-skill-training",
     category: "career",
     title: "Communication Skill Training",
-    subtitle: "Comprehensive Spoken & Social Fluency",
-    description: "Overcome hesitation, build everyday English fluency, and express ideas naturally.",
+    description: "Clear, confident, and professional communication in interviews, meetings, and public speaking.",
     image: "/assets/academy/courses/img6.png",
-    hours: "16 Hours",
-    price: "7,000/-",
-    modules: 4,
-    targetAudience: "Students, homemakers, professionals seeking conversational fluency.",
-    promise: "To eliminate hesitation and build natural spoken English fluency.",
+    hours: "20 Hours",
+    price: "5000/-",
+    modules: 8,
+    targetAudience: "Students, freshers, and early-career professionals.",
+    promise: "Master clear, confident, and professional communication for all scenarios.",
     moduleDetails: [
-      { title: "Module 1: Everyday Conversational English", topics: ["Social small talk", "Expressing opinions comfortably", "Building daily active vocabulary"] },
-      { title: "Module 2: Sentence Structure & Grammar in Use", topics: ["Grammar for speaking without overthinking", "Common error correction", "Tenses made intuitive"] },
-      { title: "Module 3: Pronunciation & Clarity", topics: ["Phonetics basics", "Pacing, stress and rhythm", "Overcoming mother-tongue influence (MTI)"] },
-      { title: "Module 4: Real-life Speaking Simulations", topics: ["Role plays", "Imp prompt speaking", "Group discussions"] }
+      { title: "Module 1: Articulation", topics: ["Clear speech techniques", "Word pronunciation", "Accent neutralization"] },
+      { title: "Module 2: Fluency", topics: ["Speaking smoothly", "Sentence flow", "Natural pacing"] },
+      { title: "Module 3: Vocabulary Expansion", topics: ["Professional vocabulary", "Context-appropriate words", "Advanced expressions"] },
+      { title: "Module 4: Avoid Fillers", topics: ["Eliminating um, ah, like", "Pause techniques", "Conscious speaking"] },
+      { title: "Module 5: Pronunciation & Enunciation", topics: ["Sound production", "Difficult words practice", "Clarity exercises"] },
+      { title: "Module 6: Idioms & Phrases", topics: ["Common idioms", "Business phrases", "Contextual usage"] },
+      { title: "Module 7: Public Speaking", topics: ["Stage presence", "Audience engagement", "Presentation skills"] },
+      { title: "Module 8: Confidence Building", topics: ["Overcoming fear", "Self-assurance techniques", "Positive mindset"] }
     ]
   },
   {
     id: "personality-development",
     category: "career",
     title: "Personality Development Training",
-    subtitle: "Self-Image & Confidence Mastery",
-    description: "Holistic self-transformation covering posture, confidence, and social charisma.",
+    description: "Build a confident personality, strong body language, professional etiquette, and leadership skills.",
     image: "/assets/academy/courses/img7.png",
-    hours: "10 Hours",
-    price: "5,000/-",
-    modules: 4,
-    targetAudience: "Youth, fresh graduates, and anyone looking to enhance their personal impact.",
-    promise: "Develop unshakeable personal confidence and memorable presence.",
+    hours: "12 Hours",
+    price: "6000/-",
+    modules: 8,
+    targetAudience: "Students, freshers, and early-career professionals.",
+    promise: "Develop a complete professional personality with confidence and leadership qualities.",
     moduleDetails: [
-      { title: "Module 1: Self-Awareness & Mindset", topics: ["Overcoming self-doubt", "Developing a growth mindset", "Emotional regulation"] },
-      { title: "Module 2: Body Language & Posture", topics: ["Confident walking and standing posture", "Hand gestures that build trust", "Eye contact"] },
-      { title: "Module 3: Social & Emotional Intelligence", topics: ["Active listening", "Understanding non-verbal cues", "Empathy in interactions"] },
-      { title: "Module 4: Personal Grooming & Presence", topics: ["Professional attire basics", "First impressions", "Everyday poise"] }
+      { title: "Module 1: First Impressions", topics: ["Creating strong first impressions", "Professional appearance", "Confidence in introductions"] },
+      { title: "Module 2: Body Language", topics: ["Posture and gestures", "Eye contact techniques", "Non-verbal communication"] },
+      { title: "Module 3: Starting Conversations", topics: ["Ice-breaking techniques", "Small talk mastery", "Building rapport"] },
+      { title: "Module 4: Dress for Success", topics: ["Professional wardrobe", "Grooming standards", "Situation-appropriate dressing"] },
+      { title: "Module 5: Social & Business Etiquette", topics: ["Professional manners", "Social grace", "Business protocol"] },
+      { title: "Module 6: Dining Etiquette", topics: ["Table manners", "Formal dining", "Business lunch/dinner protocol"] },
+      { title: "Module 7: Leadership & Decision Making", topics: ["Leadership qualities", "Decision-making frameworks", "Taking initiative"] },
+      { title: "Module 8: Negotiation & Conflict Resolution", topics: ["Negotiation strategies", "Conflict management", "Win-win solutions"] }
+    ]
+  },
+  {
+    id: "eelta-certification",
+    category: "corporate",
+    title: "EELTA - Experiential English Language Teaching Approach",
+    subtitle: "India’s First Experiential English Teaching Certification for Global Classrooms",
+    description: "India’s First Experiential English Teaching Certification for Global Classrooms",
+    image: "/assets/academy/courses/img14.png",
+    hours: "15 Hours",
+    price: "15000/-",
+    modules: 5,
+    targetAudience: "Pre-Primary Teachers, School Educators, Secondary School Teachers, Senior Secondary Faculty, Academic Coordinators & School Leaders",
+    moduleDetails: [
+      {
+        title: "Module 1: Learners, Teachers & the Global Learning Context",
+        topics: [
+          "Understanding learners as global communicators",
+          "Role of the teacher as a facilitator, not instructor",
+          "Creating classrooms aligned with international learning environments",
+          "Preparing students for foreign universities and multicultural settings"
+        ]
+      },
+      {
+        title: "Module 2: Language Awareness for Real Communication",
+        topics: [
+          "Understanding how English works in real-life communication",
+          "Moving beyond grammar to functional language use",
+          "Teaching vocabulary, structure, and meaning through context and usage",
+          "Building awareness for language proficiency tests (IELTS, TOEFL, PTE)"
+        ]
+      },
+      {
+        title: "Module 3: Core Language Skills for Global Competence",
+        topics: [
+          "Developing Reading, Listening, Speaking, and Writing as integrated skills",
+          "Teaching students to think, respond, and express ideas clearly",
+          "Activity-based strategies to build fluency and comprehension",
+          "Aligning classroom practice with international assessment standards"
+        ]
+      },
+      {
+        title: "Module 4: Planning, Resources & Global Classroom Design",
+        topics: [
+          "Designing lessons for real-world communication outcomes",
+          "Using authentic materials (videos, conversations, tasks)",
+          "Creating immersive and English-rich environments",
+          "Structuring lessons for skill-building and test readiness"
+        ]
+      },
+      {
+        title: "Module 5: Developing Professional Teaching Excellence",
+        topics: [
+          "Building teacher confidence and communication skills",
+          "Continuous improvement through reflection and feedback",
+          "Adapting to diverse learners and global expectations",
+          "Becoming a 21st-century English educator"
+        ]
+      }
     ]
   }
 ];
@@ -227,37 +476,79 @@ export const kidsCourses = [
   {
     id: "kids-elocution",
     title: "Elocution Course",
-    target: "Kids (Ages 7–14)",
+    description: "Helps children speak clearly, confidently, and expressively.",
+    duration: "4 Weeks",
+    price: "3000/-",
     image: "/assets/academy/courses/img8.png",
-    desc: "Focus on speech clarity, diction, tone modulation, and poem/prose recitation."
+    features: [
+      "Clarity in speech & pronunciation",
+      "Expressive reading & storytelling",
+      "Vocabulary & grammar improvement",
+      "Confidence in public speaking",
+      "Listening & comprehension skills"
+    ]
   },
   {
-    id: "kids-public-speaking",
-    title: "Public Speaking",
-    target: "Kids (Ages 8–15)",
+    id: "kids-tedx-toastmaster",
+    title: "TedX & Toastmaster Training",
+    description: "Builds confidence and stage presence in young learners.",
+    duration: "4 Weeks",
+    price: "3000/-",
     image: "/assets/academy/courses/img9.png",
-    desc: "Stage fear elimination, speech organization, audience engagement, and confident delivery."
+    features: [
+      "Reduced stage fear",
+      "Improved body language & projection",
+      "Speech structuring techniques",
+      "Toastmaster like confidence",
+      "TED Talk style preparation",
+      "Holistic personality development"
+    ]
   },
   {
     id: "kids-grammar-foundations",
     title: "Grammar Foundations",
-    target: "Kids (Ages 6–13)",
+    description: "Strong grammar basics for clear and correct communication.",
+    duration: "4 Weeks",
+    price: "3000/-",
     image: "/assets/academy/courses/img10.png",
-    desc: "Intuitive, interactive grammar mastery through fun games, stories, and application."
+    features: [
+      "Sentence construction",
+      "Correct punctuation",
+      "Parts of speech",
+      "Verb tenses",
+      "Subject-verb agreement",
+      "Effective communication"
+    ]
   },
   {
     id: "kids-creative-writing",
     title: "Creative Writing",
-    target: "Kids (Ages 8–15)",
+    description: "Encourages imagination and expressive writing skills.",
+    duration: "4 Weeks",
+    price: "3000/-",
     image: "/assets/academy/courses/img11.png",
-    desc: "Developing imagination, narrative storytelling, character arcs, and descriptive vocabulary."
+    features: [
+      "Idea generation & imagination",
+      "Story structure (Beginning–Middle–End)",
+      "Character creation",
+      "Descriptive writing",
+      "Emotional expression"
+    ]
   },
   {
     id: "kids-reading-club",
     title: "Reading Club",
-    target: "Kids (Ages 6–14)",
+    description: "Develops love for reading and critical thinking.",
+    duration: "Online",
+    price: "500/per month",
     image: "/assets/academy/courses/img12.png",
-    desc: "Cultivating lifelong reading habits, comprehension skills, and vocabulary based on 'The Reading Detective'."
+    features: [
+      "Reading for pleasure",
+      "Vocabulary in context",
+      "Comprehension & critical thinking",
+      "Listening & speaking skills",
+      "Empathy & life values through stories"
+    ]
   }
 ];
 
@@ -327,59 +618,145 @@ export const testsData = [
 
 export const sampleBlogPosts = [
   {
-    id: 'how-to-crack-ielts-first-attempt',
-    title: 'How to Clear IELTS on Your First Attempt: A Master Trainer’s Blueprint',
-    author: 'Vidya Wankhade',
-    date: '2026-09-15',
+    id: 'who-to-boost-your-comprehension-skills',
+    title: 'Who to boost your comprehension skills',
+    author: 'Anish',
+    date: '2026-03-28',
+    displayDate: '3/28/2026',
+    category: 'Reading & Comprehension',
+    coverImage: '/assets/academy/books/the-reading-detective.jpg',
+    excerpt: `The "read but don't understand" phenomenon is real. We've all been there: you finish a page of a book, blink, and realize your brain was actually thinking about what you're going to eat for dinner. You read every single word, but zero information actually transferred into your memory. Here is how you can train active retention and comprehension speed.`,
+    content: `
+      The "read but don't understand" phenomenon is real. We've all been there: you finish a page of a book, blink, and realize your brain was actually thinking about what you're going to eat for dinner. You read every single word, but zero information actually transferred into your memory.
+
+      ### 1. Active Visualization
+      When you read, don't just process characters on paper. Create a mini-movie in your head. If a passage describes a bustling boardroom or an experimental laboratory, picture the colors, textures, and spatial movements.
+
+      ### 2. The 3-Sentence Chapter Recap
+      At the end of every chapter or passage, force yourself to write down 3 sentences summarizing what you just absorbed without looking back. This triggers active recall instead of passive familiarity.
+
+      ### 3. Question Character and Author Motives
+      Why did the author use that specific verb? What is the unspoken subtext? As taught in 'The Reading Detective', reading with an inquisitive mindset turns reading from a passive chore into an engaging mystery.
+    `
+  },
+  {
+    id: 'how-15-minutes-of-reading-can-change-your-life',
+    title: 'How 15 minutes of reading can change your life',
+    author: 'Anish',
+    date: '2026-03-12',
+    displayDate: '3/12/2026',
+    category: 'Daily Habits',
+    coverImage: '/assets/academy/books/101-management.jpg',
+    excerpt: `The 15-Minute Pivot: How a Tiny Slice of Time Rewires Who You Are. We're obsessed with the "big overhaul." We think that to change our lives—to go from the shy, hesitant speaker to the poised presenter—we need a 3-month sabbatical or a 4-hour daily grind. But consistency beats intensity every single time.`,
+    content: `
+      The 15-Minute Pivot: How a Tiny Slice of Time Rewires Who You Are.
+
+      We're obsessed with the "big overhaul." We think that to change our lives—to go from the shy, hesitant speaker to the poised presenter—we need a 3-month sabbatical or a 4-hour daily grind. But consistency beats intensity every single time.
+
+      ### The Mathematics of Micro-Habits
+      Reading just 15 minutes a day at an average pace of 250 words per minute equals approximately:
+      - 3,750 words per day
+      - Over 1.3 million words per year
+      - That is roughly 15–20 full non-fiction or literature books every year!
+
+      ### What Happens to Your Brain?
+      1. **Subconscious Syntax Modeling**: Your brain absorbs correct sentence constructions, prepositions, and natural idioms without you needing to memorize dry grammar rules.
+      2. **Stress Reduction**: Research shows that just 6 minutes of focused reading reduces heart rate and muscle tension by up to 68%.
+      3. **Elevated Articulation**: You start speaking in complete, structured thoughts rather than fragmented bullet points.
+    `
+  },
+  {
+    id: 'secret-to-master-english',
+    title: 'Secret to master english',
+    author: 'Anish',
+    date: '2026-03-10',
+    displayDate: '3/10/2026',
+    category: 'Fluency Mastery',
+    coverImage: '/assets/academy/courses/img6.png',
+    excerpt: `The Boring Truth About Mastering English: Consistency Beats Intensity Every Time. We've all been there. You get a sudden burst of motivation on a Sunday night. You download three language apps, buy a dictionary, and vow to study 3 hours every day. By Thursday, life gets busy, and you stop entirely.`,
+    content: `
+      The Boring Truth About Mastering English: Consistency Beats Intensity Every Time.
+
+      We've all been there. You get a sudden burst of motivation on a Sunday night. You download three language apps, buy a dictionary, and vow to study 3 hours every day. By Thursday, life gets busy, and you stop entirely.
+
+      ### The Fallacy of the Weekend Warrior
+      Studying 7 hours on a single Sunday does not produce the same neurological pathways as practicing 20 minutes every single morning. Language is a muscle, not an exam paper you can cram before breakfast.
+
+      ### Three Daily Pillars:
+      1. **Daily Spoken Practice**: Speak aloud for 5 minutes about what you accomplished today. Record your voice on your phone once a week to track modulation and filler words.
+      2. **Contextual Vocabulary**: Don't memorize lists of 50 disconnected words. Learn 2 words a day, but write 3 sentences using them in actual workplace conversations.
+      3. **Active Listening**: Listen to podcasts or audiobooks where speakers express complex thoughts clearly, paying attention to phrasing, pauses, and cadence.
+    `
+  },
+  {
+    id: 'master-guide-to-crack-group-discussion',
+    title: 'Master guide to crack Group Discussion',
+    author: 'Anish',
+    date: '2026-03-05',
+    displayDate: '3/05/2026',
+    category: 'Career & GD',
+    coverImage: '/assets/academy/courses/img3.png',
+    excerpt: `Mastering Group Discussions: Structure, Body Language, and Winning Contributions. In campus placements and competitive corporate assessments, a GD is rarely about who shouts the loudest. Recruiters evaluate leadership poise, constructive synthesis, and structured articulation.`,
+    content: `
+      Mastering Group Discussions: Structure, Body Language, and Winning Contributions.
+
+      In campus placements and competitive corporate assessments, a GD is rarely about who shouts the loudest. Recruiters evaluate leadership poise, constructive synthesis, and structured articulation.
+
+      ### 1. The Power of the Initiator vs. The Synthesizer
+      If you initiate the discussion, provide a balanced definition and outline 2–3 perspectives rather than jumping to a dogmatic conclusion. If someone else starts, step in early as a synthesizer: summarize differing viewpoints and steer the group forward.
+
+      ### 2. Disagree Without Disrespect
+      Never say: *"You are completely wrong."* Instead, say: *"I appreciate your point regarding cost, however, looking at the long-term scalability, there is another dimension we must consider..."*
+
+      ### 3. Body Language and Eye Contact
+      Maintain open posture, avoid aggressive finger pointing, and make eye contact with all participants around the table, not just the evaluator.
+    `
+  },
+  {
+    id: 'how-to-prepare-for-ielts-in-10-days',
+    title: 'How to Prepare for IELTS in 10 Days: A Practical Guide for Quick Results',
+    author: 'Anish',
+    date: '2026-02-25',
+    displayDate: '2/25/2026',
     category: 'IELTS Prep',
     coverImage: '/assets/academy/books/cakewalk-ielts.jpg',
-    excerpt: 'Clearing IELTS with a Band 7.5+ requires disciplined consistency, realistic simulation practice, and avoiding common grammatical traps. Here is the exact methodology we use at The Consistent Academy.',
+    excerpt: `A high-intensity, structured blueprint to maximize your band score across Listening, Reading, Writing, and Speaking in just 10 days of focused practice, avoiding common traps and capitalizing on core test strategies.`,
     content: `
-      Achieving an overall Band 7.5 or 8.0 in IELTS does not come from cramming vocabulary lists at the eleventh hour. It comes from methodical consistency across all four modules: Listening, Reading, Writing, and Speaking.
+      A high-intensity, structured blueprint to maximize your band score across Listening, Reading, Writing, and Speaking in just 10 days of focused practice.
 
-      ### 1. Active Listening and Accent Familiarity
-      Many students struggle when test audios switch between British, Australian, and North American accents. Practice with diverse international news channels and authentic Cambridge test materials.
+      ### Day 1–3: Diagnostic Test & High-Yield Strategy
+      Take a full authentic mock test under strict timed conditions. Identify your weakest skill: is it Task 2 essay structure, or matching headings in Reading? Focus 70% of your energy on that single bottle-neck.
 
-      ### 2. Time Management in Reading
-      Do not read every sentence word-for-word. Practice skimming for main themes and scanning for specific identifiers (names, dates, specialized terminology).
+      ### Day 4–7: The Core Frameworks
+      - **Writing Task 2**: Master the 4-paragraph structure (Introduction, 2 Body Paragraphs, Conclusion). Memorize cohesive transition devices and practice generating counterarguments.
+      - **Reading**: Practice scanning for proper nouns and numbers without reading entire passages line-by-line.
 
-      ### 3. Structured Writing (Task 1 & Task 2)
-      Band 7+ essays require coherent cohesion. Structure every argument with clear topic sentences, supported examples, and accurate punctuation.
-
-      ### 4. Natural Fluency in Speaking
-      Interviewers evaluate spontaneous fluency, not rehearsed robotic scripts. Speak in complete thoughts with varied sentence structures and clear pronunciation.
+      ### Day 8–10: Exam Simulation & Speaking Polishing
+      Practice full-length speaking interviews in front of a mirror or with a coach. Focus on natural fluency, eliminating filler pauses ('uhh', 'like'), and speaking with confident projection.
     `
   },
   {
-    id: 'corporate-communication-etiquette',
-    title: 'Workplace Communication & Email Etiquette: 5 Rules for New Professionals',
-    author: 'The Consistent Academy',
-    date: '2026-08-28',
-    category: 'Corporate Skills',
-    coverImage: '/assets/academy/courses/img2.png',
-    excerpt: 'Mastering workplace emails, virtual meeting etiquette, and constructive disagreement is essential for early career acceleration and executive presence.',
+    id: 'overcoming-mother-tongue-influence',
+    title: 'Overcoming Mother Tongue Influence (MTI) in Spoken English',
+    author: 'Anish',
+    date: '2026-02-15',
+    displayDate: '2/15/2026',
+    category: 'Spoken Fluency',
+    coverImage: '/assets/academy/courses/img7.png',
+    excerpt: `Phonetics, jaw exercises, and syllable stress techniques to neutralize accents and speak with effortless global clarity in international meetings, client presentations, and university interviews.`,
     content: `
-      In the modern corporate world, how you communicate determines how quickly you advance. Casual texting habits frequently bleed into formal workplace emails, leading to miscommunication.
+      Phonetics, jaw exercises, and syllable stress techniques to neutralize accents and speak with effortless global clarity.
 
-      ### Key Takeaways:
-      - Always craft clear, actionable email subject lines.
-      - Keep body paragraphs under three sentences each.
-      - Disagree constructively by acknowledging the other perspective first.
-      - Maintain professional etiquette across Slack, Teams, and WhatsApp.
-    `
-  },
-  {
-    id: 'nurturing-reading-habits-in-kids',
-    title: 'Nurturing Reading Comprehension in Young Learners through Story Mysteries',
-    author: 'Vidya Wankhade',
-    date: '2026-08-10',
-    category: 'Young Learners',
-    coverImage: '/assets/academy/books/the-reading-detective.jpg',
-    excerpt: 'Reading should never feel like a chore. By framing reading comprehension as detective mysteries, children naturally build analytical thinking and expansive vocabulary.',
-    content: `
-      When children view reading as an active mystery to solve rather than a test to memorize, their retention and literary curiosity skyrocket. 
+      Mother Tongue Influence (MTI) is a natural linguistic trait, not a defect. However, in global business and international exams, clear syllable stress and vowel enunciation ensure you are understood effortlessly.
 
-      In 'The Reading Detective', we encourage children to question character motives, look for clues in context, and infer underlying meanings. This forms the bedrock of critical thinking that pays dividends throughout academic life.
+      ### 1. Minimal Pair Drills
+      Practice minimal pairs that confuse non-native speakers: ship vs. sheep, beat vs. bit, van vs. ban. Exaggerate mouth shape and tongue placement.
+
+      ### 2. Syllable Stress Patterns
+      English is a stress-timed language. Unlike syllable-timed languages, English emphasizes key content words while gliding over function words. Learn to stress root nouns and verbs accurately.
+
+      ### 3. Pacing and Pausing
+      Speaking fast is not the same as speaking fluently. Deliberate, calm pacing gives your vocal cords room to enunciate and makes you sound authoritative and trustworthy.
     `
   }
 ];

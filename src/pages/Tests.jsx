@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
-import { Sparkles, Brain, Award, CheckCircle2, ChevronRight, RotateCcw, MessageCircle, HelpCircle, ArrowLeft } from 'lucide-react';
-import { testsData, academyInfo } from '../data/academyData';
-import SectionHeading from '../components/SectionHeading';
+import React, { useState, useEffect } from 'react';
+import {
+  Sparkles,
+  Brain,
+  Award,
+  CheckCircle2,
+  ChevronRight,
+  RotateCcw,
+  ArrowLeft,
+  ArrowRight,
+  Mail,
+  Lock,
+  User,
+  Building,
+  LogIn,
+  LogOut,
+  Check
+} from 'lucide-react';
+import { testsData } from '../data/academyData';
 import Button from '../components/Button';
 
 // Comprehensive diagnostic questions for each test
@@ -154,10 +169,68 @@ const questionsBank = {
 };
 
 export default function Tests() {
+  // Auth state
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('tca_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  const [authForm, setAuthForm] = useState({
+    name: '',
+    company: '',
+    email: '',
+    password: ''
+  });
+  const [authError, setAuthError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Test state
   const [activeTest, setActiveTest] = useState(null); // 'kids' | 'adults' | 'leadership' | null
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
+
+  const handleAuthSubmit = (e) => {
+    e.preventDefault();
+    setAuthError('');
+
+    if (!authForm.email || !authForm.password) {
+      setAuthError('Please fill in all required fields.');
+      return;
+    }
+
+    if (isRegisterMode && !authForm.name) {
+      setAuthError('Please enter your full name.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      const user = {
+        name: authForm.name || authForm.email.split('@')[0],
+        email: authForm.email,
+        company: authForm.company || 'Student'
+      };
+      localStorage.setItem('tca_user', JSON.stringify(user));
+      setCurrentUser(user);
+      setIsLoading(false);
+    }, 400);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('tca_user');
+    setCurrentUser(null);
+    setActiveTest(null);
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setIsCompleted(false);
+  };
 
   const startTest = (testId) => {
     setActiveTest(testId);
@@ -188,7 +261,7 @@ export default function Tests() {
     }
   };
 
-  const handleReset = () => {
+  const handleResetTest = () => {
     setActiveTest(null);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
@@ -211,26 +284,193 @@ export default function Tests() {
     };
   };
 
-  return (
-    <div className="py-12 sm:py-16 space-y-16 max-w-7xl mx-auto px-4 sm:px-8">
-      {/* Page Header */}
-      {!activeTest && (
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary">
-            Self-Assessment Portal
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-            English Proficiency & Style Tests
-          </h1>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Evaluate your English grammar foundations, advanced professional vocabulary, or executive leadership style with our diagnostic assessments.
-          </p>
-        </div>
-      )}
+  // 1. GATEKEEPER: IF NOT LOGGED IN -> SHOW LOGIN / REGISTER (Matches Screenshot 2)
+  if (!currentUser) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center py-16 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-brand-soft/30 to-purple-50/40">
+        <div className="max-w-md w-full mx-auto space-y-6">
+          {/* Header Icon & Title matching Screenshot 2 */}
+          <div className="text-center space-y-3">
+            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-brand-primary to-brand-deep flex items-center justify-center shadow-lg shadow-brand/20">
+              <Sparkles className="w-10 h-10 text-white" />
+            </div>
 
-      {/* TEST SELECTION VIEW */}
+            <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-brand-primary via-purple-600 to-brand-deep bg-clip-text text-transparent">
+              Welcome to Tests
+            </h1>
+
+            <p className="text-sm text-slate-500">
+              {isRegisterMode ? 'Create an account to get started' : 'Sign in to continue'}
+            </p>
+          </div>
+
+          {/* Form Card matching Screenshot 2 */}
+          <div className="bg-white rounded-3xl border border-slate-200/80 p-8 shadow-xl shadow-brand/5 space-y-5">
+            <form onSubmit={handleAuthSubmit} className="space-y-4">
+              {/* Register Fields */}
+              {isRegisterMode && (
+                <>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-slate-700 flex items-center gap-2">
+                      <User className="w-4 h-4 text-brand-primary" />
+                      <span>Full Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your full name"
+                      value={authForm.name}
+                      onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
+                      className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:bg-white transition-all shadow-inner"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-slate-700 flex items-center gap-2">
+                      <Building className="w-4 h-4 text-brand-primary" />
+                      <span>Company / Organisation</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter your company name"
+                      value={authForm.company}
+                      onChange={(e) => setAuthForm({ ...authForm, company: e.target.value })}
+                      className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:bg-white transition-all shadow-inner"
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* Email Address */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700 flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-brand-primary" />
+                  <span>Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  value={authForm.email}
+                  onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+                  className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+
+              {/* Password */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700 flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-brand-primary" />
+                  <span>Password</span>
+                </label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Enter your password"
+                  value={authForm.password}
+                  onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+                  className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:bg-white transition-all shadow-inner"
+                />
+              </div>
+
+              {authError && (
+                <p className="text-xs font-medium text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-200">
+                  {authError}
+                </p>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-brand-primary to-brand-deep hover:from-purple-700 hover:to-brand-dark text-white font-bold text-sm shadow-md shadow-brand/30 hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              >
+                {isLoading ? (
+                  <span>Processing...</span>
+                ) : isRegisterMode ? (
+                  <>
+                    <User className="w-4 h-4" />
+                    <span>Create Account</span>
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="w-4 h-4" />
+                    <span>Sign In</span>
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Toggle Sign In / Register */}
+            <div className="pt-2 text-center text-xs text-slate-500">
+              {isRegisterMode ? (
+                <p>
+                  Already have an account?{' '}
+                  <button
+                    onClick={() => { setIsRegisterMode(false); setAuthError(''); }}
+                    className="font-bold text-brand-primary hover:underline ml-1"
+                  >
+                    Sign In
+                  </button>
+                </p>
+              ) : (
+                <p>
+                  Don't have an account?{' '}
+                  <button
+                    onClick={() => { setIsRegisterMode(true); setAuthError(''); }}
+                    className="font-bold text-brand-primary hover:underline ml-1"
+                  >
+                    Create One
+                  </button>
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. LOGGED IN: TEST SELECTION / ACTIVE TEST
+  return (
+    <div className="py-12 sm:py-16 space-y-12 max-w-7xl mx-auto px-4 sm:px-8">
+      {/* Top Welcome Bar */}
+      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+        <div className="flex items-center gap-4 text-center sm:text-left">
+          <div className="w-12 h-12 rounded-2xl bg-brand-soft border border-brand-border flex items-center justify-center text-brand-primary font-bold text-lg">
+            {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U'}
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">
+              Welcome, {currentUser.name}!
+            </h2>
+            <p className="text-xs text-slate-500">
+              {currentUser.email} • {currentUser.company}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={handleSignOut}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:text-rose-600 hover:border-rose-300 transition-colors"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Sign Out</span>
+        </button>
+      </div>
+
+      {/* 3 TEST CARDS (Matching bundle: Kids, Adults, Leadership) */}
       {!activeTest && (
-        <div className="space-y-12">
+        <div className="space-y-8">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Diagnostic & Style Assessments
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm mt-1">
+              Select an assessment below to evaluate grammar accuracy, vocabulary range, or leadership dimension.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testsData.map((test) => (
               <div
@@ -258,7 +498,7 @@ export default function Tests() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 mb-8">
+                  <div className="space-y-2.5 mb-8">
                     {test.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-600">
                         <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
@@ -279,36 +519,15 @@ export default function Tests() {
               </div>
             ))}
           </div>
-
-          {/* Test Guidelines & Counseling Note */}
-          <div className="bg-brand-soft/60 border border-brand-border/60 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-1">
-              <h4 className="text-base font-bold text-slate-900">
-                Want a Comprehensive 1-on-1 IELTS Mock & Band Evaluation?
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-600">
-                Book an in-person or live virtual assessment with Vidya Wankhade for personalized speaking & writing critique.
-              </p>
-            </div>
-            <Button
-              to="/contact?course=Diagnostic+Assessment"
-              variant="outline"
-              size="md"
-              className="shrink-0"
-            >
-              Book 1-on-1 Assessment
-            </Button>
-          </div>
         </div>
       )}
 
-      {/* ACTIVE TEST INTERACTION VIEW */}
+      {/* ACTIVE TEST QUESTION VIEW */}
       {activeTest && !isCompleted && (
         <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in duration-300">
-          {/* Top Bar with Back button & Progress */}
           <div className="flex items-center justify-between">
             <button
-              onClick={handleReset}
+              onClick={handleResetTest}
               className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-brand-primary transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -321,7 +540,6 @@ export default function Tests() {
             </span>
           </div>
 
-          {/* Question Card */}
           {(() => {
             const questions = questionsBank[activeTest] || [];
             const currentQ = questions[currentQuestionIndex];
@@ -329,7 +547,6 @@ export default function Tests() {
 
             return (
               <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-brand space-y-8">
-                {/* Progress Indicators */}
                 <div>
                   <div className="flex justify-between items-center text-xs font-semibold text-slate-500 mb-2">
                     <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
@@ -343,7 +560,6 @@ export default function Tests() {
                   </div>
                 </div>
 
-                {/* Question Statement */}
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                     {currentQ.question}
@@ -355,7 +571,6 @@ export default function Tests() {
                   )}
                 </div>
 
-                {/* Options List */}
                 <div className="space-y-3">
                   {currentQ.options.map((opt, oIdx) => {
                     const isSelected = userAnswers[currentQuestionIndex] === oIdx;
@@ -389,7 +604,6 @@ export default function Tests() {
                   })}
                 </div>
 
-                {/* Navigation Buttons */}
                 <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                   <button
                     onClick={handlePrev}
@@ -415,7 +629,7 @@ export default function Tests() {
         </div>
       )}
 
-      {/* TEST RESULTS VIEW */}
+      {/* COMPLETED RESULTS VIEW */}
       {activeTest && isCompleted && (
         <div className="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-brand space-y-8 text-center animate-in zoom-in-95 duration-300">
           {activeTest !== 'leadership' ? (
@@ -443,7 +657,6 @@ export default function Tests() {
                     </p>
                   </div>
 
-                  {/* Recommendations */}
                   <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                       Recommended Academy Course:
@@ -492,7 +705,6 @@ export default function Tests() {
             </>
           )}
 
-          {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 border-t border-slate-100">
             <Button
               to={`/contact?course=Test+Followup+${activeTest}`}
@@ -503,7 +715,7 @@ export default function Tests() {
               Discuss Result with Trainer
             </Button>
             <button
-              onClick={handleReset}
+              onClick={handleResetTest}
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:border-brand-primary transition-colors w-full sm:w-auto"
             >
               <RotateCcw className="w-4 h-4" />

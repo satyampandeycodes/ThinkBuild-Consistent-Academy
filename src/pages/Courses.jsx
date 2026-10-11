@@ -3,7 +3,7 @@ import { allCourses, kidsCourses } from '../data/academyData';
 import SectionHeading from '../components/SectionHeading';
 import CourseCard from '../components/CourseCard';
 import Button from '../components/Button';
-import { BookOpen, Sparkles, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Sparkles, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
 
 export default function Courses() {
   const [filter, setFilter] = useState('all');
@@ -72,7 +72,7 @@ export default function Courses() {
             subtitle="Engaging foundations in elocution, public speaking, grammar, and literature appreciation."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {kidsCourses.map((kid) => (
               <div
                 key={kid.id}
@@ -89,21 +89,40 @@ export default function Courses() {
                         e.currentTarget.src = '/assets/academy/courses/img1.png';
                       }}
                     />
-                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-brand-primary text-xs font-bold px-3 py-1 rounded-full border border-brand-border/60 shadow-xs">
-                      {kid.target}
-                    </div>
-                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs p-1.5 rounded-full shadow-xs">
-                      <Sparkles className="w-4 h-4 text-star-amber" />
-                    </div>
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">
-                      {kid.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {kid.desc}
+                    {/* Header: Title on Left, Price on Right */}
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-primary transition-colors">
+                        {kid.title}
+                      </h3>
+                      <span className="text-sm font-bold text-brand-primary whitespace-nowrap">
+                        ₹ {kid.price}
+                      </span>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                      {kid.description}
                     </p>
+
+                    {/* Duration with Clock Icon */}
+                    <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-5">
+                      <Clock className="w-4 h-4 text-slate-400" />
+                      <span>{kid.duration}</span>
+                    </div>
+
+                    {/* Features Bullet List */}
+                    {kid.features && (
+                      <div className="space-y-2.5 mb-6">
+                        {kid.features.map((feat, fIdx) => (
+                          <div key={fIdx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                            <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -111,10 +130,11 @@ export default function Courses() {
                   <Button
                     to={`/contact?course=${encodeURIComponent(`Kids: ${kid.title}`)}`}
                     variant="secondary"
-                    size="sm"
-                    className="w-full"
+                    size="md"
+                    className="w-full font-bold flex items-center justify-center gap-2 group-hover:bg-brand-primary group-hover:text-white transition-all shadow-xs"
                   >
-                    Enquire for Kid's Batch
+                    <span>Enroll Now</span>
+                    <ArrowRight className="w-4 h-4" />
                   </Button>
                 </div>
               </div>

@@ -57,10 +57,13 @@ export default function Footer() {
                 <Link to="/courses" className="hover:text-white transition-colors">Courses & Programmes</Link>
               </li>
               <li>
-                <Link to="/tests" className="hover:text-white transition-colors">Proficiency Tests</Link>
+                <Link to="/blog" className="hover:text-white transition-colors">Academy Blog</Link>
               </li>
               <li>
-                <Link to="/blog" className="hover:text-white transition-colors">Academy Blog</Link>
+                <Link to="/careers" className="hover:text-white transition-colors">Careers & Faculty</Link>
+              </li>
+              <li>
+                <Link to="/tests" className="hover:text-white transition-colors">Proficiency Tests</Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-white transition-colors">About Founder</Link>
