@@ -16,9 +16,7 @@ export default function Home() {
   const [galleryFilter, setGalleryFilter] = useState('all');
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const [galleryDisplayMode, setGalleryDisplayMode] = useState('spotlight'); // 'spotlight' | 'grid'
-  const [activeSpotlightIndex, setActiveSpotlightIndex] = useState(0);
-  const [isGalleryAutoPlaying, setIsGalleryAutoPlaying] = useState(true);
+  const [galleryViewMode, setGalleryViewMode] = useState('grid'); // 'grid' | 'reel'
 
   // Books layout toggle: 'vertical' | 'horizontal'
   const [booksLayout, setBooksLayout] = useState('vertical');
@@ -81,33 +79,13 @@ export default function Home() {
 
   const currentLightboxImage = lightboxIndex !== null ? filteredGalleryImages[lightboxIndex] : null;
 
-  // Active moment for the Cinematic Spotlight stage
-  const currentSpotlight = filteredGalleryImages[activeSpotlightIndex] || filteredGalleryImages[0];
-
-  const nextSpotlight = () => {
-    setActiveSpotlightIndex((prev) => (prev + 1) % filteredGalleryImages.length);
-  };
-
-  const prevSpotlight = () => {
-    setActiveSpotlightIndex((prev) => (prev - 1 + filteredGalleryImages.length) % filteredGalleryImages.length);
-  };
-
-  // Auto-play interval for Gallery Spotlight stage
-  useEffect(() => {
-    if (!isGalleryAutoPlaying || galleryDisplayMode !== 'spotlight' || filteredGalleryImages.length <= 1) return;
-    const interval = setInterval(() => {
-      setActiveSpotlightIndex((prev) => (prev + 1) % filteredGalleryImages.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [isGalleryAutoPlaying, filteredGalleryImages.length, galleryDisplayMode]);
-
   // Filtered testimonials
   const filteredTestimonials = testimonialFilter === 'all'
     ? testimonials
     : testimonials.filter((t) => {
-        const countryStr = (t.country || '').toLowerCase();
-        return countryStr.includes(testimonialFilter.toLowerCase());
-      });
+      const countryStr = (t.country || '').toLowerCase();
+      return countryStr.includes(testimonialFilter.toLowerCase());
+    });
 
   const maxTestimonialIndex = Math.max(0, filteredTestimonials.length - cardsPerView);
 
@@ -222,11 +200,10 @@ export default function Home() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                selectedCategory === cat.id
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${selectedCategory === cat.id
                   ? 'bg-brand-primary text-white shadow-sm'
                   : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary'
-              }`}
+                }`}
             >
               {cat.label}
             </button>
@@ -334,11 +311,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* LEARNING IN ACTION GALLERY SECTION - Cinematic Interactive Showcase */}
+      </section>      {/* LEARNING IN ACTION GALLERY SECTION - Sleek Compact Continuous Flowing Ribbon */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
           <SectionHeading
             badge="Life at the Academy"
             title="Learning in Action"
@@ -347,37 +322,18 @@ export default function Home() {
             className="mb-0"
           />
 
-          {/* View Mode Switcher: Cinematic Spotlight Stage vs All Moments Grid */}
-          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200 self-start lg:self-auto shrink-0">
-            <button
-              onClick={() => setGalleryDisplayMode('spotlight')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                galleryDisplayMode === 'spotlight'
-                  ? 'bg-brand-primary text-white shadow-xs'
-                  : 'text-slate-600 hover:text-brand-primary'
-              }`}
-              title="Cinematic Interactive Stage"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Cinematic Stage</span>
-            </button>
-            <button
-              onClick={() => setGalleryDisplayMode('grid')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                galleryDisplayMode === 'grid'
-                  ? 'bg-brand-primary text-white shadow-xs'
-                  : 'text-slate-600 hover:text-brand-primary'
-              }`}
-              title="View All Moments in Grid"
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Grid View ({filteredGalleryImages.length})</span>
-            </button>
-          </div>
+          {/* Quick fullscreen lightbox trigger */}
+          <button
+            onClick={() => openLightbox(filteredGalleryImages[0])}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-300 hover:border-brand-primary hover:text-brand-primary text-xs font-bold text-slate-700 bg-white transition-all shadow-xs shrink-0 self-start sm:self-auto cursor-pointer"
+          >
+            <Maximize2 className="w-3.5 h-3.5 text-brand-primary" />
+            <span>Open Fullscreen Gallery</span>
+          </button>
         </div>
 
-        {/* Category Filter Pills with Live Item Counts */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-6 max-w-full">
+        {/* Category Filter Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 max-w-full">
           {[
             { id: 'all', label: 'All Moments', count: 22 },
             { id: 'classroom', label: 'Classroom Mentorship', count: 6 },
@@ -387,12 +343,8 @@ export default function Home() {
           ].map((cat) => (
             <button
               key={cat.id}
-              onClick={() => {
-                setGalleryFilter(cat.id);
-                setActiveSpotlightIndex(0);
-                setShowAllGallery(false);
-              }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+              onClick={() => setGalleryFilter(cat.id)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 galleryFilter === cat.id
                   ? 'bg-brand-primary text-white shadow-brand shadow-xs'
                   : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary hover:text-brand-primary'
@@ -410,206 +362,70 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 1. CINEMATIC INTERACTIVE STAGE (SPOTLIGHT & FILMSTRIP SELECTOR) */}
-        {galleryDisplayMode === 'spotlight' ? (
-          <div
-            className="space-y-6"
-            onMouseEnter={() => setIsGalleryAutoPlaying(false)}
-            onMouseLeave={() => setIsGalleryAutoPlaying(true)}
-          >
-            {/* The Main Stage Card */}
-            <div className="relative group rounded-3xl overflow-hidden bg-slate-950 border border-slate-200/80 shadow-2xl">
-              {/* Atmospheric Backlight Glow */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-primary/20 via-purple-500/10 to-indigo-500/20 blur-xl opacity-60 pointer-events-none" />
+        {/* COMPACT CONTINUOUS FLOWING RIBBON (Shorter images, does NOT occupy screen) */}
+        <div className="relative overflow-hidden py-2 -my-2 rounded-2xl">
+          {/* Subtle Left and Right Gradient Fade Masks */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent z-10 pointer-events-none" />
 
-              {/* Spotlight Image Container */}
-              <div className="relative h-80 sm:h-[460px] lg:h-[520px] w-full overflow-hidden flex items-center justify-center bg-slate-900">
+          {/* Continuous Moving Stream */}
+          <div className="animate-marquee-gallery gap-4 sm:gap-5">
+            {[...filteredGalleryImages, ...filteredGalleryImages].map((img, idx) => (
+              <div
+                key={`${img.id}-${idx}`}
+                onClick={() => openLightbox(img)}
+                className="w-56 sm:w-64 h-36 sm:h-40 rounded-2xl overflow-hidden shrink-0 group relative cursor-pointer shimmer-card border border-slate-200 hover:border-brand-primary shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-slate-900"
+              >
+                {/* Photo: Crisp, clean, unobstructed */}
                 <img
-                  key={currentSpotlight?.id}
-                  src={currentSpotlight?.src}
-                  alt={currentSpotlight?.title}
-                  className="w-full h-full object-cover transition-all duration-700 animate-in fade-in zoom-in-95"
+                  src={img.src}
+                  alt={img.title}
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                   onError={(e) => {
                     e.currentTarget.src = '/assets/academy/courses/img1.png';
                   }}
                 />
 
-                {/* Subtle top & bottom vignette so text and badges are razor-sharp */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/40 pointer-events-none" />
-
-                {/* Top header bar */}
-                <div className="absolute top-4 sm:top-6 inset-x-4 sm:inset-x-6 flex items-center justify-between z-10">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/90 backdrop-blur-md text-brand-dark border border-white/50 shadow-sm">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>{currentSpotlight?.category}</span>
-                    </span>
-                    <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-900/60 backdrop-blur-md text-white/90 border border-white/10">
-                      <Camera className="w-3.5 h-3.5 text-brand-300" />
-                      <span>The Consistent Academy</span>
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-white bg-slate-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                      {String(activeSpotlightIndex + 1).padStart(2, '0')} / {String(filteredGalleryImages.length).padStart(2, '0')}
-                    </span>
-                    <button
-                      onClick={() => openLightbox(currentSpotlight)}
-                      className="p-2 sm:px-3.5 sm:py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-900 text-xs font-bold transition-all flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
-                      title="Open Fullscreen Lightbox"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5 text-brand-primary" />
-                      <span className="hidden sm:inline">Fullscreen</span>
-                    </button>
-                  </div>
+                {/* Top Corner Category Tag */}
+                <div className="absolute top-2 left-2 z-10">
+                  <span className="inline-block text-[9px] font-extrabold uppercase tracking-wider text-brand-200 bg-slate-950/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10 shadow-xs">
+                    {img.category}
+                  </span>
                 </div>
 
-                {/* Bottom caption & navigation controls */}
-                <div className="absolute bottom-4 sm:bottom-6 inset-x-4 sm:inset-x-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-10">
-                  <div className="space-y-1.5 max-w-xl">
-                    <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-300 block">
-                      Authentic Academy Moments
-                    </span>
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight drop-shadow-md">
-                      {currentSpotlight?.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed drop-shadow-sm">
-                      Real classroom mentorship, debate sessions, and milestone celebrations at Pune Center.
+                {/* Top Right Zoom Trigger on Hover */}
+                <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="w-6 h-6 rounded-full bg-slate-950/70 backdrop-blur-md text-white flex items-center justify-center border border-white/20 shadow-xs">
+                    <Maximize2 className="w-3 h-3 text-white" />
+                  </span>
+                </div>
+
+                {/* Floating Bottom Caption Pill */}
+                <div className="absolute bottom-2 inset-x-2 z-10 pointer-events-none">
+                  <div className="bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-xl border border-white/10 shadow-md flex items-center justify-between">
+                    <p className="text-white text-[11px] font-bold truncate leading-tight">
+                      {img.title}
                     </p>
-                  </div>
-
-                  {/* Previous / Next Stage Arrows */}
-                  <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-                    <button
-                      onClick={prevSpotlight}
-                      className="p-3 rounded-full bg-white/15 hover:bg-white/90 text-white hover:text-slate-900 backdrop-blur-md border border-white/20 transition-all shadow-md active:scale-95 cursor-pointer"
-                      aria-label="Previous moment"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={nextSpotlight}
-                      className="p-3 rounded-full bg-white/15 hover:bg-white/90 text-white hover:text-slate-900 backdrop-blur-md border border-white/20 transition-all shadow-md active:scale-95 cursor-pointer"
-                      aria-label="Next moment"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Progress bar along the bottom of the stage */}
-              <div className="w-full bg-slate-800/80 h-1 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-brand-primary via-purple-400 to-indigo-400 transition-all duration-500"
-                  style={{
-                    width: `${((activeSpotlightIndex + 1) / filteredGalleryImages.length) * 100}%`
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Interactive Filmstrip Thumbnails Selector */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs text-slate-500 px-1">
-                <span className="font-semibold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-primary" />
-                  <span>Click any moment to spotlight:</span>
-                </span>
-                <span>{isGalleryAutoPlaying ? 'Auto-advancing • Hover stage to pause' : 'Paused on hover'}</span>
-              </div>
-
-              {/* Horizontal scrollable filmstrip */}
-              <div className="flex gap-3 overflow-x-auto pb-3 pt-1 px-1">
-                {filteredGalleryImages.map((img, idx) => {
-                  const isActive = idx === activeSpotlightIndex;
-                  return (
-                    <button
-                      key={img.id}
-                      onClick={() => setActiveSpotlightIndex(idx)}
-                      className={`relative w-28 sm:w-36 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 transition-all duration-300 group text-left cursor-pointer ${
-                        isActive
-                          ? 'ring-4 ring-brand-primary ring-offset-2 scale-105 shadow-brand'
-                          : 'opacity-70 hover:opacity-100 hover:scale-102 border border-slate-200'
-                      }`}
-                    >
-                      <img
-                        src={img.src}
-                        alt={img.title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = '/assets/academy/courses/img1.png';
-                        }}
-                      />
-                      <div className={`absolute inset-0 transition-opacity ${isActive ? 'bg-transparent' : 'bg-slate-950/20 group-hover:bg-transparent'}`} />
-                      <div className="absolute bottom-1 inset-x-1.5 px-1.5 py-0.5 rounded-lg bg-slate-950/80 backdrop-blur-sm">
-                        <p className="text-[10px] font-semibold text-white truncate">
-                          {img.title}
-                        </p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        ) : (
-          /* 2. CLEAN FRAMED GRID (PHOTOS FULLY VISIBLE, CAPTIONS BELOW) */
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
-              {displayedGalleryImages.map((img) => (
-                <div
-                  key={img.id}
-                  onClick={() => openLightbox(img)}
-                  className="bg-white rounded-3xl border border-slate-200 p-4 shadow-sm hover:shadow-brand hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between group"
-                >
-                  <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-slate-100 mb-4">
-                    <img
-                      src={img.src}
-                      alt={img.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        e.currentTarget.src = '/assets/academy/courses/img1.png';
-                      }}
-                    />
-                    <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm text-slate-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                      <Maximize2 className="w-3.5 h-3.5 text-brand-primary" />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-1">
-                    <div>
-                      <span className="text-[10px] font-bold text-brand-primary uppercase tracking-wider block mb-1">
-                        {img.category}
-                      </span>
-                      <h4 className="font-bold text-slate-900 text-sm group-hover:text-brand-primary transition-colors">
-                        {img.title}
-                      </h4>
-                    </div>
-                    <span className="text-[11px] text-slate-400 font-medium shrink-0 ml-2">
-                      Pune Center
+                    <span className="text-[9px] text-brand-300 font-semibold shrink-0 ml-1.5 hidden sm:inline">
+                      Pune
                     </span>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Show More / Show Less Toggle Button */}
-            {filteredGalleryImages.length > 8 && (
-              <div className="text-center pt-8">
-                <button
-                  onClick={() => setShowAllGallery(!showAllGallery)}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl border border-slate-300 bg-white hover:border-brand-primary hover:text-brand-primary text-xs font-bold text-slate-700 transition-all shadow-sm hover:shadow-brand hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-                >
-                  <Sparkles className="w-4 h-4 text-brand-primary" />
-                  <span>{showAllGallery ? 'Show Fewer Moments' : `Explore All ${filteredGalleryImages.length} Moments`}</span>
-                  <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${showAllGallery ? '-rotate-90' : 'rotate-90'}`} />
-                </button>
               </div>
-            )}
-          </>
-        )}
+            ))}
+          </div>
+        </div>
+
+        {/* Sleek status bar */}
+        <div className="flex items-center justify-between text-[11px] text-slate-500 mt-3 px-1">
+          <span className="flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Continuous Moments Stream • Hover any photo to pause • Click to expand full size</span>
+          </span>
+          <span className="font-mono text-slate-400">
+            {filteredGalleryImages.length} verified moments
+          </span>
+        </div>
       </section>
 
       {/* PUBLISHED BOOKS SHOWCASE - All 3 Authored Books */}
@@ -627,22 +443,20 @@ export default function Home() {
           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200 self-start md:self-auto">
             <button
               onClick={() => setBooksLayout('vertical')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                booksLayout === 'vertical'
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${booksLayout === 'vertical'
                   ? 'bg-brand-primary text-white shadow-xs'
                   : 'text-slate-600 hover:text-brand-primary'
-              }`}
+                }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
               <span>3-Column Grid</span>
             </button>
             <button
               onClick={() => setBooksLayout('horizontal')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                booksLayout === 'horizontal'
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${booksLayout === 'horizontal'
                   ? 'bg-brand-primary text-white shadow-xs'
                   : 'text-slate-600 hover:text-brand-primary'
-              }`}
+                }`}
             >
               <Sliders className="w-3.5 h-3.5" />
               <span>Detailed Cards</span>
@@ -704,11 +518,10 @@ export default function Home() {
                     setTestimonialFilter(tab.id);
                     setTestimonialIndex(0);
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                    testimonialFilter === tab.id
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${testimonialFilter === tab.id
                       ? 'bg-brand-primary text-white shadow-brand shadow-xs'
                       : 'bg-slate-800/80 text-slate-300 border border-slate-700 hover:border-slate-500'
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -719,11 +532,10 @@ export default function Home() {
             <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1 rounded-xl shrink-0">
               <button
                 onClick={() => setTestimonialViewMode('carousel')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-                  testimonialViewMode === 'carousel'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'carousel'
                     ? 'bg-brand-primary text-white'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
                 title="Interactive Carousel Slider"
               >
                 <Sliders className="w-3.5 h-3.5" />
@@ -732,11 +544,10 @@ export default function Home() {
 
               <button
                 onClick={() => setTestimonialViewMode('stream')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-                  testimonialViewMode === 'stream'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'stream'
                     ? 'bg-brand-primary text-white'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
                 title="Continuous Gliding Marquee Stream"
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -745,11 +556,10 @@ export default function Home() {
 
               <button
                 onClick={() => setTestimonialViewMode('grid')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-                  testimonialViewMode === 'grid'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${testimonialViewMode === 'grid'
                     ? 'bg-brand-primary text-white'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
                 title="Show all 10 stories in grid"
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
@@ -885,11 +695,10 @@ export default function Home() {
                     <button
                       key={dotIdx}
                       onClick={() => setTestimonialIndex(dotIdx)}
-                      className={`h-2 rounded-full transition-all ${
-                        testimonialIndex === dotIdx
+                      className={`h-2 rounded-full transition-all ${testimonialIndex === dotIdx
                           ? 'w-6 bg-brand-primary'
                           : 'w-2 bg-slate-700 hover:bg-slate-500'
-                      }`}
+                        }`}
                       aria-label={`Go to slide ${dotIdx + 1}`}
                     />
                   ))}
