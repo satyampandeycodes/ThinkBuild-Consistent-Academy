@@ -6,17 +6,24 @@ export default function BookCard({ book, layout = 'vertical' }) {
     return (
       <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-brand transition-all duration-300 flex flex-col md:flex-row group hover:-translate-y-1">
         {/* Book Cover */}
-        <div className="md:w-5/12 bg-gradient-to-b from-brand-soft/70 to-slate-50 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
-          <div className="relative w-40 sm:w-44 aspect-[3/4] rounded-xl shadow-md group-hover:shadow-xl group-hover:scale-105 transition-all duration-300 overflow-hidden bg-white">
-            <img
-              src={book.image}
-              alt={book.title}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = '/assets/academy/logo.png';
-                e.currentTarget.className = 'w-full h-full object-contain p-4';
-              }}
-            />
+        <div className="md:w-5/12 bg-gradient-to-b from-brand-soft/70 to-slate-50 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 book-perspective relative overflow-hidden">
+          <div className="relative w-40 sm:w-44 aspect-[3/4] select-none">
+            {/* Realistic Page Stack Behind Cover */}
+            <div className="book-pages-stack rounded-r-lg rounded-l-xs border-r border-b border-slate-300/80" />
+
+            {/* Book Front Cover with Spine and Gloss Sheen */}
+            <div className="book-card-3d relative w-full h-full rounded-r-lg rounded-l-xs overflow-hidden bg-white border border-slate-300/70 shadow-md">
+              <div className="book-sheen" />
+              <img
+                src={book.image}
+                alt={book.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/academy/logo.png';
+                  e.currentTarget.className = 'w-full h-full object-contain p-4';
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -63,21 +70,29 @@ export default function BookCard({ book, layout = 'vertical' }) {
 
   // Vertical layout - Ideal for 3-card grid on Homepage
   return (
-    <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-brand transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
+    <div className="bg-white rounded-3xl border border-slate-200 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-xl hover:shadow-brand-primary/10 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
       <div>
         {/* Book Cover Container */}
-        <div className="h-64 sm:h-72 bg-gradient-to-b from-brand-soft/70 via-brand-soft/30 to-slate-50 p-6 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-200/20 rounded-full blur-xl pointer-events-none" />
-          <div className="relative h-full aspect-[3/4] rounded-xl shadow-md group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300 overflow-hidden bg-white border border-slate-200/60">
-            <img
-              src={book.image}
-              alt={book.title}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = '/assets/academy/logo.png';
-                e.currentTarget.className = 'w-full h-full object-contain p-4';
-              }}
-            />
+        <div className="h-64 sm:h-72 bg-gradient-to-b from-brand-soft/70 via-brand-soft/30 to-slate-50 p-6 flex items-center justify-center border-b border-slate-100 relative overflow-hidden book-perspective">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700" />
+          
+          <div className="relative h-full aspect-[3/4] select-none">
+            {/* Realistic Page Stack Behind Cover */}
+            <div className="book-pages-stack rounded-r-lg rounded-l-xs border-r border-b border-slate-300/80" />
+
+            {/* Book Front Cover with Spine and Gloss Sheen */}
+            <div className="book-card-3d relative w-full h-full rounded-r-lg rounded-l-xs overflow-hidden bg-white border border-slate-300/70 shadow-md">
+              <div className="book-sheen" />
+              <img
+                src={book.image}
+                alt={book.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/academy/logo.png';
+                  e.currentTarget.className = 'w-full h-full object-contain p-4';
+                }}
+              />
+            </div>
           </div>
         </div>
 
