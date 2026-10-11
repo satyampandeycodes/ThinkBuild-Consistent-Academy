@@ -122,19 +122,19 @@ export default function Home() {
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
       {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background */}
-      <section className="relative overflow-hidden pt-12 sm:pt-20 pb-16 lg:pb-24 bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
+      <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 min-h-[calc(100vh-4.5rem)] flex flex-col justify-center bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
         {/* Continuous Moving Triangular Background (Matching Logo Color) */}
         <HeroTriangularBackground />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 text-center my-auto">
           {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white border border-brand-border text-brand-primary shadow-xs mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-white border border-brand-border text-brand-primary shadow-xs mb-3 sm:mb-4">
             <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
             <span>19+ Years Mentorship Legacy • Pune, Maharashtra</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-extrabold text-slate-900 tracking-tight leading-[1.12] max-w-4xl mx-auto mb-3 sm:mb-4">
             Achieve Your Global Dreams with{' '}
             <span className="bg-gradient-to-r from-brand-primary to-brand-dark bg-clip-text text-transparent">
               Consistent English Mastery
@@ -142,46 +142,46 @@ export default function Home() {
           </h1>
 
           {/* Value proposition subtext */}
-          <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-4 sm:mb-5">
             Targeted IELTS, TOEFL, PTE & CELPIP coaching and Corporate Communication by Author <strong className="text-slate-900 font-semibold">Vidya Wankhade</strong> with over 19 years of verified teaching excellence.
           </p>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Button to="/courses" variant="primary" size="lg" icon={ArrowRight} iconPosition="right" className="w-full sm:w-auto shadow-brand-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-3 sm:mb-4">
+            <Button to="/courses" variant="primary" size="md" icon={ArrowRight} iconPosition="right" className="w-full sm:w-auto shadow-brand">
               Explore Programmes
             </Button>
-            <Button to="/contact" variant="secondary" size="lg" className="w-full sm:w-auto">
+            <Button to="/contact" variant="secondary" size="md" className="w-full sm:w-auto">
               Talk to Counselor
             </Button>
             <a
               href={`tel:${academyInfo.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-200 hover:border-brand-primary bg-white text-slate-700 hover:text-brand-primary text-sm font-semibold transition-all shadow-xs w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 hover:border-brand-primary bg-white text-slate-700 hover:text-brand-primary text-xs sm:text-sm font-semibold transition-all shadow-xs w-full sm:w-auto"
             >
-              <Phone className="w-4 h-4 text-brand-primary" />
+              <Phone className="w-3.5 h-3.5 text-brand-primary" />
               <span>Call: {academyInfo.phone}</span>
             </a>
           </div>
 
           {/* Verified Student Score Strip */}
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-600 mb-14">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs text-slate-600 mb-4 sm:mb-5">
             <span className="flex items-center gap-1 font-semibold text-slate-800">
-              <Award className="w-4 h-4 text-brand-primary" />
+              <Award className="w-3.5 h-3.5 text-brand-primary" />
               Verified Results:
             </span>
-            <span className="bg-white px-3 py-1 rounded-full border border-slate-200 font-medium">
+            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
               Ninoshka: IELTS Band 7.5 (Canada)
             </span>
-            <span className="bg-white px-3 py-1 rounded-full border border-slate-200 font-medium">
+            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
               Sucharita: Band 7.0 (Global Admissions)
             </span>
-            <span className="bg-white px-3 py-1 rounded-full border border-slate-200 font-medium">
+            <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-medium">
               Deepak S.: Band 6.5 (Australia)
             </span>
           </div>
 
           {/* Concept 2 Signature Trust Bar */}
-          <TrustBar className="mt-4" />
+          <TrustBar className="mt-1" />
         </div>
       </section>
 

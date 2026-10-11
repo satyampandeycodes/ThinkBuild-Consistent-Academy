@@ -35,46 +35,21 @@ export default function Header() {
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200' : 'bg-white border-b border-slate-100'
     }`}>
-      {/* Top micro bar for direct contact */}
-      <div className="bg-brand-dark text-white text-xs py-2 px-4 sm:px-8 border-b border-brand-900">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <a href={`tel:${academyInfo.phoneRaw}`} className="flex items-center gap-1.5 hover:text-brand-300 transition-colors">
-              <Phone className="w-3.5 h-3.5 text-brand-300" />
-              <span>{academyInfo.phone}</span>
-            </a>
-            <a href={`mailto:${academyInfo.email}`} className="hidden sm:flex items-center gap-1.5 hover:text-brand-300 transition-colors">
-              <Mail className="w-3.5 h-3.5 text-brand-300" />
-              <span>{academyInfo.email}</span>
-            </a>
-          </div>
-          <div className="flex items-center gap-4 text-brand-200">
-            <span>Pune, Maharashtra</span>
-            <span className="hidden md:inline">• 19+ Years Mentorship Legacy</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo & Brand Name */}
           <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-sm group-hover:scale-105 transition-transform">
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-sm group-hover:scale-105 transition-transform">
               <img
                 src={academyInfo.logo}
                 alt={academyInfo.name}
                 className="w-full h-full object-contain rounded-full"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base sm:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors">
-                The Consistent Academy
-              </span>
-              <span className="text-[11px] sm:text-xs text-brand-primary font-medium tracking-wide">
-                IELTS & English Learning • Pune
-              </span>
-            </div>
+            <span className="font-extrabold text-base sm:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors">
+              The Consistent Academy
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
