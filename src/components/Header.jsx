@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, Mail, Menu, X, ChevronRight, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, Menu, X, ChevronRight } from 'lucide-react';
 import { academyInfo } from '../data/academyData';
 import Button from './Button';
 
@@ -71,42 +71,8 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Quick Social Connect & CTA Actions */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            {/* Quick Social Icons */}
-            <div className="hidden xl:flex items-center gap-1 pr-2.5 border-r border-slate-200">
-              <a
-                href="https://www.instagram.com/the_consistent_academy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                title="Follow on Instagram"
-                className="w-8 h-8 rounded-lg text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-all flex items-center justify-center cursor-pointer"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://wa.me/917709109830?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20courses%20at%20The%20Consistent%20Academy"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                title="Chat on WhatsApp"
-                className="w-8 h-8 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all flex items-center justify-center cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/the-consistent-academy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                title="Connect on LinkedIn"
-                className="w-8 h-8 rounded-lg text-slate-500 hover:text-sky-600 hover:bg-sky-50 transition-all flex items-center justify-center cursor-pointer"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            </div>
-
+          {/* CTA Action */}
+          <div className="hidden sm:flex items-center">
             <Button to="/courses" variant="primary" size="md">
               Enroll Now
             </Button>

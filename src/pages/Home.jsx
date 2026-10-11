@@ -155,15 +155,8 @@ export default function Home() {
                   Explore Programmes
                 </Button>
                 <Button to="/contact" variant="secondary" size="md" className="w-full sm:w-auto">
-                  Talk to Counselor
+                  Contact
                 </Button>
-                <a
-                  href={`tel:${academyInfo.phoneRaw}`}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 hover:border-brand-primary bg-white/90 backdrop-blur-xs text-slate-700 hover:text-brand-primary text-xs sm:text-sm font-semibold transition-all shadow-xs w-full sm:w-auto"
-                >
-                  <Phone className="w-3.5 h-3.5 text-brand-primary" />
-                  <span>Call: {academyInfo.phone}</span>
-                </a>
               </div>
 
               {/* Trust highlights */}
