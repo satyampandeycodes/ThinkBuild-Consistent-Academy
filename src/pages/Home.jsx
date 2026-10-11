@@ -16,16 +16,18 @@ export default function Home() {
   const [galleryFilter, setGalleryFilter] = useState('all');
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const [galleryViewMode, setGalleryViewMode] = useState('grid'); // 'grid' | 'reel'
+  const [galleryDisplayMode, setGalleryDisplayMode] = useState('spotlight'); // 'spotlight' | 'grid'
+  const [activeSpotlightIndex, setActiveSpotlightIndex] = useState(0);
+  const [isGalleryAutoPlaying, setIsGalleryAutoPlaying] = useState(true);
 
   // Books layout toggle: 'vertical' | 'horizontal'
   const [booksLayout, setBooksLayout] = useState('vertical');
 
-  // Testimonials interactive slider state
+  // Testimonials interactive slider state (Live stream default as requested)
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isTestimonialAutoPlaying, setIsTestimonialAutoPlaying] = useState(true);
   const [testimonialFilter, setTestimonialFilter] = useState('all');
-  const [testimonialViewMode, setTestimonialViewMode] = useState('carousel'); // 'carousel' | 'stream' | 'grid'
+  const [testimonialViewMode, setTestimonialViewMode] = useState('stream'); // default to 'stream'
   const [cardsPerView, setCardsPerView] = useState(3);
 
   // Responsive cards per view
@@ -78,6 +80,26 @@ export default function Home() {
   };
 
   const currentLightboxImage = lightboxIndex !== null ? filteredGalleryImages[lightboxIndex] : null;
+
+  // Active moment for the Cinematic Spotlight stage
+  const currentSpotlight = filteredGalleryImages[activeSpotlightIndex] || filteredGalleryImages[0];
+
+  const nextSpotlight = () => {
+    setActiveSpotlightIndex((prev) => (prev + 1) % filteredGalleryImages.length);
+  };
+
+  const prevSpotlight = () => {
+    setActiveSpotlightIndex((prev) => (prev - 1 + filteredGalleryImages.length) % filteredGalleryImages.length);
+  };
+
+  // Auto-play interval for Gallery Spotlight stage
+  useEffect(() => {
+    if (!isGalleryAutoPlaying || galleryDisplayMode !== 'spotlight' || filteredGalleryImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveSpotlightIndex((prev) => (prev + 1) % filteredGalleryImages.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isGalleryAutoPlaying, filteredGalleryImages.length, galleryDisplayMode]);
 
   // Filtered testimonials
   const filteredTestimonials = testimonialFilter === 'all'
@@ -314,7 +336,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* LEARNING IN ACTION GALLERY SECTION */}
+      {/* LEARNING IN ACTION GALLERY SECTION - Cinematic Interactive Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
           <SectionHeading
@@ -325,113 +347,249 @@ export default function Home() {
             className="mb-0"
           />
 
-          {/* Controls Bar: View Mode Switcher */}
+          {/* View Mode Switcher: Cinematic Spotlight Stage vs All Moments Grid */}
           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl border border-slate-200 self-start lg:self-auto shrink-0">
             <button
-              onClick={() => setGalleryViewMode('grid')}
+              onClick={() => setGalleryDisplayMode('spotlight')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                galleryViewMode === 'grid'
+                galleryDisplayMode === 'spotlight'
                   ? 'bg-brand-primary text-white shadow-xs'
                   : 'text-slate-600 hover:text-brand-primary'
               }`}
-              title="Interactive Photo Grid"
+              title="Cinematic Interactive Stage"
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Interactive Grid</span>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Cinematic Stage</span>
             </button>
             <button
-              onClick={() => setGalleryViewMode('reel')}
+              onClick={() => setGalleryDisplayMode('grid')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                galleryViewMode === 'reel'
+                galleryDisplayMode === 'grid'
                   ? 'bg-brand-primary text-white shadow-xs'
                   : 'text-slate-600 hover:text-brand-primary'
               }`}
-              title="Continuous Flowing Live Reel"
+              title="View All Moments in Grid"
             >
-              <Film className="w-3.5 h-3.5" />
-              <span>Live Motion Reel</span>
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Grid View ({filteredGalleryImages.length})</span>
             </button>
           </div>
         </div>
 
-        {/* Filter Pills with Real Counts (in Grid Mode) */}
-        {galleryViewMode === 'grid' && (
-          <div className="flex items-center gap-2 overflow-x-auto pb-6 max-w-full">
-            {[
-              { id: 'all', label: 'All Moments', count: 22 },
-              { id: 'classroom', label: 'Classroom Mentorship', count: 6 },
-              { id: 'speaking', label: 'Speaking & Workshops', count: 7 },
-              { id: 'young', label: 'Young Learners', count: 5 },
-              { id: 'milestones', label: 'Milestones & Events', count: 4 }
-            ].map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setGalleryFilter(cat.id);
-                  setShowAllGallery(false);
-                }}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  galleryFilter === cat.id
-                    ? 'bg-brand-primary text-white shadow-brand shadow-xs'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary hover:text-brand-primary'
+        {/* Category Filter Pills with Live Item Counts */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-6 max-w-full">
+          {[
+            { id: 'all', label: 'All Moments', count: 22 },
+            { id: 'classroom', label: 'Classroom Mentorship', count: 6 },
+            { id: 'speaking', label: 'Speaking & Workshops', count: 7 },
+            { id: 'young', label: 'Young Learners', count: 5 },
+            { id: 'milestones', label: 'Milestones & Events', count: 4 }
+          ].map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setGalleryFilter(cat.id);
+                setActiveSpotlightIndex(0);
+                setShowAllGallery(false);
+              }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                galleryFilter === cat.id
+                  ? 'bg-brand-primary text-white shadow-brand shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary hover:text-brand-primary'
+              }`}
+            >
+              <span>{cat.label}</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                  galleryFilter === cat.id ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
                 }`}
               >
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
-                    galleryFilter === cat.id ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
-                  }`}
-                >
-                  {cat.count}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
+                {cat.count}
+              </span>
+            </button>
+          ))}
+        </div>
 
-        {/* 1. INTERACTIVE SHIMMER MOSAIC GRID VIEW */}
-        {galleryViewMode === 'grid' ? (
+        {/* 1. CINEMATIC INTERACTIVE STAGE (SPOTLIGHT & FILMSTRIP SELECTOR) */}
+        {galleryDisplayMode === 'spotlight' ? (
+          <div
+            className="space-y-6"
+            onMouseEnter={() => setIsGalleryAutoPlaying(false)}
+            onMouseLeave={() => setIsGalleryAutoPlaying(true)}
+          >
+            {/* The Main Stage Card */}
+            <div className="relative group rounded-3xl overflow-hidden bg-slate-950 border border-slate-200/80 shadow-2xl">
+              {/* Atmospheric Backlight Glow */}
+              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-primary/20 via-purple-500/10 to-indigo-500/20 blur-xl opacity-60 pointer-events-none" />
+
+              {/* Spotlight Image Container */}
+              <div className="relative h-80 sm:h-[460px] lg:h-[520px] w-full overflow-hidden flex items-center justify-center bg-slate-900">
+                <img
+                  key={currentSpotlight?.id}
+                  src={currentSpotlight?.src}
+                  alt={currentSpotlight?.title}
+                  className="w-full h-full object-cover transition-all duration-700 animate-in fade-in zoom-in-95"
+                  onError={(e) => {
+                    e.currentTarget.src = '/assets/academy/courses/img1.png';
+                  }}
+                />
+
+                {/* Subtle top & bottom vignette so text and badges are razor-sharp */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/40 pointer-events-none" />
+
+                {/* Top header bar */}
+                <div className="absolute top-4 sm:top-6 inset-x-4 sm:inset-x-6 flex items-center justify-between z-10">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/90 backdrop-blur-md text-brand-dark border border-white/50 shadow-sm">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>{currentSpotlight?.category}</span>
+                    </span>
+                    <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-900/60 backdrop-blur-md text-white/90 border border-white/10">
+                      <Camera className="w-3.5 h-3.5 text-brand-300" />
+                      <span>The Consistent Academy</span>
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold text-white bg-slate-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                      {String(activeSpotlightIndex + 1).padStart(2, '0')} / {String(filteredGalleryImages.length).padStart(2, '0')}
+                    </span>
+                    <button
+                      onClick={() => openLightbox(currentSpotlight)}
+                      className="p-2 sm:px-3.5 sm:py-1.5 rounded-full bg-white/90 hover:bg-white text-slate-900 text-xs font-bold transition-all flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                      title="Open Fullscreen Lightbox"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5 text-brand-primary" />
+                      <span className="hidden sm:inline">Fullscreen</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bottom caption & navigation controls */}
+                <div className="absolute bottom-4 sm:bottom-6 inset-x-4 sm:inset-x-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-10">
+                  <div className="space-y-1.5 max-w-xl">
+                    <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-300 block">
+                      Authentic Academy Moments
+                    </span>
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight drop-shadow-md">
+                      {currentSpotlight?.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed drop-shadow-sm">
+                      Real classroom mentorship, debate sessions, and milestone celebrations at Pune Center.
+                    </p>
+                  </div>
+
+                  {/* Previous / Next Stage Arrows */}
+                  <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                    <button
+                      onClick={prevSpotlight}
+                      className="p-3 rounded-full bg-white/15 hover:bg-white/90 text-white hover:text-slate-900 backdrop-blur-md border border-white/20 transition-all shadow-md active:scale-95 cursor-pointer"
+                      aria-label="Previous moment"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={nextSpotlight}
+                      className="p-3 rounded-full bg-white/15 hover:bg-white/90 text-white hover:text-slate-900 backdrop-blur-md border border-white/20 transition-all shadow-md active:scale-95 cursor-pointer"
+                      aria-label="Next moment"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress bar along the bottom of the stage */}
+              <div className="w-full bg-slate-800/80 h-1 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-brand-primary via-purple-400 to-indigo-400 transition-all duration-500"
+                  style={{
+                    width: `${((activeSpotlightIndex + 1) / filteredGalleryImages.length) * 100}%`
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Interactive Filmstrip Thumbnails Selector */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+                <span className="font-semibold flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-primary" />
+                  <span>Click any moment to spotlight:</span>
+                </span>
+                <span>{isGalleryAutoPlaying ? 'Auto-advancing • Hover stage to pause' : 'Paused on hover'}</span>
+              </div>
+
+              {/* Horizontal scrollable filmstrip */}
+              <div className="flex gap-3 overflow-x-auto pb-3 pt-1 px-1">
+                {filteredGalleryImages.map((img, idx) => {
+                  const isActive = idx === activeSpotlightIndex;
+                  return (
+                    <button
+                      key={img.id}
+                      onClick={() => setActiveSpotlightIndex(idx)}
+                      className={`relative w-28 sm:w-36 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 transition-all duration-300 group text-left cursor-pointer ${
+                        isActive
+                          ? 'ring-4 ring-brand-primary ring-offset-2 scale-105 shadow-brand'
+                          : 'opacity-70 hover:opacity-100 hover:scale-102 border border-slate-200'
+                      }`}
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = '/assets/academy/courses/img1.png';
+                        }}
+                      />
+                      <div className={`absolute inset-0 transition-opacity ${isActive ? 'bg-transparent' : 'bg-slate-950/20 group-hover:bg-transparent'}`} />
+                      <div className="absolute bottom-1 inset-x-1.5 px-1.5 py-0.5 rounded-lg bg-slate-950/80 backdrop-blur-sm">
+                        <p className="text-[10px] font-semibold text-white truncate">
+                          {img.title}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* 2. CLEAN FRAMED GRID (PHOTOS FULLY VISIBLE, CAPTIONS BELOW) */
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-in fade-in duration-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
               {displayedGalleryImages.map((img) => (
                 <div
                   key={img.id}
                   onClick={() => openLightbox(img)}
-                  className="group relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm hover:shadow-2xl hover:shadow-brand-primary/20 hover:-translate-y-2 transition-all duration-500 cursor-pointer aspect-[4/3] shimmer-card"
+                  className="bg-white rounded-3xl border border-slate-200 p-4 shadow-sm hover:shadow-brand hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between group"
                 >
-                  {/* Photo with smooth zoom */}
-                  <img
-                    src={img.src}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                    onError={(e) => {
-                      e.currentTarget.src = '/assets/academy/courses/img1.png';
-                    }}
-                  />
-
-                  {/* Top floating glassy badges */}
-                  <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between z-10 pointer-events-none">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-950/70 backdrop-blur-md text-white border border-white/20 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
-                      <span>{img.category}</span>
-                    </span>
-
-                    <div className="w-8 h-8 rounded-full bg-slate-950/70 backdrop-blur-md text-white border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-md">
-                      <Maximize2 className="w-3.5 h-3.5 text-white" />
+                  <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-slate-100 mb-4">
+                    <img
+                      src={img.src}
+                      alt={img.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.src = '/assets/academy/courses/img1.png';
+                      }}
+                    />
+                    <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm text-slate-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                      <Maximize2 className="w-3.5 h-3.5 text-brand-primary" />
                     </div>
                   </div>
 
-                  {/* Bottom reveal overlay with glowing accent bar */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5 z-10 pointer-events-none">
-                    <span className="text-[10px] font-extrabold text-brand-300 uppercase tracking-widest mb-1 flex items-center gap-1">
-                      <Camera className="w-3 h-3 text-brand-400" />
-                      <span>The Consistent Academy • Pune</span>
+                  <div className="flex items-center justify-between pt-1">
+                    <div>
+                      <span className="text-[10px] font-bold text-brand-primary uppercase tracking-wider block mb-1">
+                        {img.category}
+                      </span>
+                      <h4 className="font-bold text-slate-900 text-sm group-hover:text-brand-primary transition-colors">
+                        {img.title}
+                      </h4>
+                    </div>
+                    <span className="text-[11px] text-slate-400 font-medium shrink-0 ml-2">
+                      Pune Center
                     </span>
-                    <h4 className="text-white text-sm sm:text-base font-bold leading-snug drop-shadow-sm flex items-center justify-between">
-                      <span>{img.title}</span>
-                    </h4>
-                    {/* Glowing bottom accent line */}
-                    <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-brand-primary via-purple-400 to-indigo-400 transition-all duration-500 mt-2.5 rounded-full" />
                   </div>
                 </div>
               ))}
@@ -439,10 +597,10 @@ export default function Home() {
 
             {/* Show More / Show Less Toggle Button */}
             {filteredGalleryImages.length > 8 && (
-              <div className="text-center pt-10">
+              <div className="text-center pt-8">
                 <button
                   onClick={() => setShowAllGallery(!showAllGallery)}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl border border-slate-300 bg-white hover:border-brand-primary hover:text-brand-primary text-xs font-bold text-slate-700 transition-all shadow-sm hover:shadow-brand hover:-translate-y-0.5 active:scale-95"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl border border-slate-300 bg-white hover:border-brand-primary hover:text-brand-primary text-xs font-bold text-slate-700 transition-all shadow-sm hover:shadow-brand hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4 text-brand-primary" />
                   <span>{showAllGallery ? 'Show Fewer Moments' : `Explore All ${filteredGalleryImages.length} Moments`}</span>
@@ -451,76 +609,6 @@ export default function Home() {
               </div>
             )}
           </>
-        ) : (
-          /* 2. DUAL-TRACK CONTINUOUS LIVE FLOWING FILMSTRIP */
-          <div className="relative overflow-hidden py-4 space-y-6">
-            {/* Left and Right Gradient Fade Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#F8FAFC] to-transparent z-20 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#F8FAFC] to-transparent z-20 pointer-events-none" />
-
-            {/* Track 1: Flowing Left */}
-            <div className="animate-marquee gap-6">
-              {[...galleryImages.slice(0, 11), ...galleryImages.slice(0, 11)].map((img, idx) => (
-                <div
-                  key={`track1-${img.id}-${idx}`}
-                  onClick={() => openLightbox(img)}
-                  className="w-72 sm:w-80 aspect-[4/3] rounded-3xl overflow-hidden shrink-0 group relative cursor-pointer shimmer-card border-2 border-slate-200/80 hover:border-brand-primary shadow-md hover:shadow-2xl transition-all duration-500"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      e.currentTarget.src = '/assets/academy/courses/img1.png';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-4">
-                    <span className="text-[10px] font-bold text-brand-300 uppercase tracking-wider mb-0.5">
-                      {img.category}
-                    </span>
-                    <p className="text-white text-xs font-bold leading-tight flex items-center justify-between">
-                      <span>{img.title}</span>
-                      <Maximize2 className="w-3.5 h-3.5 text-white/80 shrink-0 ml-2 group-hover:scale-110 transition-transform" />
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Track 2: Flowing Right (Reverse) */}
-            <div className="animate-marquee-reverse gap-6">
-              {[...galleryImages.slice(11), ...galleryImages.slice(11)].map((img, idx) => (
-                <div
-                  key={`track2-${img.id}-${idx}`}
-                  onClick={() => openLightbox(img)}
-                  className="w-72 sm:w-80 aspect-[4/3] rounded-3xl overflow-hidden shrink-0 group relative cursor-pointer shimmer-card border-2 border-slate-200/80 hover:border-brand-primary shadow-md hover:shadow-2xl transition-all duration-500"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      e.currentTarget.src = '/assets/academy/courses/img1.png';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-4">
-                    <span className="text-[10px] font-bold text-brand-300 uppercase tracking-wider mb-0.5">
-                      {img.category}
-                    </span>
-                    <p className="text-white text-xs font-bold leading-tight flex items-center justify-between">
-                      <span>{img.title}</span>
-                      <Maximize2 className="w-3.5 h-3.5 text-white/80 shrink-0 ml-2 group-hover:scale-110 transition-transform" />
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center text-xs text-slate-500 pt-4 flex items-center justify-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Continuous Live Motion Reel • Hover over any photo to pause • Click to expand full size</span>
-            </p>
-          </div>
         )}
       </section>
 
