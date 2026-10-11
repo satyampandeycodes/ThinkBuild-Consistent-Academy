@@ -72,32 +72,51 @@ export default function Courses() {
             subtitle="Engaging foundations in elocution, public speaking, grammar, and literature appreciation."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {kidsCourses.map((kid) => (
-              <div key={kid.id} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-brand transition-all flex flex-col justify-between">
+              <div
+                key={kid.id}
+                className="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-brand transition-all flex flex-col justify-between"
+              >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-bold text-brand-primary bg-brand-soft px-3 py-1 rounded-full border border-brand-border/60">
+                  {/* Kids Course Image Banner */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                    <img
+                      src={kid.image}
+                      alt={kid.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.src = '/assets/academy/courses/img1.png';
+                      }}
+                    />
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-brand-primary text-xs font-bold px-3 py-1 rounded-full border border-brand-border/60 shadow-xs">
                       {kid.target}
-                    </span>
-                    <Sparkles className="w-4 h-4 text-star-amber" />
+                    </div>
+                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs p-1.5 rounded-full shadow-xs">
+                      <Sparkles className="w-4 h-4 text-star-amber" />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {kid.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-6">
-                    {kid.desc}
-                  </p>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-primary transition-colors">
+                      {kid.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      {kid.desc}
+                    </p>
+                  </div>
                 </div>
 
-                <Button
-                  to={`/contact?course=${encodeURIComponent(`Kids: ${kid.title}`)}`}
-                  variant="secondary"
-                  size="sm"
-                  className="w-full text-xs"
-                >
-                  Enquire for Kid's Batch
-                </Button>
+                <div className="p-6 pt-0">
+                  <Button
+                    to={`/contact?course=${encodeURIComponent(`Kids: ${kid.title}`)}`}
+                    variant="secondary"
+                    size="sm"
+                    className="w-full"
+                  >
+                    Enquire for Kid's Batch
+                  </Button>
+                </div>
               </div>
             ))}
           </div>

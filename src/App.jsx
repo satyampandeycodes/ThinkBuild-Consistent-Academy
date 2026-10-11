@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
+import Tests from './pages/Tests';
+import Blog from './pages/Blog';
 import About from './pages/About';
 import Books from './pages/Books';
 import Testimonials from './pages/Testimonials';
@@ -31,6 +33,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/tests" element={<Tests />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/about" element={<About />} />
             <Route path="/books" element={<Books />} />
             <Route path="/testimonials" element={<Testimonials />} />

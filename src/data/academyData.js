@@ -10,7 +10,8 @@ export const academyInfo = {
   logoAlt: "/assets/academy/logo_alt.png",
   socials: [
     { label: "Instagram", href: "https://www.instagram.com/the_consistent_academy/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/company/the-consistent-academy/" }
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/the-consistent-academy/" },
+    { label: "WhatsApp", href: "https://chat.whatsapp.com/Kw2YbntkWMqG66MVI9xSJq?mode=ac_t" }
   ],
   thinkbuild: {
     name: "ThinkBuild",
@@ -227,31 +228,159 @@ export const kidsCourses = [
     id: "kids-elocution",
     title: "Elocution Course",
     target: "Kids (Ages 7–14)",
+    image: "/assets/academy/courses/img8.png",
     desc: "Focus on speech clarity, diction, tone modulation, and poem/prose recitation."
   },
   {
     id: "kids-public-speaking",
     title: "Public Speaking",
     target: "Kids (Ages 8–15)",
+    image: "/assets/academy/courses/img9.png",
     desc: "Stage fear elimination, speech organization, audience engagement, and confident delivery."
   },
   {
     id: "kids-grammar-foundations",
     title: "Grammar Foundations",
     target: "Kids (Ages 6–13)",
+    image: "/assets/academy/courses/img10.png",
     desc: "Intuitive, interactive grammar mastery through fun games, stories, and application."
   },
   {
     id: "kids-creative-writing",
     title: "Creative Writing",
     target: "Kids (Ages 8–15)",
+    image: "/assets/academy/courses/img11.png",
     desc: "Developing imagination, narrative storytelling, character arcs, and descriptive vocabulary."
   },
   {
     id: "kids-reading-club",
     title: "Reading Club",
     target: "Kids (Ages 6–14)",
+    image: "/assets/academy/courses/img12.png",
     desc: "Cultivating lifelong reading habits, comprehension skills, and vocabulary based on 'The Reading Detective'."
+  }
+];
+
+export const galleryImages = [
+  { id: 1, src: '/assets/academy/gallery/v1.png', title: 'Interactive Group Discussions', category: 'classroom' },
+  { id: 2, src: '/assets/academy/gallery/v2.png', title: 'Classroom Mentorship Session', category: 'classroom' },
+  { id: 3, src: '/assets/academy/gallery/v3.png', title: 'Speech & Presentation Training', category: 'speaking' },
+  { id: 4, src: '/assets/academy/gallery/v4.png', title: 'Student Confidence Building', category: 'speaking' },
+  { id: 5, src: '/assets/academy/gallery/v5.png', title: 'Active Listening & Debate', category: 'speaking' },
+  { id: 6, src: '/assets/academy/gallery/v6.png', title: 'IELTS Practice & Evaluation', category: 'classroom' },
+  { id: 7, src: '/assets/academy/gallery/v7.jpeg', title: 'Young Learners in Action', category: 'young' },
+  { id: 8, src: '/assets/academy/gallery/v8.jpeg', title: 'Group Activity & Exercises', category: 'young' },
+  { id: 9, src: '/assets/academy/gallery/v9.jpeg', title: 'Reading Club Engagement', category: 'young' },
+  { id: 10, src: '/assets/academy/gallery/v10.jpeg', title: 'Creative Writing Workshop', category: 'young' },
+  { id: 11, src: '/assets/academy/gallery/v11.jpeg', title: 'Public Speaking Practice', category: 'speaking' },
+  { id: 12, src: '/assets/academy/gallery/v12.jpeg', title: 'Corporate Communication Prep', category: 'speaking' },
+  { id: 13, src: '/assets/academy/gallery/v13.jpeg', title: 'Classroom Interaction', category: 'classroom' },
+  { id: 14, src: '/assets/academy/gallery/v14.jpeg', title: 'Peer Collaboration Activity', category: 'milestones' },
+  { id: 15, src: '/assets/academy/gallery/v15.jpeg', title: 'Student Milestone Celebration', category: 'milestones' },
+  { id: 16, src: '/assets/academy/gallery/v16.jpeg', title: 'Faculty & Student Mentorship', category: 'classroom' },
+  { id: 17, src: '/assets/academy/gallery/v17.jpeg', title: 'Speaking Skills Practice', category: 'speaking' },
+  { id: 18, src: '/assets/academy/gallery/v18.jpeg', title: 'Interactive Learning', category: 'classroom' },
+  { id: 19, src: '/assets/academy/gallery/v19.jpeg', title: 'Language Games & Vocabulary', category: 'young' },
+  { id: 20, src: '/assets/academy/gallery/v20.jpeg', title: 'Elocution Coaching', category: 'speaking' },
+  { id: 21, src: '/assets/academy/gallery/v21.jpeg', title: 'Mock Interview Simulation', category: 'speaking' },
+  { id: 22, src: '/assets/academy/gallery/v22.jpeg', title: 'Graduation & Achievement Day', category: 'milestones' }
+];
+
+export const testsData = [
+  {
+    id: 'kids',
+    title: 'Kids Test',
+    ageGroup: 'Age 5–17 Years',
+    badgeColor: 'bg-blue-500',
+    questionsCount: 25,
+    features: [
+      '25 Questions covering basic grammar concepts',
+      'Fill in the blanks, analogies, synonyms, and more',
+      'Age-appropriate difficulty level'
+    ]
+  },
+  {
+    id: 'adults',
+    title: 'Adults Test',
+    ageGroup: 'Advanced Learners',
+    badgeColor: 'bg-purple-500',
+    questionsCount: 28,
+    features: [
+      '28 Questions covering advanced grammar',
+      'Idioms, analogies, vocabulary, and sentence improvement',
+      'Professional-level difficulty'
+    ]
+  },
+  {
+    id: 'leadership',
+    title: 'Leadership Style Assessment',
+    ageGroup: 'Managers & Aspiring Leaders',
+    badgeColor: 'bg-amber-500',
+    questionsCount: 60,
+    features: [
+      '60 Questions across 6 leadership dimensions',
+      'Discover your dominant leadership style',
+      'Psychometric self-assessment'
+    ]
+  }
+];
+
+export const sampleBlogPosts = [
+  {
+    id: 'how-to-crack-ielts-first-attempt',
+    title: 'How to Clear IELTS on Your First Attempt: A Master Trainer’s Blueprint',
+    author: 'Vidya Wankhade',
+    date: '2026-09-15',
+    category: 'IELTS Prep',
+    coverImage: '/assets/academy/books/cakewalk-ielts.jpg',
+    excerpt: 'Clearing IELTS with a Band 7.5+ requires disciplined consistency, realistic simulation practice, and avoiding common grammatical traps. Here is the exact methodology we use at The Consistent Academy.',
+    content: `
+      Achieving an overall Band 7.5 or 8.0 in IELTS does not come from cramming vocabulary lists at the eleventh hour. It comes from methodical consistency across all four modules: Listening, Reading, Writing, and Speaking.
+
+      ### 1. Active Listening and Accent Familiarity
+      Many students struggle when test audios switch between British, Australian, and North American accents. Practice with diverse international news channels and authentic Cambridge test materials.
+
+      ### 2. Time Management in Reading
+      Do not read every sentence word-for-word. Practice skimming for main themes and scanning for specific identifiers (names, dates, specialized terminology).
+
+      ### 3. Structured Writing (Task 1 & Task 2)
+      Band 7+ essays require coherent cohesion. Structure every argument with clear topic sentences, supported examples, and accurate punctuation.
+
+      ### 4. Natural Fluency in Speaking
+      Interviewers evaluate spontaneous fluency, not rehearsed robotic scripts. Speak in complete thoughts with varied sentence structures and clear pronunciation.
+    `
+  },
+  {
+    id: 'corporate-communication-etiquette',
+    title: 'Workplace Communication & Email Etiquette: 5 Rules for New Professionals',
+    author: 'The Consistent Academy',
+    date: '2026-08-28',
+    category: 'Corporate Skills',
+    coverImage: '/assets/academy/courses/img2.png',
+    excerpt: 'Mastering workplace emails, virtual meeting etiquette, and constructive disagreement is essential for early career acceleration and executive presence.',
+    content: `
+      In the modern corporate world, how you communicate determines how quickly you advance. Casual texting habits frequently bleed into formal workplace emails, leading to miscommunication.
+
+      ### Key Takeaways:
+      - Always craft clear, actionable email subject lines.
+      - Keep body paragraphs under three sentences each.
+      - Disagree constructively by acknowledging the other perspective first.
+      - Maintain professional etiquette across Slack, Teams, and WhatsApp.
+    `
+  },
+  {
+    id: 'nurturing-reading-habits-in-kids',
+    title: 'Nurturing Reading Comprehension in Young Learners through Story Mysteries',
+    author: 'Vidya Wankhade',
+    date: '2026-08-10',
+    category: 'Young Learners',
+    coverImage: '/assets/academy/books/the-reading-detective.jpg',
+    excerpt: 'Reading should never feel like a chore. By framing reading comprehension as detective mysteries, children naturally build analytical thinking and expansive vocabulary.',
+    content: `
+      When children view reading as an active mystery to solve rather than a test to memorize, their retention and literary curiosity skyrocket. 
+
+      In 'The Reading Detective', we encourage children to question character motives, look for clues in context, and infer underlying meanings. This forms the bedrock of critical thinking that pays dividends throughout academic life.
+    `
   }
 ];
 

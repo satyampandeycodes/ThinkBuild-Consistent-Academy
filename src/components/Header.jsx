@@ -25,6 +25,8 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Courses', path: '/courses' },
+    { name: 'Tests', path: '/tests' },
+    { name: 'Blog', path: '/blog' },
     { name: 'About Founder', path: '/about' },
     { name: 'Books', path: '/books' },
     { name: 'Testimonials', path: '/testimonials' },
@@ -59,8 +61,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-sm group-hover:scale-105 transition-transform">
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-sm group-hover:scale-105 transition-transform">
               <img
                 src={academyInfo.logo}
                 alt={academyInfo.name}
@@ -68,26 +70,26 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-lg sm:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors">
+              <span className="font-extrabold text-base sm:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors">
                 The Consistent Academy
               </span>
-              <span className="text-xs text-brand-primary font-medium tracking-wide">
+              <span className="text-[11px] sm:text-xs text-brand-primary font-medium tracking-wide">
                 IELTS & English Learning • Pune
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  className={`px-2.5 xl:px-3.5 py-2 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap ${
                     isActive
-                      ? 'text-brand-primary bg-brand-soft'
+                      ? 'text-brand-primary bg-brand-soft font-bold'
                       : 'text-slate-700 hover:text-brand-primary hover:bg-slate-50'
                   }`}
                 >

@@ -1,0 +1,517 @@
+import React, { useState } from 'react';
+import { Sparkles, Brain, Award, CheckCircle2, ChevronRight, RotateCcw, MessageCircle, HelpCircle, ArrowLeft } from 'lucide-react';
+import { testsData, academyInfo } from '../data/academyData';
+import SectionHeading from '../components/SectionHeading';
+import Button from '../components/Button';
+
+// Comprehensive diagnostic questions for each test
+const questionsBank = {
+  kids: [
+    {
+      id: 1,
+      question: "Identify the correct verb to complete the sentence: 'The group of students _____ going to the science museum today.'",
+      options: ["is", "are", "were", "have"],
+      answer: 0,
+      explanation: "'The group' is a collective noun acting as a singular subject, so 'is' is correct."
+    },
+    {
+      id: 2,
+      question: "Analogy: BIRD is to NEST as BEE is to _____?",
+      options: ["Forest", "Hive", "Web", "Burrow"],
+      answer: 1,
+      explanation: "A bird lives in a nest, and a bee lives in a hive."
+    },
+    {
+      id: 3,
+      question: "Choose the synonym for 'GIGANTIC':",
+      options: ["Tiny", "Massive", "Fragile", "Swift"],
+      answer: 1,
+      explanation: "'Gigantic' means extremely large, identical in meaning to 'Massive'."
+    },
+    {
+      id: 4,
+      question: "Fill in the correct preposition: 'She has been studying here _____ 2022.'",
+      options: ["for", "since", "from", "at"],
+      answer: 1,
+      explanation: "'Since' is used to denote a specific starting point in time in the past."
+    },
+    {
+      id: 5,
+      question: "Which sentence has correct punctuation?",
+      options: [
+        "Lets go to the library, its open today.",
+        "Let's go to the library; it's open today.",
+        "Lets' go to the library it's open today.",
+        "Let's go to the library it open today."
+      ],
+      answer: 1,
+      explanation: "'Let's' has the contraction apostrophe, followed by a semicolon connecting two independent clauses."
+    }
+  ],
+  adults: [
+    {
+      id: 1,
+      question: "Identify the error in the sentence: 'Neither the manager nor the team members was present during the morning stand-up.'",
+      options: [
+        "Neither the manager",
+        "nor the team members",
+        "was present",
+        "during the morning stand-up"
+      ],
+      answer: 2,
+      explanation: "With 'Neither... nor...', the verb agrees with the closer subject ('team members' is plural, so it should be 'were present')."
+    },
+    {
+      id: 2,
+      question: "What is the meaning of the idiom 'To bite the bullet'?",
+      options: [
+        "To get into an argument",
+        "To face an inevitable grim situation with courage",
+        "To make a hasty financial decision",
+        "To waste time on trivia"
+      ],
+      answer: 1,
+      explanation: "'To bite the bullet' means to bravely endure a painful or unavoidable ordeal."
+    },
+    {
+      id: 3,
+      question: "Choose the word most opposite in meaning to 'METICULOUS':",
+      options: ["Diligent", "Scrupulous", "Careless", "Fastidious"],
+      answer: 2,
+      explanation: "'Meticulous' means extremely careful and precise. The antonym is 'Careless'."
+    },
+    {
+      id: 4,
+      question: "Choose the sentence with the correct conditional structure:",
+      options: [
+        "If I would have known about the conference, I would attend.",
+        "Had I known about the conference, I would have attended.",
+        "If I had known about the conference, I will have attended.",
+        "Should I know about the conference, I would attended."
+      ],
+      answer: 1,
+      explanation: "'Had I known... I would have attended' is the correct inverted third conditional for past hypothetical events."
+    },
+    {
+      id: 5,
+      question: "Select the sentence that eliminates wordiness and passive ambiguity:",
+      options: [
+        "A decision was arrived at by the committee regarding funding.",
+        "The committee reached a decision concerning the allocation of funds.",
+        "The committee decided on funding.",
+        "It was determined by the committee to approve funds."
+      ],
+      answer: 2,
+      explanation: "'The committee decided on funding' is the most direct, concise, and active business phrasing."
+    }
+  ],
+  leadership: [
+    {
+      id: 1,
+      question: "When your team faces an unexpected deadline crisis, your primary approach is:",
+      options: [
+        "Step in directly, give rapid explicit directives, and assign specific micro-tasks.",
+        "Gather the team for a 10-minute brainstorming session to invite collective solutions.",
+        "Coach individual members by asking guiding questions so they devise their own workarounds.",
+        "Provide vision and encourage team autonomy to execute without micromanagement."
+      ],
+      dimension: "Strategic Problem Solving"
+    },
+    {
+      id: 2,
+      question: "How do you primarily measure the success of a project you led?",
+      options: [
+        "Strict adherence to timelines, budgets, and error-free metrics.",
+        "High team cohesion, psychological safety, and mutual consensus.",
+        "Individual skill growth and personal development achieved by team members.",
+        "Disruptive innovation, customer delight, and inspiring strategic impact."
+      ],
+      dimension: "Outcome Measurement"
+    },
+    {
+      id: 3,
+      question: "When delivering difficult constructive feedback to an underperforming colleague, you:",
+      options: [
+        "State factual deliverables missed concisely and set immediate corrective targets.",
+        "Listen to their personal challenges first and co-create an empathetic improvement plan.",
+        "Use inquiry and reflective questioning to help them discover the performance gap themselves.",
+        "Reframe the feedback around the larger team mission and inspirational milestones."
+      ],
+      dimension: "Feedback & Mentorship"
+    },
+    {
+      id: 4,
+      question: "During high-stakes boardroom meetings with executive stakeholders, your voice is:",
+      options: [
+        "Decisive, data-backed, and assertive with clear bottom-line recommendations.",
+        "Collaborative, acknowledging multiple viewpoints before synthesising consensus.",
+        "Developmental, highlighting team capabilities and learning velocity.",
+        "Visionary, storytelling the future horizon and inspiring strategic alignment."
+      ],
+      dimension: "Executive Communication"
+    }
+  ]
+};
+
+export default function Tests() {
+  const [activeTest, setActiveTest] = useState(null); // 'kids' | 'adults' | 'leadership' | null
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const startTest = (testId) => {
+    setActiveTest(testId);
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setIsCompleted(false);
+  };
+
+  const handleSelectOption = (optionIndex) => {
+    setUserAnswers((prev) => ({
+      ...prev,
+      [currentQuestionIndex]: optionIndex
+    }));
+  };
+
+  const handleNext = () => {
+    const questions = questionsBank[activeTest] || [];
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1);
+    } else {
+      setIsCompleted(true);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleReset = () => {
+    setActiveTest(null);
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setIsCompleted(false);
+  };
+
+  // Score calculation for grammar tests
+  const calculateGrammarScore = () => {
+    const questions = questionsBank[activeTest] || [];
+    let score = 0;
+    questions.forEach((q, idx) => {
+      if (userAnswers[idx] === q.answer) {
+        score += 1;
+      }
+    });
+    return {
+      score,
+      total: questions.length,
+      percentage: Math.round((score / questions.length) * 100)
+    };
+  };
+
+  return (
+    <div className="py-12 sm:py-16 space-y-16 max-w-7xl mx-auto px-4 sm:px-8">
+      {/* Page Header */}
+      {!activeTest && (
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary">
+            Self-Assessment Portal
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+            English Proficiency & Style Tests
+          </h1>
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Evaluate your English grammar foundations, advanced professional vocabulary, or executive leadership style with our diagnostic assessments.
+          </p>
+        </div>
+      )}
+
+      {/* TEST SELECTION VIEW */}
+      {!activeTest && (
+        <div className="space-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testsData.map((test) => (
+              <div
+                key={test.id}
+                className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm hover:shadow-brand transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div
+                      className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-sm ${
+                        test.id === 'kids'
+                          ? 'bg-gradient-to-br from-blue-500 to-cyan-500'
+                          : test.id === 'adults'
+                          ? 'bg-gradient-to-br from-purple-500 to-indigo-600'
+                          : 'bg-gradient-to-br from-amber-500 to-orange-500'
+                      }`}
+                    >
+                      {test.id === 'kids' && <Sparkles className="w-7 h-7" />}
+                      {test.id === 'adults' && <Brain className="w-7 h-7" />}
+                      {test.id === 'leadership' && <Award className="w-7 h-7" />}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900">{test.title}</h3>
+                      <p className="text-xs font-medium text-slate-500">{test.ageGroup}</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    {test.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-600">
+                        <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => startTest(test.id)}
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                >
+                  Start {test.title}
+                </Button>
+              </div>
+            ))}
+          </div>
+
+          {/* Test Guidelines & Counseling Note */}
+          <div className="bg-brand-soft/60 border border-brand-border/60 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-1">
+              <h4 className="text-base font-bold text-slate-900">
+                Want a Comprehensive 1-on-1 IELTS Mock & Band Evaluation?
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Book an in-person or live virtual assessment with Vidya Wankhade for personalized speaking & writing critique.
+              </p>
+            </div>
+            <Button
+              to="/contact?course=Diagnostic+Assessment"
+              variant="outline"
+              size="md"
+              className="shrink-0"
+            >
+              Book 1-on-1 Assessment
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* ACTIVE TEST INTERACTION VIEW */}
+      {activeTest && !isCompleted && (
+        <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in duration-300">
+          {/* Top Bar with Back button & Progress */}
+          <div className="flex items-center justify-between">
+            <button
+              onClick={handleReset}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-brand-primary transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Tests</span>
+            </button>
+            <span className="text-xs font-bold text-brand-primary bg-brand-soft px-3 py-1 rounded-full border border-brand-border">
+              {activeTest === 'kids' && 'Kids Diagnostic Test'}
+              {activeTest === 'adults' && 'Adults Advanced Grammar Test'}
+              {activeTest === 'leadership' && 'Leadership Style Assessment'}
+            </span>
+          </div>
+
+          {/* Question Card */}
+          {(() => {
+            const questions = questionsBank[activeTest] || [];
+            const currentQ = questions[currentQuestionIndex];
+            const isAnswered = userAnswers[currentQuestionIndex] !== undefined;
+
+            return (
+              <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-brand space-y-8">
+                {/* Progress Indicators */}
+                <div>
+                  <div className="flex justify-between items-center text-xs font-semibold text-slate-500 mb-2">
+                    <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
+                    <span>{Math.round(((currentQuestionIndex + 1) / questions.length) * 100)}% Complete</span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div
+                      className="bg-brand-primary h-full transition-all duration-300"
+                      style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Question Statement */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
+                    {currentQ.question}
+                  </h3>
+                  {currentQ.dimension && (
+                    <span className="inline-block mt-2 text-[11px] font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200">
+                      Dimension: {currentQ.dimension}
+                    </span>
+                  )}
+                </div>
+
+                {/* Options List */}
+                <div className="space-y-3">
+                  {currentQ.options.map((opt, oIdx) => {
+                    const isSelected = userAnswers[currentQuestionIndex] === oIdx;
+                    return (
+                      <button
+                        key={oIdx}
+                        onClick={() => handleSelectOption(oIdx)}
+                        className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all flex items-center justify-between gap-4 text-sm font-medium ${
+                          isSelected
+                            ? 'bg-brand-soft border-brand-primary text-brand-dark shadow-xs'
+                            : 'bg-white border-slate-200 hover:border-brand-300 text-slate-700'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                              isSelected
+                                ? 'bg-brand-primary text-white'
+                                : 'bg-slate-100 text-slate-600'
+                            }`}
+                          >
+                            {String.fromCharCode(65 + oIdx)}
+                          </span>
+                          <span>{opt}</span>
+                        </div>
+                        {isSelected && (
+                          <CheckCircle2 className="w-5 h-5 text-brand-primary shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <button
+                    onClick={handlePrev}
+                    disabled={currentQuestionIndex === 0}
+                    className="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                  >
+                    Previous
+                  </button>
+
+                  <Button
+                    onClick={handleNext}
+                    disabled={!isAnswered}
+                    variant="primary"
+                    size="md"
+                    className="disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {currentQuestionIndex === questions.length - 1 ? 'Finish & View Results' : 'Next Question'}
+                  </Button>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      )}
+
+      {/* TEST RESULTS VIEW */}
+      {activeTest && isCompleted && (
+        <div className="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-brand space-y-8 text-center animate-in zoom-in-95 duration-300">
+          {activeTest !== 'leadership' ? (
+            (() => {
+              const { score, total, percentage } = calculateGrammarScore();
+              return (
+                <>
+                  <div className="w-20 h-20 mx-auto rounded-3xl bg-brand-soft border border-brand-border flex items-center justify-center text-brand-primary">
+                    <Award className="w-10 h-10" />
+                  </div>
+
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-primary bg-brand-soft px-3 py-1 rounded-full">
+                      Assessment Result
+                    </span>
+                    <h2 className="text-3xl font-extrabold text-slate-900 mt-3 mb-2">
+                      Score: {score} / {total} ({percentage}%)
+                    </h2>
+                    <p className="text-slate-600 text-sm">
+                      {percentage >= 80
+                        ? 'Outstanding proficiency! You demonstrate high accuracy with complex sentence structures and vocabulary.'
+                        : percentage >= 60
+                        ? 'Solid foundation! A targeted module with personalized feedback will help eliminate common grammatical traps.'
+                        : 'Good starting baseline. Consistent structured coaching will rapidly build your fluency and accuracy.'}
+                    </p>
+                  </div>
+
+                  {/* Recommendations */}
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                      Recommended Academy Course:
+                    </h4>
+                    <p className="text-sm font-semibold text-brand-primary">
+                      {activeTest === 'kids'
+                        ? 'Kids Elocution & Grammar Foundations Course'
+                        : 'IELTS Preparation & Communication Skill Masterclass'}
+                    </p>
+                    <p className="text-xs text-slate-600">
+                      Authored curriculum by Vidya Wankhade focusing on speaking clarity, natural expression, and error-free writing.
+                    </p>
+                  </div>
+                </>
+              );
+            })()
+          ) : (
+            <>
+              <div className="w-20 h-20 mx-auto rounded-3xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
+                <Brain className="w-10 h-10" />
+              </div>
+
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                  Executive Style Profile
+                </span>
+                <h2 className="text-3xl font-extrabold text-slate-900 mt-3 mb-2">
+                  Transformational & Coaching Leader
+                </h2>
+                <p className="text-slate-600 text-sm">
+                  You lean towards empowering your team through active inquiry, psychological safety, and vision-driven execution.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Recommended Leadership Course:
+                </h4>
+                <p className="text-sm font-semibold text-brand-primary">
+                  Advanced English & Leadership Presence for Managers
+                </p>
+                <p className="text-xs text-slate-600">
+                  Master executive articulation, crisis communication, and commanding gravitas in boardroom updates.
+                </p>
+              </div>
+            </>
+          )}
+
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 border-t border-slate-100">
+            <Button
+              to={`/contact?course=Test+Followup+${activeTest}`}
+              variant="primary"
+              size="md"
+              className="w-full sm:w-auto"
+            >
+              Discuss Result with Trainer
+            </Button>
+            <button
+              onClick={handleReset}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:border-brand-primary transition-colors w-full sm:w-auto"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span>Take Another Test</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

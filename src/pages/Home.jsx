@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, ArrowRight, BookOpen, Award, CheckCircle2, ChevronRight, Star } from 'lucide-react';
-import { academyInfo, allCourses, founderProfile, publishedBooks, testimonials } from '../data/academyData';
+import { Phone, ArrowRight, BookOpen, Award, CheckCircle2, ChevronRight, Star, ChevronLeft, X, Maximize2, Sparkles, Camera } from 'lucide-react';
+import { academyInfo, allCourses, founderProfile, publishedBooks, testimonials, galleryImages } from '../data/academyData';
 import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
 import TrustBar from '../components/TrustBar';
@@ -13,10 +13,44 @@ import MapEmbed from '../components/MapEmbed';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [galleryFilter, setGalleryFilter] = useState('all');
+  const [showAllGallery, setShowAllGallery] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const filteredCourses = selectedCategory === 'all'
     ? allCourses.slice(0, 3)
     : allCourses.filter(c => c.category === selectedCategory).slice(0, 3);
+
+  const filteredGalleryImages = galleryFilter === 'all'
+    ? galleryImages
+    : galleryImages.filter(img => img.category === galleryFilter);
+
+  const displayedGalleryImages = showAllGallery
+    ? filteredGalleryImages
+    : filteredGalleryImages.slice(0, 8);
+
+  const openLightbox = (img) => {
+    const idx = filteredGalleryImages.findIndex(i => i.id === img.id);
+    setLightboxIndex(idx >= 0 ? idx : 0);
+  };
+
+  const closeLightbox = () => {
+    setLightboxIndex(null);
+  };
+
+  const nextLightboxImage = () => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex + 1) % filteredGalleryImages.length);
+    }
+  };
+
+  const prevLightboxImage = () => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex - 1 + filteredGalleryImages.length) % filteredGalleryImages.length);
+    }
+  };
+
+  const currentLightboxImage = lightboxIndex !== null ? filteredGalleryImages[lightboxIndex] : null;
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
@@ -198,6 +232,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* LEARNING IN ACTION GALLERY SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+          <SectionHeading
+            badge="Life at the Academy"
+            title="Learning in Action"
+            subtitle="Authentic moments of student mentorship, elocution workshops, group debates, and milestones at The Consistent Academy."
+            align="left"
+            className="mb-6 md:mb-0"
+          />
+
+          {/* Filter Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-full">
+            {[
+              { id: 'all', label: 'All Moments (22)' },
+              { id: 'classroom', label: 'Classroom Mentorship' },
+              { id: 'speaking', label: 'Speaking & Workshops' },
+              { id: 'young', label: 'Young Learners' },
+              { id: 'milestones', label: 'Milestones & Celebrations' }
+            ].map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setGalleryFilter(cat.id);
+                  setShowAllGallery(false);
+                }}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                  galleryFilter === cat.id
+                    ? 'bg-brand-primary text-white shadow-xs'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-primary'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {displayedGalleryImages.map((img) => (
+            <div
+              key={img.id}
+              onClick={() => openLightbox(img)}
+              className="group relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-xs hover:shadow-brand hover:-translate-y-1 transition-all duration-300 cursor-pointer aspect-[4/3]"
+            >
+              <img
+                src={img.src}
+                alt={img.title}
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/academy/courses/img1.png';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <span className="text-[11px] font-bold text-brand-300 uppercase tracking-wider mb-1">
+                  The Consistent Academy
+                </span>
+                <p className="text-white text-xs font-semibold leading-tight flex items-center justify-between">
+                  <span>{img.title}</span>
+                  <Maximize2 className="w-3.5 h-3.5 text-white/80 shrink-0 ml-2" />
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Show More / Show Less Toggle Button */}
+        {filteredGalleryImages.length > 8 && (
+          <div className="text-center pt-8">
+            <button
+              onClick={() => setShowAllGallery(!showAllGallery)}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-slate-300 bg-white hover:border-brand-primary hover:text-brand-primary text-xs font-bold text-slate-700 transition-all shadow-xs"
+            >
+              <span>{showAllGallery ? 'Show Fewer Moments' : `View All ${filteredGalleryImages.length} Photos`}</span>
+              <ChevronRight className={`w-4 h-4 transition-transform ${showAllGallery ? '-rotate-90' : 'rotate-90'}`} />
+            </button>
+          </div>
+        )}
+      </section>
+
       {/* PUBLISHED BOOKS SHOWCASE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8">
         <SectionHeading
@@ -265,6 +380,64 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* LIGHTBOX MODAL */}
+      {currentLightboxImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={closeLightbox}
+        >
+          <div
+            className="relative max-w-4xl w-full flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute -top-12 right-0 sm:right-2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Close modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Navigation buttons */}
+            <button
+              onClick={prevLightboxImage}
+              className="absolute left-2 sm:-left-14 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={nextLightboxImage}
+              className="absolute right-2 sm:-right-14 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Modal Image container */}
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black max-h-[75vh] flex items-center justify-center">
+              <img
+                src={currentLightboxImage.src}
+                alt={currentLightboxImage.title}
+                className="max-h-[75vh] w-auto max-w-full object-contain"
+              />
+            </div>
+
+            {/* Caption */}
+            <div className="mt-4 text-center">
+              <p className="text-white text-sm sm:text-base font-bold">
+                {currentLightboxImage.title}
+              </p>
+              <p className="text-slate-400 text-xs mt-1">
+                Photo {lightboxIndex + 1} of {filteredGalleryImages.length} • The Consistent Academy Pune
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
