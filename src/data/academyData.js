@@ -584,37 +584,62 @@ export const testsData = [
   {
     id: 'kids',
     title: 'Kids Test',
+    subtitle: 'Grammar Test for Kids',
     ageGroup: 'Age 5–17 Years',
     badgeColor: 'bg-blue-500',
     questionsCount: 25,
+    sections: [
+      { name: 'Fill in the Blanks (Prepositions, Articles, Conjunctions)', count: 5 },
+      { name: 'Analogy', count: 5 },
+      { name: 'Tick the Grammatically Correct Sentence', count: 5 },
+      { name: 'Synonyms', count: 5 },
+      { name: 'Degrees of Comparison', count: 5 }
+    ],
     features: [
-      '25 Questions covering basic grammar concepts',
-      'Fill in the blanks, analogies, synonyms, and more',
-      'Age-appropriate difficulty level'
+      '25 Total Questions across 5 diagnostic sections',
+      'Fill in the blanks, analogies, synonyms & comparison',
+      'Instant feedback with detailed grammatical explanations'
     ]
   },
   {
     id: 'adults',
     title: 'Adults Test',
+    subtitle: 'Advanced Grammar Test',
     ageGroup: 'Advanced Learners',
     badgeColor: 'bg-purple-500',
     questionsCount: 28,
+    sections: [
+      { name: 'Fill-in-the-Blanks', count: 5 },
+      { name: 'Challenging Verbal Analogy', count: 5 },
+      { name: 'Idioms & Phrases', count: 5 },
+      { name: 'One-Word Substitution', count: 8 },
+      { name: 'Sentence Improvement', count: 5 }
+    ],
     features: [
-      '28 Questions covering advanced grammar',
-      'Idioms, analogies, vocabulary, and sentence improvement',
-      'Professional-level difficulty'
+      '28 Total Questions across 5 advanced sections',
+      'Idioms, verbal analogies, vocabulary & sentence improvement',
+      'Professional-level diagnostic difficulty'
     ]
   },
   {
     id: 'leadership',
     title: 'Leadership Style Assessment',
+    subtitle: 'Comprehensive Leadership Diagnostic',
     ageGroup: 'Managers & Aspiring Leaders',
     badgeColor: 'bg-amber-500',
     questionsCount: 60,
+    sections: [
+      { name: 'Decision-Making Style', count: 10 },
+      { name: 'Communication & Influence', count: 10 },
+      { name: 'People & Team Management', count: 10 },
+      { name: 'Change, Vision & Innovation', count: 10 },
+      { name: 'Ethics, Values & Responsibility', count: 10 },
+      { name: 'Self-Awareness & Adaptability', count: 10 }
+    ],
     features: [
       '60 Questions across 6 leadership dimensions',
-      'Discover your dominant leadership style',
-      'Psychometric self-assessment'
+      'Discover dominant & secondary leadership styles',
+      'Psychometric self-assessment with Likert scaling'
     ]
   }
 ];
@@ -632,13 +657,13 @@ export const sampleBlogPosts = [
     content: `
       The "read but don't understand" phenomenon is real. We've all been there: you finish a page of a book, blink, and realize your brain was actually thinking about what you're going to eat for dinner. You read every single word, but zero information actually transferred into your memory.
 
-      ### 1. Active Visualization
+       1. Active Visualization
       When you read, don't just process characters on paper. Create a mini-movie in your head. If a passage describes a bustling boardroom or an experimental laboratory, picture the colors, textures, and spatial movements.
 
-      ### 2. The 3-Sentence Chapter Recap
+      2. The 3-Sentence Chapter Recap
       At the end of every chapter or passage, force yourself to write down 3 sentences summarizing what you just absorbed without looking back. This triggers active recall instead of passive familiarity.
 
-      ### 3. Question Character and Author Motives
+     3. Question Character and Author Motives
       Why did the author use that specific verb? What is the unspoken subtext? As taught in 'The Reading Detective', reading with an inquisitive mindset turns reading from a passive chore into an engaging mystery.
     `
   },
@@ -656,13 +681,13 @@ export const sampleBlogPosts = [
 
       We're obsessed with the "big overhaul." We think that to change our lives—to go from the shy, hesitant speaker to the poised presenter—we need a 3-month sabbatical or a 4-hour daily grind. But consistency beats intensity every single time.
 
-      ### The Mathematics of Micro-Habits
+      The Mathematics of Micro-Habits
       Reading just 15 minutes a day at an average pace of 250 words per minute equals approximately:
       - 3,750 words per day
       - Over 1.3 million words per year
       - That is roughly 15–20 full non-fiction or literature books every year!
 
-      ### What Happens to Your Brain?
+       What Happens to Your Brain?
       1. **Subconscious Syntax Modeling**: Your brain absorbs correct sentence constructions, prepositions, and natural idioms without you needing to memorize dry grammar rules.
       2. **Stress Reduction**: Research shows that just 6 minutes of focused reading reduces heart rate and muscle tension by up to 68%.
       3. **Elevated Articulation**: You start speaking in complete, structured thoughts rather than fragmented bullet points.
@@ -682,10 +707,10 @@ export const sampleBlogPosts = [
 
       We've all been there. You get a sudden burst of motivation on a Sunday night. You download three language apps, buy a dictionary, and vow to study 3 hours every day. By Thursday, life gets busy, and you stop entirely.
 
-      ### The Fallacy of the Weekend Warrior
+      The Fallacy of the Weekend Warrior
       Studying 7 hours on a single Sunday does not produce the same neurological pathways as practicing 20 minutes every single morning. Language is a muscle, not an exam paper you can cram before breakfast.
 
-      ### Three Daily Pillars:
+      Three Daily Pillars:
       1. **Daily Spoken Practice**: Speak aloud for 5 minutes about what you accomplished today. Record your voice on your phone once a week to track modulation and filler words.
       2. **Contextual Vocabulary**: Don't memorize lists of 50 disconnected words. Learn 2 words a day, but write 3 sentences using them in actual workplace conversations.
       3. **Active Listening**: Listen to podcasts or audiobooks where speakers express complex thoughts clearly, paying attention to phrasing, pauses, and cadence.
@@ -705,13 +730,13 @@ export const sampleBlogPosts = [
 
       In campus placements and competitive corporate assessments, a GD is rarely about who shouts the loudest. Recruiters evaluate leadership poise, constructive synthesis, and structured articulation.
 
-      ### 1. The Power of the Initiator vs. The Synthesizer
+      1. The Power of the Initiator vs. The Synthesizer
       If you initiate the discussion, provide a balanced definition and outline 2–3 perspectives rather than jumping to a dogmatic conclusion. If someone else starts, step in early as a synthesizer: summarize differing viewpoints and steer the group forward.
 
-      ### 2. Disagree Without Disrespect
+      2. Disagree Without Disrespect
       Never say: *"You are completely wrong."* Instead, say: *"I appreciate your point regarding cost, however, looking at the long-term scalability, there is another dimension we must consider..."*
 
-      ### 3. Body Language and Eye Contact
+      3. Body Language and Eye Contact
       Maintain open posture, avoid aggressive finger pointing, and make eye contact with all participants around the table, not just the evaluator.
     `
   },
@@ -727,14 +752,14 @@ export const sampleBlogPosts = [
     content: `
       A high-intensity, structured blueprint to maximize your band score across Listening, Reading, Writing, and Speaking in just 10 days of focused practice.
 
-      ### Day 1–3: Diagnostic Test & High-Yield Strategy
+      Day 1–3: Diagnostic Test & High-Yield Strategy
       Take a full authentic mock test under strict timed conditions. Identify your weakest skill: is it Task 2 essay structure, or matching headings in Reading? Focus 70% of your energy on that single bottle-neck.
 
-      ### Day 4–7: The Core Frameworks
+      Day 4–7: The Core Frameworks
       - **Writing Task 2**: Master the 4-paragraph structure (Introduction, 2 Body Paragraphs, Conclusion). Memorize cohesive transition devices and practice generating counterarguments.
       - **Reading**: Practice scanning for proper nouns and numbers without reading entire passages line-by-line.
 
-      ### Day 8–10: Exam Simulation & Speaking Polishing
+      Day 8–10: Exam Simulation & Speaking Polishing
       Practice full-length speaking interviews in front of a mirror or with a coach. Focus on natural fluency, eliminating filler pauses ('uhh', 'like'), and speaking with confident projection.
     `
   },
@@ -752,13 +777,13 @@ export const sampleBlogPosts = [
 
       Mother Tongue Influence (MTI) is a natural linguistic trait, not a defect. However, in global business and international exams, clear syllable stress and vowel enunciation ensure you are understood effortlessly.
 
-      ### 1. Minimal Pair Drills
+      1. Minimal Pair Drills
       Practice minimal pairs that confuse non-native speakers: ship vs. sheep, beat vs. bit, van vs. ban. Exaggerate mouth shape and tongue placement.
 
-      ### 2. Syllable Stress Patterns
+      2. Syllable Stress Patterns
       English is a stress-timed language. Unlike syllable-timed languages, English emphasizes key content words while gliding over function words. Learn to stress root nouns and verbs accurately.
 
-      ### 3. Pacing and Pausing
+      3. Pacing and Pausing
       Speaking fast is not the same as speaking fluently. Deliberate, calm pacing gives your vocal cords room to enunciate and makes you sound authoritative and trustworthy.
     `
   }

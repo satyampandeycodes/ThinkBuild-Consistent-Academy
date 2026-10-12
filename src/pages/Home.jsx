@@ -20,8 +20,12 @@ export default function Home() {
     : allCourses.filter(c => c.category === selectedCategory).slice(0, 3);
 
   const openLightbox = (img) => {
-    const idx = galleryImages.findIndex(i => i.id === img.id);
-    setLightboxIndex(idx >= 0 ? idx : 0);
+    if (!img) {
+      setLightboxIndex(0);
+      return;
+    }
+    const idx = typeof img === 'number' ? img : galleryImages.findIndex(i => i.id === img.id);
+    setLightboxIndex(idx >= 0 && idx < galleryImages.length ? idx : 0);
   };
 
   const closeLightbox = () => {
@@ -347,41 +351,25 @@ export default function Home() {
                 <div
                   key={`r1-${img.id}-${idx}`}
                   onClick={() => openLightbox(img)}
-                  className="w-64 sm:w-72 h-44 sm:h-48 rounded-2xl overflow-hidden shrink-0 group relative cursor-pointer shimmer-card border border-slate-200/90 hover:border-brand-primary shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-slate-900"
+                  className="w-64 sm:w-72 h-44 sm:h-48 rounded-2xl overflow-hidden shrink-0 group relative cursor-pointer gallery-card-pro border border-slate-200/90 hover:border-brand-primary/80 shadow-xs hover:shadow-xl hover:shadow-brand-primary/15 transition-all duration-300 bg-slate-950"
                 >
                   <img
                     src={img.src}
-                    alt={img.title}
+                    alt={img.title || "The Consistent Academy Pune"}
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                     onError={(e) => {
                       e.currentTarget.src = '/assets/academy/courses/img1.png';
                     }}
                   />
 
-                  {/* Top Corner Category Tag */}
-                  <div className="absolute top-2.5 left-2.5 z-10">
-                    <span className="inline-block text-[10px] font-extrabold uppercase tracking-wider text-brand-200 bg-slate-950/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 shadow-xs">
-                      {img.category}
-                    </span>
-                  </div>
+                  {/* Subtle hover focus vignette */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 pointer-events-none" />
 
                   {/* Top Right Zoom Trigger on Hover */}
                   <div className="absolute top-2.5 right-2.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="w-7 h-7 rounded-full bg-slate-950/75 backdrop-blur-md text-white flex items-center justify-center border border-white/20 shadow-xs">
+                    <span className="w-8 h-8 rounded-full bg-slate-950/85 text-white flex items-center justify-center border border-white/20 shadow-sm group-hover:scale-105 transition-transform">
                       <Maximize2 className="w-3.5 h-3.5 text-white" />
                     </span>
-                  </div>
-
-                  {/* Floating Bottom Caption Pill */}
-                  <div className="absolute bottom-2.5 inset-x-2.5 z-10 pointer-events-none">
-                    <div className="bg-slate-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 shadow-md flex items-center justify-between">
-                      <p className="text-white text-xs font-bold truncate leading-tight">
-                        {img.title}
-                      </p>
-                      <span className="text-[10px] text-brand-300 font-semibold shrink-0 ml-2 hidden sm:inline">
-                        Pune
-                      </span>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -393,41 +381,25 @@ export default function Home() {
                 <div
                   key={`r2-${img.id}-${idx}`}
                   onClick={() => openLightbox(img)}
-                  className="w-64 sm:w-72 h-44 sm:h-48 rounded-2xl overflow-hidden shrink-0 group relative cursor-pointer shimmer-card border border-slate-200/90 hover:border-brand-primary shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-slate-900"
+                  className="w-64 sm:w-72 h-44 sm:h-48 rounded-2xl overflow-hidden shrink-0 group relative cursor-pointer gallery-card-pro border border-slate-200/90 hover:border-brand-primary/80 shadow-xs hover:shadow-xl hover:shadow-brand-primary/15 transition-all duration-300 bg-slate-950"
                 >
                   <img
                     src={img.src}
-                    alt={img.title}
+                    alt={img.title || "The Consistent Academy Pune"}
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                     onError={(e) => {
                       e.currentTarget.src = '/assets/academy/courses/img1.png';
                     }}
                   />
 
-                  {/* Top Corner Category Tag */}
-                  <div className="absolute top-2.5 left-2.5 z-10">
-                    <span className="inline-block text-[10px] font-extrabold uppercase tracking-wider text-brand-200 bg-slate-950/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 shadow-xs">
-                      {img.category}
-                    </span>
-                  </div>
+                  {/* Subtle hover focus vignette */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 pointer-events-none" />
 
                   {/* Top Right Zoom Trigger on Hover */}
                   <div className="absolute top-2.5 right-2.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="w-7 h-7 rounded-full bg-slate-950/75 backdrop-blur-md text-white flex items-center justify-center border border-white/20 shadow-xs">
+                    <span className="w-8 h-8 rounded-full bg-slate-950/85 text-white flex items-center justify-center border border-white/20 shadow-sm group-hover:scale-105 transition-transform">
                       <Maximize2 className="w-3.5 h-3.5 text-white" />
                     </span>
-                  </div>
-
-                  {/* Floating Bottom Caption Pill */}
-                  <div className="absolute bottom-2.5 inset-x-2.5 z-10 pointer-events-none">
-                    <div className="bg-slate-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 shadow-md flex items-center justify-between">
-                      <p className="text-white text-xs font-bold truncate leading-tight">
-                        {img.title}
-                      </p>
-                      <span className="text-[10px] text-brand-300 font-semibold shrink-0 ml-2 hidden sm:inline">
-                        Pune
-                      </span>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -463,8 +435,8 @@ export default function Home() {
           </Button>
         </div>
 
-        {/* Display ALL 3 books side-by-side in 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Display ALL 3 books side-by-side in 1 Row (3-Column Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {publishedBooks.map((book) => (
             <BookCard key={book.id} book={book} layout="vertical" />
           ))}
@@ -569,15 +541,14 @@ export default function Home() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/95 backdrop-blur-md animate-in fade-in duration-200"
           onClick={closeLightbox}
         >
-          {/* Prominent Fixed Cancel / Close Pill (Always visible in viewport corner) */}
+          {/* Professional Minimalist Close Button */}
           <button
             onClick={closeLightbox}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[70] flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900/95 hover:bg-rose-600 text-white border border-white/20 shadow-2xl backdrop-blur-md transition-all duration-200 cursor-pointer group"
-            aria-label="Cancel / Close expanded photo"
-            title="Cancel / Close (Esc)"
+            className="fixed top-5 right-5 sm:top-6 sm:right-6 z-[100] p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white/90 hover:text-white border border-white/20 shadow-2xl backdrop-blur-md transition-all cursor-pointer hover:scale-110 active:scale-95 group"
+            aria-label="Close expanded photo"
+            title="Close (Esc)"
           >
-            <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-200" />
-            <span className="text-xs sm:text-sm font-bold tracking-wide">Cancel</span>
+            <X className="w-5 h-5 text-white group-hover:rotate-90 transition-transform duration-200" />
           </button>
 
           <div
@@ -586,20 +557,13 @@ export default function Home() {
           >
             {/* Modal Image container */}
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black max-h-[75vh] flex items-center justify-center">
-              {/* Image Frame Close Button */}
-              <button
-                onClick={closeLightbox}
-                className="absolute top-3 right-3 z-30 p-2 rounded-full bg-slate-950/80 hover:bg-rose-600 text-white border border-white/20 shadow-md backdrop-blur-md transition-colors cursor-pointer"
-                aria-label="Cancel"
-                title="Cancel"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
               <img
                 src={currentLightboxImage.src}
                 alt={currentLightboxImage.title}
                 className="max-h-[75vh] w-auto max-w-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/academy/courses/img1.png';
+                }}
               />
             </div>
 
@@ -620,21 +584,14 @@ export default function Home() {
               <ChevronRight className="w-6 h-6" />
             </button>
 
-            {/* Caption & bottom close button */}
+            {/* Caption & photo counter */}
             <div className="mt-4 text-center">
               <p className="text-white text-sm sm:text-base font-bold">
                 {currentLightboxImage.title}
               </p>
               <p className="text-slate-400 text-xs mt-1">
-                Photo {lightboxIndex + 1} of {filteredGalleryImages.length} • The Consistent Academy Pune
+                Photo {lightboxIndex + 1} of {galleryImages.length} • The Consistent Academy Pune
               </p>
-              <button
-                onClick={closeLightbox}
-                className="mt-2.5 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 hover:bg-rose-600/90 text-slate-300 hover:text-white text-xs font-semibold border border-white/10 transition-colors cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>Cancel / Close</span>
-              </button>
             </div>
           </div>
         </div>

@@ -21,10 +21,10 @@ export default function Books() {
         </p>
       </div>
 
-      {/* Books Stack */}
-      <div className="space-y-10 max-w-5xl mx-auto">
+      {/* All Books in One Row Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
         {publishedBooks.map((book) => (
-          <BookCard key={book.id} book={book} />
+          <BookCard key={book.id} book={book} layout="vertical" />
         ))}
       </div>
 

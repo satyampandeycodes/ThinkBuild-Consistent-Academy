@@ -7,46 +7,43 @@ export default function CourseCard({ course }) {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-[0_18px_38px_-12px_rgba(79,70,229,0.22)] transition-all duration-300 flex flex-col group hover:-translate-y-1.5 relative">
+      <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-[0_20px_35px_-12px_rgba(15,23,42,0.12)] transition-all duration-300 flex flex-col group hover:-translate-y-1.5 relative">
         {/* Top Active Indicator Beam */}
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary via-purple-500 to-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
 
-        {/* Card Image Banner with Interactive Hover Reveal */}
+        {/* Card Image Banner with Professional Hover Reveal */}
         <div
           onClick={() => setShowModal(true)}
-          className="relative h-48 sm:h-52 bg-brand-soft overflow-hidden cursor-pointer"
+          className="relative h-48 sm:h-52 bg-slate-100 overflow-hidden cursor-pointer"
         >
           <img
             src={course.image}
             alt={course.title}
-            className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             onError={(e) => {
               e.currentTarget.src = '/assets/academy/logo.png';
               e.currentTarget.className = 'w-full h-full object-contain p-8';
             }}
           />
 
-          {/* Frosted Interactive Vignette Overlay on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            {/* Center Floating Glass Action Pill */}
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-slate-900 text-xs font-bold shadow-xl backdrop-blur-md transform translate-y-3 group-hover:translate-y-0 transition-all duration-300">
-              <BookOpen className="w-3.5 h-3.5 text-brand-primary" />
-              <span>Preview Syllabus</span>
+          {/* Professional Bottom Slide-Up Action Bar on Hover */}
+          <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-slate-950/85 via-slate-950/45 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex items-center justify-between text-white pointer-events-none">
+            <span className="text-xs font-semibold flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-brand-300" />
+              <span>Preview Syllabus & Modules</span>
             </span>
+            <ChevronRight className="w-4 h-4 text-slate-300 group-hover:translate-x-0.5 transition-transform" />
           </div>
 
-          {/* Light Sheen Sweep Across Banner */}
-          <div className="book-sheen" />
-
-          {/* Duration Badge */}
-          <div className="absolute top-3 left-3 bg-slate-950/80 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md border border-white/10 shadow-xs flex items-center gap-1 group-hover:border-brand-primary/50 transition-colors">
+          {/* Duration Badge - Crisp Solid Style */}
+          <div className="absolute top-3 left-3 bg-slate-900 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-sm flex items-center gap-1.5 border border-white/10">
             <Clock className="w-3 h-3 text-brand-300" />
             <span>{course.hours}</span>
           </div>
 
-          {/* Price Badge with dynamic color transition */}
+          {/* Price Badge - High-Contrast Style */}
           {course.price && (
-            <div className="absolute top-3 right-3 bg-white text-brand-primary group-hover:bg-brand-primary group-hover:text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-xs group-hover:shadow-md transition-all duration-300 border border-slate-100 group-hover:border-transparent">
+            <div className="absolute top-3 right-3 bg-white text-slate-900 group-hover:text-brand-primary group-hover:border-brand-primary/40 text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-sm border border-slate-200/90 transition-colors duration-200">
               ₹ {course.price}
             </div>
           )}

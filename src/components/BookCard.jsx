@@ -11,9 +11,8 @@ export default function BookCard({ book, layout = 'vertical' }) {
             {/* Realistic Page Stack Behind Cover */}
             <div className="book-pages-stack rounded-r-lg rounded-l-xs border-r border-b border-slate-300/80" />
 
-            {/* Book Front Cover with Spine and Gloss Sheen */}
+            {/* Book Front Cover with Spine */}
             <div className="book-card-3d relative w-full h-full rounded-r-lg rounded-l-xs overflow-hidden bg-white border border-slate-300/70 shadow-md">
-              <div className="book-sheen" />
               <img
                 src={book.image}
                 alt={book.title}
@@ -73,16 +72,13 @@ export default function BookCard({ book, layout = 'vertical' }) {
     <div className="bg-white rounded-3xl border border-slate-200 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-xl hover:shadow-brand-primary/10 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5">
       <div>
         {/* Book Cover Container */}
-        <div className="h-64 sm:h-72 bg-gradient-to-b from-brand-soft/70 via-brand-soft/30 to-slate-50 p-6 flex items-center justify-center border-b border-slate-100 relative overflow-hidden book-perspective">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700" />
-          
+        <div className="h-64 sm:h-72 bg-gradient-to-b from-slate-100/80 via-slate-50 to-white p-6 flex items-center justify-center border-b border-slate-100 relative overflow-hidden book-perspective">
           <div className="relative h-full aspect-[3/4] select-none">
             {/* Realistic Page Stack Behind Cover */}
             <div className="book-pages-stack rounded-r-lg rounded-l-xs border-r border-b border-slate-300/80" />
 
-            {/* Book Front Cover with Spine and Gloss Sheen */}
+            {/* Book Front Cover with Spine */}
             <div className="book-card-3d relative w-full h-full rounded-r-lg rounded-l-xs overflow-hidden bg-white border border-slate-300/70 shadow-md">
-              <div className="book-sheen" />
               <img
                 src={book.image}
                 alt={book.title}

@@ -5,27 +5,46 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
     background-color: #F8FAFC;
     color: #0F172A;
-    overflow-x: hidden;
+    overflow-x: clip;
+    min-height: 100%;
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar: vertical only, hide horizontal scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 0px !important;
 }
+
 ::-webkit-scrollbar-track {
   background: #F1F5F9;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #C4B5FD;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #8B5CF6;
+}
+
+/* Complete cross-browser scrollbar suppression utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 /* Continuous testimonial marquee */
@@ -33,6 +52,7 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -63,6 +83,7 @@
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -83,6 +104,7 @@
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   100% {
     transform: translate(-50%, -50%) rotate(360deg);
   }
@@ -98,9 +120,12 @@
 
 /* Subtle continuous floating motion */
 @keyframes float-subtle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -115,6 +140,7 @@
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -130,33 +156,13 @@
   animation-play-state: paused;
 }
 
-/* Light shimmer flare sweep on photo card hover */
-.shimmer-card {
-  position: relative;
-  overflow: hidden;
+/* Professional Gallery Card Hover Elevation */
+.gallery-card-pro {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.shimmer-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 65%
-  );
-  transform: rotate(25deg) translateY(-120%);
-  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-  pointer-events: none;
-  z-index: 20;
-}
-
-.shimmer-card:hover::after {
-  transform: rotate(25deg) translateY(120%);
+.gallery-card-pro:hover {
+  transform: translateY(-5px);
 }
 
 /* Unique 3D Physical Book Hover Effect */
@@ -180,13 +186,11 @@
   left: 0;
   bottom: 0;
   width: 14px;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.22) 0%,
-    rgba(255, 255, 255, 0.35) 25%,
-    rgba(0, 0, 0, 0.12) 65%,
-    transparent 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(255, 255, 255, 0.35) 25%,
+      rgba(0, 0, 0, 0.12) 65%,
+      transparent 100%);
   z-index: 10;
   pointer-events: none;
   border-top-left-radius: inherit;
@@ -198,56 +202,30 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: repeating-linear-gradient(
-    to bottom,
-    #ffffff 0px,
-    #ffffff 2px,
-    #f1f5f9 3px,
-    #e2e8f0 4px
-  );
+  background: repeating-linear-gradient(to bottom,
+      #ffffff 0px,
+      #ffffff 2px,
+      #f1f5f9 3px,
+      #e2e8f0 4px);
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.08);
   transform: translate(0px, 0px);
   transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease;
   z-index: 1;
 }
 
-/* Glossy lamination sheen sweep across book cover */
-.book-sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    transparent 35%,
-    rgba(255, 255, 255, 0.35) 48%,
-    rgba(255, 255, 255, 0.65) 50%,
-    rgba(255, 255, 255, 0.35) 52%,
-    transparent 65%,
-    transparent 100%
-  );
-  transform: translateX(-150%);
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  z-index: 15;
-}
-
-/* Hover triggers when hovering anywhere on the card */
+/* Professional Hardcover Book Hover Effect (Clean & Non-Shiny) */
 .group:hover .book-card-3d {
-  transform: rotateY(-12deg) rotateX(3deg) translateY(-8px) scale(1.02);
-  box-shadow: 
-    -6px 12px 24px -4px rgba(0, 0, 0, 0.18),
-    12px 16px 28px -6px rgba(79, 70, 229, 0.25);
+  transform: translateY(-8px) rotate(-1deg) scale(1.02);
+  box-shadow:
+    0 20px 30px -10px rgba(15, 23, 42, 0.18),
+    0 10px 18px -6px rgba(79, 70, 229, 0.12);
 }
 
 .group:hover .book-pages-stack {
-  transform: translate(7px, 4px);
-  box-shadow: 
-    2px 2px 8px rgba(0, 0, 0, 0.12),
-    4px 4px 14px rgba(0, 0, 0, 0.08);
-}
-
-.group:hover .book-sheen {
-  transform: translateX(160%);
+  transform: translate(6px, 4px);
+  box-shadow:
+    2px 2px 8px rgba(0, 0, 0, 0.10),
+    4px 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Continuous Moving Triangular Background Animations */
@@ -255,12 +233,15 @@
   0% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
+
   33% {
     transform: translate(-35px, 22px) rotate(3deg) scale(1.03);
   }
+
   66% {
     transform: translate(20px, -24px) rotate(-2deg) scale(0.98);
   }
+
   100% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
@@ -270,9 +251,11 @@
   0% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
+
   50% {
     transform: translate(36px, -28px) rotate(-3.5deg) scale(1.04);
   }
+
   100% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
@@ -282,9 +265,11 @@
   0% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
+
   50% {
     transform: translate(-26px, 30px) rotate(3.5deg) scale(1.03);
   }
+
   100% {
     transform: translate(0px, 0px) rotate(0deg) scale(1);
   }
@@ -304,5 +289,3 @@
   animation: triangle-drift-3 7.5s ease-in-out infinite;
   will-change: transform;
 }
-
-

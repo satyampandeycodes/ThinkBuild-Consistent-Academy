@@ -30,11 +30,10 @@ export default function FAQSection() {
           return (
             <div
               key={faq.id}
-              className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
-                isOpen
+              className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${isOpen
                   ? 'border-brand-primary/50 shadow-sm ring-1 ring-brand-primary/15'
                   : 'border-slate-200/90 hover:border-slate-300 shadow-xs'
-              }`}
+                }`}
             >
               <button
                 onClick={() => toggleAccordion(faq.id)}
@@ -43,11 +42,10 @@ export default function FAQSection() {
               >
                 <div className="flex items-start gap-3">
                   <div
-                    className={`mt-0.5 w-6 h-6 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                      isOpen
+                    className={`mt-0.5 w-6 h-6 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isOpen
                         ? 'bg-brand-primary text-white'
                         : 'bg-slate-100 text-slate-500'
-                    }`}
+                      }`}
                   >
                     <HelpCircle className="w-3.5 h-3.5" />
                   </div>
@@ -62,11 +60,10 @@ export default function FAQSection() {
                 </div>
 
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 border transition-transform duration-200 ${
-                    isOpen
+                  className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 border transition-transform duration-200 ${isOpen
                       ? 'border-brand-primary bg-brand-soft text-brand-primary rotate-180'
                       : 'border-slate-200 text-slate-400 bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <ChevronDown className="w-3.5 h-3.5" />
                 </div>

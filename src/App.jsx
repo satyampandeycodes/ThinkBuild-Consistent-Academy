@@ -28,7 +28,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 w-full overflow-x-clip">
         <Header />
         <main className="flex-1">
           <Routes>

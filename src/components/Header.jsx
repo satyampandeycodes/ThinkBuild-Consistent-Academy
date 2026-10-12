@@ -32,9 +32,8 @@ export default function Header() {
   ];
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200' : 'bg-white border-b border-slate-100'
-    }`}>
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200' : 'bg-white border-b border-slate-100'
+      }`}>
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
@@ -47,7 +46,7 @@ export default function Header() {
                 className="w-full h-full object-contain rounded-full"
               />
             </div>
-            <span className="font-extrabold text-sm sm:text-lg lg:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors whitespace-nowrap">
+            <span className="font-extrabold text-xs xs:text-sm sm:text-lg lg:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors truncate">
               The Consistent Academy
             </span>
           </Link>
@@ -60,11 +59,10 @@ export default function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap ${
-                    isActive
+                  className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap ${isActive
                       ? 'text-brand-primary bg-brand-soft font-bold'
                       : 'text-slate-700 hover:text-brand-primary hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -102,11 +100,10 @@ export default function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                    isActive
+                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${isActive
                       ? 'text-brand-primary bg-brand-soft font-bold'
                       : 'text-slate-700 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <span>{link.name}</span>
                   <ChevronRight className="w-4 h-4 text-slate-400" />

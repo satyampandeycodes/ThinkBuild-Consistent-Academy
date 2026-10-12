@@ -15,7 +15,7 @@ export default function Courses() {
       : allCourses.filter(c => c.category === filter);
 
   return (
-    <div className="py-12 sm:py-16 space-y-20 max-w-7xl mx-auto px-4 sm:px-8">
+    <div className="py-10 sm:py-16 space-y-12 sm:space-y-16 max-w-7xl mx-auto px-4 sm:px-8 w-full">
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">
@@ -29,26 +29,28 @@ export default function Courses() {
         </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
-        {[
-          { id: 'all', label: 'All Courses' },
-          { id: 'test-prep', label: 'Global Test Prep (IELTS / PTE / CELPIP)' },
-          { id: 'corporate', label: 'Corporate & Leadership' },
-          { id: 'career', label: 'Interview & Soft Skills' },
-          { id: 'kids', label: 'Kids Series' }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setFilter(tab.id)}
-            className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap ${filter === tab.id
-                ? 'bg-brand-primary text-white shadow-brand'
-                : 'bg-white text-slate-700 border border-slate-200 hover:border-brand-primary'
-              }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Filter Tabs (Confined to viewport, swipes cleanly on mobile without scrollbar) */}
+      <div className="w-full max-w-full overflow-x-auto no-scrollbar py-2">
+        <div className="flex items-center gap-2.5 px-1 sm:px-0 sm:flex-wrap sm:justify-center w-max sm:w-auto mx-auto sm:mx-0">
+          {[
+            { id: 'all', label: 'All Courses' },
+            { id: 'test-prep', label: 'Global Test Prep (IELTS / PTE / CELPIP)' },
+            { id: 'corporate', label: 'Corporate & Leadership' },
+            { id: 'career', label: 'Interview & Soft Skills' },
+            { id: 'kids', label: 'Kids Series' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setFilter(tab.id)}
+              className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${filter === tab.id
+                ? 'bg-brand-primary text-white shadow-brand ring-2 ring-brand-primary/20'
+                : 'bg-white text-slate-700 border border-slate-200 hover:border-brand-primary/40 hover:bg-slate-50'
+                }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Main Course Grid */}
