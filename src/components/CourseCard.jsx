@@ -118,85 +118,99 @@ export default function CourseCard({ course }) {
 
       {/* Syllabus Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-slate-100">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setShowModal(false)}
+        >
+          {/* Main Modal Window (Fixed Card Shell) */}
+          <div
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] shadow-2xl relative border border-slate-100 flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Always-Visible Fixed Floating Close ("Cut") Button */}
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 z-40 p-2.5 rounded-full bg-white/95 hover:bg-rose-50 text-slate-500 hover:text-rose-600 border border-slate-200/90 shadow-md backdrop-blur-md transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 group"
               aria-label="Close syllabus modal"
+              title="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-200" />
             </button>
 
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-primary mb-1 block">
-              {course.subtitle || 'Course Syllabus'}
-            </span>
-            <h3 className="text-2xl font-extrabold text-slate-900 mb-2 pr-8">
-              {course.title}
-            </h3>
-            <p className="text-sm text-slate-600 mb-4">
-              {course.description}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 mb-6">
-              <span>Duration: {course.hours}</span>
-              <span>•</span>
-              <span>Modules: {course.modules}</span>
-              {course.price && (
-                <>
-                  <span>•</span>
-                  <span className="text-brand-primary">Fee: ₹ {course.price}</span>
-                </>
-              )}
-            </div>
-
-            {course.targetAudience && (
-              <div className="mb-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                  Target Audience
-                </h4>
-                <p className="text-sm text-slate-700">
-                  {course.targetAudience}
-                </p>
+            {/* Scrollable Content Area */}
+            <div className="overflow-y-auto p-6 sm:p-8 flex-1">
+              <div className="pr-10 sm:pr-12">
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-primary mb-1 block">
+                  {course.subtitle || 'Course Syllabus'}
+                </span>
+                <h3 className="text-2xl font-extrabold text-slate-900 mb-2">
+                  {course.title}
+                </h3>
               </div>
-            )}
+              <p className="text-sm text-slate-600 mb-4">
+                {course.description}
+              </p>
 
-            <div className="space-y-4 mb-8">
-              <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                Detailed Curriculum Modules
-              </h4>
-              {course.moduleDetails && course.moduleDetails.map((mod, i) => (
-                <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/60">
-                  <h5 className="font-bold text-sm text-slate-900 mb-2">
-                    {mod.title}
-                  </h5>
-                  <ul className="space-y-1.5">
-                    {mod.topics && mod.topics.map((t, ti) => (
-                      <li key={ti} className="flex items-start gap-2 text-xs text-slate-600">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-0.5" />
-                        <span>{t}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 mb-6">
+                <span>Duration: {course.hours}</span>
+                <span>•</span>
+                <span>Modules: {course.modules}</span>
+                {course.price && (
+                  <>
+                    <span>•</span>
+                    <span className="text-brand-primary">Fee: ₹ {course.price}</span>
+                  </>
+                )}
+              </div>
+
+              {course.targetAudience && (
+                <div className="mb-6">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Target Audience
+                  </h4>
+                  <p className="text-sm text-slate-700">
+                    {course.targetAudience}
+                  </p>
                 </div>
-              ))}
-            </div>
+              )}
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold"
-              >
-                Close
-              </button>
-              <Button
-                to={`/contact?course=${encodeURIComponent(course.title)}`}
-                variant="primary"
-                size="md"
-                onClick={() => setShowModal(false)}
-              >
-                Enroll / Enquire
-              </Button>
+              <div className="space-y-4 mb-8">
+                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
+                  Detailed Curriculum Modules
+                </h4>
+                {course.moduleDetails && course.moduleDetails.map((mod, i) => (
+                  <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/60">
+                    <h5 className="font-bold text-sm text-slate-900 mb-2">
+                      {mod.title}
+                    </h5>
+                    <ul className="space-y-1.5">
+                      {mod.topics && mod.topics.map((t, ti) => (
+                        <li key={ti} className="flex items-start gap-2 text-xs text-slate-600">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-0.5" />
+                          <span>{t}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+                <Button
+                  to={`/contact?course=${encodeURIComponent(course.title)}`}
+                  variant="primary"
+                  size="md"
+                  onClick={() => setShowModal(false)}
+                >
+                  Enroll / Enquire
+                </Button>
+              </div>
             </div>
           </div>
         </div>

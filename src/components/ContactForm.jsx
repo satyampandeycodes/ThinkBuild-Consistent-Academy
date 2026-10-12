@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Info } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import Button from './Button';
 
 export default function ContactForm({ initialCourse = '' }) {
@@ -79,14 +79,6 @@ export default function ContactForm({ initialCourse = '' }) {
 
   return (
     <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm relative">
-      {/* Prototype Indicator Notice */}
-      <div className="mb-6 p-3.5 rounded-xl bg-brand-soft border border-brand-border/60 flex items-start gap-2.5 text-xs text-brand-dark">
-        <Info className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold">Prototype / Demo Form:</span> Your inquiry data is validated on client-side. In production, this connects securely to The Consistent Academy's admissions desk.
-        </div>
-      </div>
-
       {submitted ? (
         <div className="py-12 text-center space-y-4 animate-in fade-in duration-300">
           <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
@@ -263,6 +255,9 @@ export default function ContactForm({ initialCourse = '' }) {
             >
               {submitting ? 'Sending Request...' : 'Submit Course Enquiry'}
             </Button>
+            <p className="text-[11px] text-slate-500 text-center mt-2.5">
+              Note: This is an interactive prototype. Live enquiries can also be placed directly via phone or WhatsApp.
+            </p>
           </div>
         </form>
       )}

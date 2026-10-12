@@ -11,7 +11,8 @@ export default function Button({
   onClick,
   type = 'button',
   icon: Icon,
-  iconPosition = 'left'
+  iconPosition = 'left',
+  disabled = false
 }) {
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed';
 
@@ -32,11 +33,11 @@ export default function Button({
   const combinedClasses = `${baseStyles} ${variants[variant] || variants.primary} ${sizes[size] || sizes.md} ${className}`;
 
   const content = (
-    <>
+    <span className="inline-flex items-center justify-center gap-2 flex-row">
       {Icon && iconPosition === 'left' && <Icon className="w-4 h-4 shrink-0" />}
-      <span>{children}</span>
+      {children}
       {Icon && iconPosition === 'right' && <Icon className="w-4 h-4 shrink-0" />}
-    </>
+    </span>
   );
 
   if (to) {
@@ -56,7 +57,7 @@ export default function Button({
   }
 
   return (
-    <button type={type} className={combinedClasses} onClick={onClick}>
+    <button type={type} className={combinedClasses} onClick={onClick} disabled={disabled}>
       {content}
     </button>
   );

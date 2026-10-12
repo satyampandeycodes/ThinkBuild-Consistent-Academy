@@ -54,7 +54,6 @@ export const publishedBooks = [
     image: "/assets/academy/books/cakewalk-ielts.jpg",
     links: [
       { label: "Evincepub", url: "https://evincepub.com/product/a-focal-easy-guide-cakewalk-ielts/" },
-      { label: "Bspkart", url: "https://www.bspkart.com/product/a-focal-easy-guide-cakewalk-ielts/" },
       { label: "Amazon", url: "https://www.amazon.in/Focal-Easy-Guide-Cakewalk-IELTS/dp/9354468594/ref" },
       { label: "Flipkart", url: "https://www.flipkart.com/focal-easy-guide-cakewalk-ielts/p/itme05662a461566" }
     ]
@@ -314,6 +313,7 @@ export const allCourses = [
     hours: "6 Hours",
     price: "3000/-",
     modules: 6,
+    promise: "Master professional dining and social etiquette for effortless corporate confidence.",
     targetAudience: "Freshers, management trainees, graduate hires, young professionals (0–3 years). Separate batches for boys and girls.",
     moduleDetails: [
       {
@@ -423,6 +423,7 @@ export const allCourses = [
     hours: "15 Hours",
     price: "15000/-",
     modules: 5,
+    promise: "Transform traditional teaching into experiential, globally aligned English learning classrooms.",
     targetAudience: "Pre-Primary Teachers, School Educators, Secondary School Teachers, Senior Secondary Faculty, Academic Coordinators & School Leaders",
     moduleDetails: [
       {

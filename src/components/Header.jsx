@@ -27,6 +27,7 @@ export default function Header() {
     { name: 'Courses', path: '/courses' },
     { name: 'Tests', path: '/tests' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -38,15 +39,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-sm group-hover:scale-105 transition-transform">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink min-w-0">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-brand-primary p-0.5 shadow-xs group-hover:scale-105 transition-transform shrink-0">
               <img
                 src={academyInfo.logo}
                 alt={academyInfo.name}
                 className="w-full h-full object-contain rounded-full"
               />
             </div>
-            <span className="font-extrabold text-base sm:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors">
+            <span className="font-extrabold text-sm sm:text-lg lg:text-xl text-slate-900 leading-tight group-hover:text-brand-primary transition-colors whitespace-nowrap">
               The Consistent Academy
             </span>
           </Link>
@@ -79,16 +80,13 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="lg:hidden flex items-center gap-2">
-            <Link to="/courses" className="sm:hidden px-3 py-1.5 bg-brand-primary text-white text-xs font-semibold rounded-lg">
-              Enroll Now
-            </Link>
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:text-brand-primary hover:bg-slate-100 focus:outline-none"
+              className="p-2 sm:p-2.5 rounded-xl text-slate-700 hover:text-brand-primary hover:bg-brand-soft/60 focus:outline-none transition-colors border border-slate-200/70 shadow-xs cursor-pointer"
               aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5 text-slate-800" /> : <Menu className="w-5 h-5 text-slate-800" />}
             </button>
           </div>
         </div>
@@ -96,7 +94,7 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 shadow-lg animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-xl animate-in fade-in slide-in-from-top-4 duration-200">
           <div className="space-y-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
@@ -104,9 +102,9 @@ export default function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium ${
+                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                     isActive
-                      ? 'text-brand-primary bg-brand-soft font-semibold'
+                      ? 'text-brand-primary bg-brand-soft font-bold'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
@@ -117,17 +115,20 @@ export default function Header() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
+          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+            <Button to="/courses" variant="primary" size="md" className="w-full justify-center">
+              Enroll in a Course
+            </Button>
+            <Button to="/contact" variant="outline" size="md" className="w-full justify-center">
+              Contact & Counseling
+            </Button>
             <a
               href={`tel:${academyInfo.phoneRaw}`}
-              className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-brand-border text-brand-primary text-sm font-semibold bg-brand-soft"
+              className="flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-brand-border text-brand-primary text-xs font-semibold bg-brand-soft"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-3.5 h-3.5" />
               <span>Call: {academyInfo.phone}</span>
             </a>
-            <Button to="/contact" variant="primary" size="lg" className="w-full">
-              Book Free Counseling
-            </Button>
           </div>
         </div>
       )}
