@@ -17,7 +17,9 @@ import {
   HiArrowRightOnRectangle,
   HiArrowLeftOnRectangle,
   HiClock,
-  HiChatBubbleLeftRight
+  HiChatBubbleLeftRight,
+  HiBookmark,
+  HiPlay
 } from 'react-icons/hi2';
 import {
   FaBrain,
@@ -55,6 +57,28 @@ export default function Tests() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
+  const [saveNotice, setSaveNotice] = useState('');
+
+  // Storage key helper for scoped user test progress
+  const getTestStorageKey = (testId) => {
+    const userEmail = currentUser?.email || 'guest';
+    return `tca_saved_progress_${userEmail}_${testId}`;
+  };
+
+  const getSavedProgress = (testId) => {
+    try {
+      const data = localStorage.getItem(getTestStorageKey(testId));
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const clearSavedProgress = (testId) => {
+    try {
+      localStorage.removeItem(getTestStorageKey(testId));
+    } catch {}
+  };
 
   const handleAuthSubmit = (e) => {
     e.preventDefault();
@@ -91,38 +115,105 @@ export default function Tests() {
     setCurrentQuestionIndex(0);
     setUserAnswers({});
     setIsCompleted(false);
+    setSaveNotice('');
   };
 
-  const startTest = (testId) => {
+  const startTest = (testId, resume = false) => {
+    if (resume) {
+      const saved = getSavedProgress(testId);
+      if (saved) {
+        setActiveTest(testId);
+        setCurrentQuestionIndex(saved.currentQuestionIndex || 0);
+        setUserAnswers(saved.userAnswers || {});
+        setIsCompleted(false);
+        setSaveNotice('');
+        return;
+      }
+    }
+    clearSavedProgress(testId);
     setActiveTest(testId);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
     setIsCompleted(false);
+    setSaveNotice('');
   };
 
   const handleSelectOption = (optionIndex) => {
-    setUserAnswers((prev) => ({
-      ...prev,
+    const updatedAnswers = {
+      ...userAnswers,
       [currentQuestionIndex]: optionIndex
-    }));
+    };
+    setUserAnswers(updatedAnswers);
+
+    // Auto-save progress immediately on selection
+    if (activeTest) {
+      try {
+        localStorage.setItem(getTestStorageKey(activeTest), JSON.stringify({
+          activeTest,
+          currentQuestionIndex,
+          userAnswers: updatedAnswers,
+          savedAt: new Date().toISOString()
+        }));
+      } catch (e) {}
+    }
   };
 
   const handleNext = () => {
     const questions = questionsBank[activeTest] || [];
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
+      const nextIdx = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIdx);
+      if (activeTest) {
+        try {
+          localStorage.setItem(getTestStorageKey(activeTest), JSON.stringify({
+            activeTest,
+            currentQuestionIndex: nextIdx,
+            userAnswers,
+            savedAt: new Date().toISOString()
+          }));
+        } catch (e) {}
+      }
     } else {
       setIsCompleted(true);
+      if (activeTest) {
+        clearSavedProgress(activeTest);
+      }
     }
   };
 
   const handlePrev = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prev) => prev - 1);
+      const prevIdx = currentQuestionIndex - 1;
+      setCurrentQuestionIndex(prevIdx);
+      if (activeTest) {
+        try {
+          localStorage.setItem(getTestStorageKey(activeTest), JSON.stringify({
+            activeTest,
+            currentQuestionIndex: prevIdx,
+            userAnswers,
+            savedAt: new Date().toISOString()
+          }));
+        } catch (e) {}
+      }
+    }
+  };
+
+  const handleSubmitAndExit = () => {
+    if (activeTest) {
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount === 0) {
+        alert('Please answer at least one question before submitting.');
+        return;
+      }
+      clearSavedProgress(activeTest);
+      setIsCompleted(true);
     }
   };
 
   const handleResetTest = () => {
+    if (activeTest) {
+      clearSavedProgress(activeTest);
+    }
     setActiveTest(null);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
@@ -133,6 +224,7 @@ export default function Tests() {
   const calculateGrammarScore = () => {
     const questions = questionsBank[activeTest] || [];
     let score = 0;
+    const answeredCount = Object.keys(userAnswers).length;
     questions.forEach((q, idx) => {
       if (userAnswers[idx] === q.answer) {
         score += 1;
@@ -141,7 +233,9 @@ export default function Tests() {
     return {
       score,
       total: questions.length,
-      percentage: Math.round((score / questions.length) * 100)
+      answeredCount,
+      percentage: answeredCount > 0 ? Math.round((score / answeredCount) * 100) : 0,
+      overallPercentage: Math.round((score / questions.length) * 100)
     };
   };
 
@@ -201,7 +295,9 @@ export default function Tests() {
       dominantStyle: styleLabels[dominantKey] || 'Transformational Leader',
       secondaryStyle: styleLabels[secondaryKey] || 'Coaching Leader',
       description: styleDescriptions[dominantKey] || styleDescriptions.transformational,
-      scores: styleScores
+      scores: styleScores,
+      answeredCount: Object.keys(userAnswers).length,
+      total: questions.length
     };
   };
 
@@ -365,13 +461,13 @@ export default function Tests() {
     <div className="py-8 sm:py-16 space-y-8 sm:space-y-12 max-w-7xl mx-auto px-4 sm:px-8 w-full">
       {/* Top Welcome Bar (Capped width, no horizontal spill) */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-5 shadow-xs w-full max-w-full overflow-hidden">
-        <div className="flex items-center gap-3 sm:gap-4 text-center sm:text-left w-full sm:w-auto justify-center sm:justify-start min-w-0">
+        <div className="flex items-center gap-3 sm:gap-4 text-left w-full sm:w-auto justify-start min-w-0">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-brand-primary to-purple-600 text-white font-extrabold text-lg sm:text-xl flex items-center justify-center shadow-md shadow-brand-primary/20 shrink-0">
             {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U'}
           </div>
           <div className="min-w-0 flex-1 sm:flex-initial">
-            <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-              <h2 className="text-base sm:text-xl font-bold text-slate-900 truncate">
+            <div className="flex items-center justify-start gap-2 flex-wrap">
+              <h2 className="text-base sm:text-xl font-bold text-slate-900 break-words [overflow-wrap:anywhere] sm:truncate">
                 Welcome, {currentUser.name}!
               </h2>
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
@@ -393,6 +489,23 @@ export default function Tests() {
           <span>Sign Out</span>
         </button>
       </div>
+
+      {/* Save & Exit Confirmation Notice */}
+      {saveNotice && (
+        <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex items-center justify-between gap-3 text-xs sm:text-sm font-semibold shadow-xs animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2.5">
+            <HiBookmark className="w-5 h-5 text-amber-600 shrink-0" />
+            <span>{saveNotice}</span>
+          </div>
+          <button
+            onClick={() => setSaveNotice('')}
+            className="text-amber-700 hover:text-amber-950 p-1 hover:bg-amber-100/60 rounded-lg cursor-pointer"
+            title="Dismiss notice"
+          >
+            <HiXCircle className="w-5 h-5" />
+          </button>
+        </div>
+      )}
 
       {/* 3 TEST CARDS (Matching bundle: Kids, Adults, Leadership) */}
       {!activeTest && (
@@ -510,15 +623,59 @@ export default function Tests() {
                     )}
                   </div>
 
-                  <Button
-                    onClick={() => startTest(test.id)}
-                    variant={isLeadership ? 'gold' : 'primary'}
-                    size="md"
-                    className="w-full py-3 sm:py-3.5 text-xs sm:text-sm flex items-center justify-center gap-2 font-bold shadow-sm group-hover:shadow-md cursor-pointer"
-                  >
-                    <span>Start {test.title}</span>
-                    <HiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  {(() => {
+                    const saved = getSavedProgress(test.id);
+                    const answeredCount = saved?.userAnswers ? Object.keys(saved.userAnswers).length : 0;
+                    const hasProgress = saved && (answeredCount > 0 || (saved.currentQuestionIndex || 0) > 0);
+
+                    if (hasProgress) {
+                      const resumeQuestion = (saved.currentQuestionIndex || 0) + 1;
+                      return (
+                        <div className="space-y-2.5">
+                          <div className="flex items-center justify-between text-[11px] font-bold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200">
+                            <span className="flex items-center gap-1.5">
+                              <HiBookmark className="w-3.5 h-3.5 text-amber-600" />
+                              <span>Saved at Q{resumeQuestion}</span>
+                            </span>
+                            <span className="text-amber-700 font-medium">{answeredCount} answered</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button
+                              onClick={() => startTest(test.id, true)}
+                              variant={isLeadership ? 'gold' : 'primary'}
+                              size="md"
+                              className="flex-1 py-3 text-xs sm:text-sm flex items-center justify-center gap-2 font-bold shadow-sm group-hover:shadow-md cursor-pointer"
+                            >
+                              <HiPlay className="w-4 h-4" />
+                              <span>Resume (Q{resumeQuestion})</span>
+                            </Button>
+                            <button
+                              onClick={() => {
+                                clearSavedProgress(test.id);
+                                startTest(test.id, false);
+                              }}
+                              className="px-3.5 py-3 rounded-xl border border-slate-200 hover:border-rose-300 hover:bg-rose-50/50 hover:text-rose-600 text-slate-500 text-xs font-bold transition-all cursor-pointer shrink-0"
+                              title="Restart test from Question 1"
+                            >
+                              <HiArrowPath className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <Button
+                        onClick={() => startTest(test.id, false)}
+                        variant={isLeadership ? 'gold' : 'primary'}
+                        size="md"
+                        className="w-full py-3 sm:py-3.5 text-xs sm:text-sm flex items-center justify-center gap-2 font-bold shadow-sm group-hover:shadow-md cursor-pointer"
+                      >
+                        <span>Start {test.title}</span>
+                        <HiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    );
+                  })()}
                 </div>
               );
             })}
@@ -529,14 +686,27 @@ export default function Tests() {
       {/* ACTIVE TEST QUESTION VIEW */}
       {activeTest && !isCompleted && (
         <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in duration-300">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={handleResetTest}
-              className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-brand-primary px-3 py-1.5 rounded-xl border border-slate-200 hover:border-brand-primary/40 bg-white shadow-2xs transition-all cursor-pointer"
-            >
-              <HiArrowLeft className="w-4 h-4" />
-              <span>Back to Tests</span>
-            </button>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleResetTest}
+                className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-brand-primary px-3 py-1.5 rounded-xl border border-slate-200 hover:border-brand-primary/40 bg-white shadow-2xs transition-all cursor-pointer"
+                title="Return to tests overview"
+              >
+                <HiArrowLeft className="w-4 h-4" />
+                <span>Back to Tests</span>
+              </button>
+
+              <button
+                onClick={handleSubmitAndExit}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-1.5 rounded-xl border border-emerald-300 shadow-2xs transition-all cursor-pointer"
+                title="Submit test now and see final score"
+              >
+                <HiCheckCircle className="w-4 h-4 text-emerald-600" />
+                <span>Submit & Exit</span>
+              </button>
+            </div>
+
             <span className="text-xs font-bold text-brand-primary bg-brand-soft px-3.5 py-1.5 rounded-full border border-brand-border flex items-center gap-2 shadow-2xs">
               {activeTest === 'kids' && (
                 <>
@@ -563,6 +733,15 @@ export default function Tests() {
             const questions = questionsBank[activeTest] || [];
             const currentQ = questions[currentQuestionIndex];
             const isAnswered = userAnswers[currentQuestionIndex] !== undefined;
+
+            const selectedIdx = userAnswers[currentQuestionIndex];
+            const hasCorrectAnswerKey = currentQ?.answer !== undefined || currentQ?.acceptedAnswers !== undefined;
+
+            const userPickedCorrect = isAnswered && hasCorrectAnswerKey && (
+              (Array.isArray(currentQ.answer) && currentQ.answer.includes(selectedIdx)) ||
+              (Array.isArray(currentQ.acceptedAnswers) && currentQ.acceptedAnswers.includes(selectedIdx)) ||
+              selectedIdx === currentQ.answer
+            );
 
             return (
               <div className="bg-white rounded-3xl border border-slate-200/90 p-8 sm:p-10 shadow-xl shadow-brand-primary/5 space-y-8 relative overflow-hidden">
@@ -604,18 +783,25 @@ export default function Tests() {
 
                 <div className="space-y-3">
                   {currentQ.options.map((opt, oIdx) => {
-                    const selectedIdx = userAnswers[currentQuestionIndex];
                     const isSelected = selectedIdx === oIdx;
-                    const hasAnswered = selectedIdx !== undefined;
-                    const hasCorrectAnswerKey = currentQ.answer !== undefined;
-                    const isCorrectAnswer = hasCorrectAnswerKey && oIdx === currentQ.answer;
-                    const isWrongSelection = hasCorrectAnswerKey && isSelected && oIdx !== currentQ.answer;
+
+                    const isOptionCorrect = hasCorrectAnswerKey && (
+                      (Array.isArray(currentQ.answer) && currentQ.answer.includes(oIdx)) ||
+                      (Array.isArray(currentQ.acceptedAnswers) && currentQ.acceptedAnswers.includes(oIdx)) ||
+                      oIdx === currentQ.answer
+                    );
+
+                    const isWrongSelection = isAnswered && isSelected && !userPickedCorrect;
+                    const isPrimaryAnswer = oIdx === currentQ.answer || (!currentQ.answer && isOptionCorrect);
+                    const showAsCorrect = isAnswered && hasCorrectAnswerKey && (
+                      (isSelected && isOptionCorrect) || (!userPickedCorrect && isPrimaryAnswer)
+                    );
 
                     let buttonClasses = 'w-full text-left p-4 sm:p-5 rounded-2xl border transition-all flex items-center justify-between gap-4 text-sm font-medium';
                     let badgeClasses = 'w-8 h-8 rounded-xl flex items-center justify-center text-xs font-extrabold shrink-0 transition-colors';
 
-                    if (hasAnswered && hasCorrectAnswerKey) {
-                      if (isCorrectAnswer) {
+                    if (isAnswered && hasCorrectAnswerKey) {
+                      if (showAsCorrect) {
                         buttonClasses += ' bg-emerald-50/90 border-emerald-500 ring-2 ring-emerald-500/25 text-emerald-950 shadow-xs';
                         badgeClasses += ' bg-emerald-600 text-white shadow-xs';
                       } else if (isWrongSelection) {
@@ -647,8 +833,8 @@ export default function Tests() {
                         </div>
 
                         <div className="flex items-center gap-2 shrink-0">
-                          {hasAnswered && hasCorrectAnswerKey ? (
-                            isCorrectAnswer ? (
+                          {isAnswered && hasCorrectAnswerKey ? (
+                            showAsCorrect ? (
                               <>
                                 <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100/90 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
                                   <HiCheck className="w-3.5 h-3.5" /> Correct
@@ -677,13 +863,14 @@ export default function Tests() {
                 {/* Instant Explanation Box */}
                 {isAnswered && currentQ.explanation && (
                   <div
-                    className={`p-4 sm:p-5 rounded-2xl border flex items-start gap-3.5 animate-in fade-in slide-in-from-top-2 duration-300 ${userAnswers[currentQuestionIndex] === currentQ.answer
-                      ? 'bg-emerald-50/80 border-emerald-200/90 text-emerald-950'
-                      : 'bg-amber-50/80 border-amber-200/90 text-amber-950'
-                      }`}
+                    className={`p-4 sm:p-5 rounded-2xl border flex items-start gap-3.5 animate-in fade-in slide-in-from-top-2 duration-300 ${
+                      userPickedCorrect
+                        ? 'bg-emerald-50/80 border-emerald-200/90 text-emerald-950'
+                        : 'bg-amber-50/80 border-amber-200/90 text-amber-950'
+                    }`}
                   >
                     <div className="p-2 rounded-xl bg-white shadow-2xs shrink-0 mt-0.5">
-                      {userAnswers[currentQuestionIndex] === currentQ.answer ? (
+                      {userPickedCorrect ? (
                         <HiCheckCircle className="w-5 h-5 text-emerald-600" />
                       ) : (
                         <HiLightBulb className="w-5 h-5 text-amber-600" />
@@ -692,7 +879,7 @@ export default function Tests() {
                     <div className="space-y-1 text-xs sm:text-sm">
                       <div className="flex items-center gap-2">
                         <span className="font-extrabold uppercase tracking-wider text-[11px]">
-                          {userAnswers[currentQuestionIndex] === currentQ.answer
+                          {userPickedCorrect
                             ? 'Excellent! Correct Answer'
                             : 'Key Diagnostic Rule & Explanation'}
                         </span>
@@ -704,15 +891,26 @@ export default function Tests() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-5 border-t border-slate-100">
-                  <button
-                    onClick={handlePrev}
-                    disabled={currentQuestionIndex === 0}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
-                  >
-                    <HiArrowLeft className="w-4 h-4" />
-                    <span>Previous</span>
-                  </button>
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handlePrev}
+                      disabled={currentQuestionIndex === 0}
+                      className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+                    >
+                      <HiArrowLeft className="w-4 h-4" />
+                      <span>Previous</span>
+                    </button>
+
+                    <button
+                      onClick={handleSubmitAndExit}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-100/70 text-xs font-bold text-emerald-800 hover:text-emerald-950 transition-all cursor-pointer"
+                      title="Submit test now and see final score"
+                    >
+                      <HiCheckCircle className="w-4 h-4 text-emerald-600" />
+                      <span>Submit & Exit</span>
+                    </button>
+                  </div>
 
                   <Button
                     onClick={handleNext}
@@ -738,7 +936,8 @@ export default function Tests() {
         <div className="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-200/90 p-8 sm:p-12 shadow-xl shadow-brand-primary/5 space-y-8 text-center animate-in zoom-in-95 duration-300 relative overflow-hidden">
           {activeTest !== 'leadership' ? (
             (() => {
-              const { score, total, percentage } = calculateGrammarScore();
+              const { score, total, answeredCount, percentage, overallPercentage } = calculateGrammarScore();
+              const isEarlySubmission = answeredCount < total;
               return (
                 <>
                   <div className="w-22 h-22 mx-auto rounded-3xl bg-gradient-to-br from-amber-50 to-brand-soft border border-brand-border/60 flex items-center justify-center text-amber-500 shadow-lg shadow-amber-500/10">
@@ -747,11 +946,16 @@ export default function Tests() {
 
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-brand-primary bg-brand-soft px-3.5 py-1 rounded-full border border-brand-border">
-                      Verified Diagnostic Result
+                      {isEarlySubmission ? `Diagnostic Result • ${answeredCount} of ${total} Questions Answered` : 'Verified Diagnostic Result'}
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3 mb-2 tracking-tight">
-                      Score: {score} / {total} ({percentage}%)
+                      Score: {score} / {answeredCount > 0 ? answeredCount : total} ({percentage}%)
                     </h2>
+                    {isEarlySubmission && (
+                      <p className="text-xs font-semibold text-slate-500 mb-2">
+                        Overall Test Standing: {score} / {total} total questions ({overallPercentage}%)
+                      </p>
+                    )}
                     <p className="text-slate-600 text-sm max-w-lg mx-auto leading-relaxed">
                       {percentage >= 80
                         ? 'Outstanding proficiency! You demonstrate high accuracy with complex sentence structures, idioms, and grammatical nuances.'
@@ -780,7 +984,8 @@ export default function Tests() {
             })()
           ) : (
             (() => {
-              const { dominantStyle, secondaryStyle, description } = calculateLeadershipScore();
+              const { dominantStyle, secondaryStyle, description, answeredCount, total } = calculateLeadershipScore();
+              const isEarlySubmission = answeredCount < total;
               return (
                 <>
                   <div className="w-22 h-22 mx-auto rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 flex items-center justify-center text-amber-600 shadow-lg shadow-amber-500/10">
@@ -789,7 +994,7 @@ export default function Tests() {
 
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">
-                      Executive Diagnostic Result
+                      {isEarlySubmission ? `Executive Diagnostic Result (${answeredCount} of ${total} Evaluated)` : 'Executive Diagnostic Result'}
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-2 tracking-tight">
                       Dominant: {dominantStyle}

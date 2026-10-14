@@ -708,7 +708,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 0,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "Unilateral decision-making excludes diverse perspectives and diminishes team buy-in. Modern leadership emphasizes consultation and collective ownership."
     },
     {
       "id": 2,
@@ -722,7 +728,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Consultative decision-making fosters psychological safety, uncovers blind spots, and drastically improves execution commitment across the team."
     },
     {
       "id": 3,
@@ -736,7 +748,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Situational leadership adapts directive versus delegative postures according to team members' skill maturity and task complexity."
     },
     {
       "id": 4,
@@ -750,7 +768,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Standard operating procedures ensure institutional consistency and compliance, though leaders must balance compliance with situational discretion."
     },
     {
       "id": 5,
@@ -764,7 +789,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Executive decisiveness under ambiguity is critical for momentum, provided the leader maintains agility to pivot as new data emerges."
     },
     {
       "id": 6,
@@ -778,7 +810,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Welcoming constructive dissent prevents groupthink, sharpens strategic rigor, and proves intellectual humility."
     },
     {
       "id": 7,
@@ -792,7 +830,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Clear accountability and milestone-based rewards set unambiguous standards, though they should be paired with empathetic coaching."
     },
     {
       "id": 8,
@@ -806,7 +851,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Transformational leaders prioritize sustainable vision and organizational capability over fleeting transactional gains."
     },
     {
       "id": 9,
@@ -820,7 +871,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Empowering team members with true decision-making autonomy builds confidence, accountability, and organizational scalability."
     },
     {
       "id": 10,
@@ -834,7 +891,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "True executive leadership requires courage to make tough, principled choices for the organization's greater good despite short-term resistance."
     },
     {
       "id": 11,
@@ -848,7 +911,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Transparent performance standards eliminate ambiguity, reduce friction, and align daily execution with organizational objectives."
     },
     {
       "id": 12,
@@ -862,7 +931,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Active listening validates team contributions, builds deep interpersonal trust, and reveals critical operational insights."
     },
     {
       "id": 13,
@@ -876,7 +951,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Communicating a purposeful narrative ignites intrinsic motivation, transforming mundane tasks into meaningful missions."
     },
     {
       "id": 14,
@@ -890,7 +971,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 1,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "Over-reliance on rigid formal hierarchies creates communication bottlenecks and slows innovation in modern agile organizations."
     },
     {
       "id": 15,
@@ -904,7 +991,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Frequent, actionable, and empathetic feedback accelerates individual skill development and prevents compounding errors."
     },
     {
       "id": 16,
@@ -918,7 +1011,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Timely recognition reinforces high-performance behaviors and validates the diligence and impact of team members."
     },
     {
       "id": 17,
@@ -932,7 +1031,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Tailoring tone, detail level, and medium to each individual's personality maximizes influence, clarity, and resonance."
     },
     {
       "id": 18,
@@ -946,7 +1051,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Radical transparency dissolves rumors, fosters psychological safety, and aligns everyone toward shared realities."
     },
     {
       "id": 19,
@@ -960,7 +1071,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 0,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "One-way directive instruction suppresses creativity and critical thinking. Engaging discussions build genuine stakeholder commitment."
     },
     {
       "id": 20,
@@ -974,7 +1091,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Investing in long-term personal mentorship produces future leaders, lowers turnover, and compounds institutional capability."
     },
     {
       "id": 21,
@@ -988,7 +1111,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Demonstrating trust through autonomous delegation fosters initiative, self-reliance, and higher job satisfaction."
     },
     {
       "id": 22,
@@ -1002,7 +1131,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3
+      ],
+      "explanation": "Tracking performance outcomes is essential for accountability, though leaders must guard against micro-surveillance that stifles autonomy."
     },
     {
       "id": 23,
@@ -1016,7 +1151,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "People-first leadership recognizes that high-performing teams naturally hit and exceed ambitious performance targets."
     },
     {
       "id": 24,
@@ -1030,7 +1171,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Early intervention allows timely diagnosis of obstacles, preventing compounding delays and providing real-time support."
     },
     {
       "id": 25,
@@ -1044,7 +1192,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Servant leadership removes blockers and champions team welfare, unlocking extraordinary loyalty and discretionary effort."
     },
     {
       "id": 26,
@@ -1058,7 +1212,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Consistent operational discipline and clear accountability norms create reliable predictability and high work standards."
     },
     {
       "id": 27,
@@ -1072,7 +1232,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Cross-functional collaboration dismantles organizational silos, sparking innovative problem-solving and shared wins."
     },
     {
       "id": 28,
@@ -1086,7 +1252,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Asking powerful coaching questions guides team members to uncover solutions themselves, fostering deep problem-solving maturity."
     },
     {
       "id": 29,
@@ -1100,7 +1272,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Reframing missteps into blameless learning retrospectives encourages calculated risk-taking and continuous team refinement."
     },
     {
       "id": 30,
@@ -1114,7 +1292,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 0,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "True leadership influence flows from competence, empathy, and mutual trust rather than coercive authoritarian power."
     },
     {
       "id": 31,
@@ -1128,7 +1312,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Embracing change leadership enables organizations to stay ahead of market disruptions and continually evolve."
     },
     {
       "id": 32,
@@ -1142,7 +1332,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "A healthy appetite for iterative experimentation and rapid prototyping unlocks breakthrough market innovations."
     },
     {
       "id": 33,
@@ -1156,7 +1352,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 1,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "Over-indexing on static stability leads to organizational inertia and irrelevance in dynamic competitive environments."
     },
     {
       "id": 34,
@@ -1170,7 +1372,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Connecting tactical day-to-day milestones to the overarching strategic horizon gives team members clear context and purpose."
     },
     {
       "id": 35,
@@ -1184,7 +1392,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Rewarding smart risk-taking creates an innovative culture where teams feel secure exploring novel value-creation paths."
     },
     {
       "id": 36,
@@ -1198,7 +1412,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Respecting organizational policy safeguards compliance, ethics, and legal standing across enterprise operations."
     },
     {
       "id": 37,
@@ -1212,7 +1433,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Setting audacious horizons while demonstrating unwavering faith in team potential elevates individual and collective ceilings."
     },
     {
       "id": 38,
@@ -1226,7 +1453,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 1,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "While baseline best practices have their place, dogmatic adherence to legacy methods prevents transformative breakthroughs."
     },
     {
       "id": 39,
@@ -1240,7 +1473,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Empathetic change management addresses anxiety, equips teams with new capabilities, and smooths operational transitions."
     },
     {
       "id": 40,
@@ -1254,7 +1493,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Courageously challenging conventional assumptions is the hallmark of pioneering leadership and sustained competitive advantage."
     },
     {
       "id": 41,
@@ -1268,7 +1513,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Modeling the exact work ethic, integrity, and composure you expect from others establishes unbreakable leadership credibility."
     },
     {
       "id": 42,
@@ -1282,7 +1533,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "A service mindset shifts leadership from self-aggrandizement to institutional empowerment, creating high-trust environments."
     },
     {
       "id": 43,
@@ -1296,7 +1553,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Holding team members kindly yet firmly accountable builds mutual respect, protects team equity, and ensures dependable delivery."
     },
     {
       "id": 44,
@@ -1310,7 +1573,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Extreme ownership means taking responsibility when things go wrong and passing credit to the team when things go right."
     },
     {
       "id": 45,
@@ -1324,7 +1593,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Fairness and consistent transparency eliminate toxic office politics and reinforce high team morale."
     },
     {
       "id": 46,
@@ -1338,7 +1613,14 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 3,
+      "acceptedAnswers": [
+        2,
+        3,
+        4
+      ],
+      "explanation": "Strategic alignment requires prioritizing enterprise goals, while actively designing paths where individual aspirations thrive alongside them."
     },
     {
       "id": 47,
@@ -1352,7 +1634,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "The ultimate metric of an exceptional leader is not the number of followers they gather, but the number of new leaders they cultivate."
     },
     {
       "id": 48,
@@ -1366,7 +1654,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 0,
+      "acceptedAnswers": [
+        0,
+        1
+      ],
+      "explanation": "Positional titles confer job duties, but genuine authority is earned through character, empathy, competence, and reliability."
     },
     {
       "id": 49,
@@ -1380,7 +1674,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Upholding non-negotiable moral standards protects institutional reputation and builds lasting community and client trust."
     },
     {
       "id": 50,
@@ -1394,7 +1694,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Trust is the fundamental currency of leadership; high trust accelerates speed and reduces communication overhead."
     },
     {
       "id": 51,
@@ -1408,7 +1714,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Rigorous self-reflection reveals unconscious biases, enhances emotional regulation, and fuels deliberate personal growth."
     },
     {
       "id": 52,
@@ -1422,7 +1734,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Proactively inviting upward feedback models vulnerability and creates an environment where everyone continuously refines their work."
     },
     {
       "id": 53,
@@ -1436,7 +1754,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Dynamic situational agility allows leaders to coach during stable periods and provide directive clarity during high-stakes crises."
     },
     {
       "id": 54,
@@ -1450,7 +1774,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Emotional composure under duress anchors team psychological safety and enables rational, structured decision-making."
     },
     {
       "id": 55,
@@ -1464,7 +1794,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "A relentless growth mindset ensures leaders continually expand their capabilities as business complexity deepens."
     },
     {
       "id": 56,
@@ -1478,7 +1814,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Effective leaders tailor their posture to individual learning curves, cultural nuances, and evolving business challenges."
     },
     {
       "id": 57,
@@ -1492,7 +1834,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Constructive conflict resolution depersonalizes disagreements, focuses on root causes, and uncovers win-win outcomes."
     },
     {
       "id": 58,
@@ -1506,7 +1854,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Grounded confidence combined with humility reassures teams and provides steady guidance through turbulent periods."
     },
     {
       "id": 59,
@@ -1520,7 +1874,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "Granting ownership and operational autonomy develops self-sufficient problem solvers and drives organizational velocity."
     },
     {
       "id": 60,
@@ -1534,7 +1894,13 @@ export const questionsBank = {
         "Neutral",
         "Agree",
         "Strongly Agree"
-      ]
+      ],
+      "answer": 4,
+      "acceptedAnswers": [
+        3,
+        4
+      ],
+      "explanation": "A relentless commitment to incremental excellence (kaizen) compounds into world-class performance over time."
     }
   ]
 };
