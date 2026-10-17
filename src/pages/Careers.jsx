@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import { academyInfo } from '../data/academyData';
+import SEO from '../components/SEO';
 
 const openPositions = [
   {
@@ -161,6 +162,41 @@ export default function Careers() {
 
   return (
     <div className="py-6 sm:py-10 max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
+      <SEO
+        title="Careers & Teaching Faculty Opportunities | The Consistent Academy"
+        description="Join our educator network at The Consistent Academy in Pune. Hiring passionate IELTS Trainers, Spoken English Mentors, and Teaching Assistants."
+        keywords="IELTS trainer jobs Pune, English teaching jobs Pune, faculty careers Pune, education jobs Consistent Academy"
+        canonical="/careers"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Career Openings at The Consistent Academy',
+          itemListElement: openPositions.map((p, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'JobPosting',
+              title: p.title,
+              description: p.description,
+              employmentType: p.type,
+              hiringOrganization: {
+                '@type': 'EducationalOrganization',
+                name: 'The Consistent Academy',
+                url: 'https://www.theconsistentacademy.in/'
+              },
+              jobLocation: {
+                '@type': 'Place',
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: 'Pune',
+                  addressRegion: 'Maharashtra',
+                  addressCountry: 'IN'
+                }
+              }
+            }
+          }))
+        }}
+      />
       {/* Compact Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
         <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary">

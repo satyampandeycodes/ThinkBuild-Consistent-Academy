@@ -10,6 +10,7 @@ import BookCard from '../components/BookCard';
 import TestimonialCard from '../components/TestimonialCard';
 import FAQSection from '../components/FAQSection';
 import HeroTriangularBackground from '../components/HeroTriangularBackground';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -60,6 +61,38 @@ export default function Home() {
 
   return (
     <div className="space-y-8 sm:space-y-10 pb-12">
+      <SEO
+        title="The Consistent Academy | IELTS, PTE, CELPIP & English Learning in Pune"
+        description="Master English with The Consistent Academy in Pune. Expert IELTS, TOEFL, PTE & CELPIP coaching, Spoken English, and Corporate Communication by Author & Master Trainer Vidya Wankhade with 19+ years experience."
+        keywords="IELTS coaching Pune, PTE training Pune, CELPIP preparation, Spoken English classes Pune, Vidya Wankhade, English language institute Pune, IELTS Band 8 training"
+        canonical="/"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'EducationalOrganization',
+          name: 'The Consistent Academy',
+          url: 'https://www.theconsistentacademy.in/',
+          logo: 'https://www.theconsistentacademy.in/assets/academy/logo.png',
+          image: 'https://www.theconsistentacademy.in/assets/academy/logo.png',
+          description: 'Master English with The Consistent Academy. Expert IELTS preparation, spoken English, corporate communication, and writing skills courses with proven methodology.',
+          telephone: '+91 77091 09830',
+          email: 'theconsistentacademy@gmail.com',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Pune',
+            addressRegion: 'Maharashtra',
+            addressCountry: 'IN'
+          },
+          founder: {
+            '@type': 'Person',
+            name: 'Vidya Wankhade',
+            jobTitle: 'Author, IELTS Master Trainer & Founder'
+          },
+          sameAs: [
+            'https://www.instagram.com/the_consistent_academy/',
+            'https://www.linkedin.com/company/the-consistent-academy/'
+          ]
+        }}
+      />
       {/* HERO SECTION - Concept 2 Implementation with Continuous Moving Triangular Background & Founder Showcase */}
       <section className="relative overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 min-h-[calc(100vh-4.5rem)] flex flex-col justify-center bg-gradient-to-b from-brand-soft/60 via-white to-slate-50">
         {/* Continuous Moving Triangular Background (Matching Logo Color) */}

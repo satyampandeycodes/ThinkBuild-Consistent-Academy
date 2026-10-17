@@ -4,10 +4,35 @@ import SectionHeading from '../components/SectionHeading';
 import BookCard from '../components/BookCard';
 import Button from '../components/Button';
 import { BookOpen, ShoppingBag } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Books() {
   return (
     <div className="py-12 sm:py-16 space-y-16 max-w-7xl mx-auto px-4 sm:px-8">
+      <SEO
+        title="Published Books Authored by Vidya Wankhade | The Consistent Academy"
+        description="Discover books authored by Vidya Wankhade: 'Cakewalk IELTS', 'Reading Detectives', and management book summaries for IELTS test takers, kids, and executives."
+        keywords="Cakewalk IELTS book, Reading Detectives book, Vidya Wankhade books, IELTS preparation books, English reading club Pune"
+        canonical="/books"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Books Authored by Vidya Wankhade',
+          itemListElement: publishedBooks.map((b, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'Book',
+              name: b.title,
+              author: {
+                '@type': 'Person',
+                name: 'Vidya Wankhade'
+              },
+              description: b.description
+            }
+          }))
+        }}
+      />
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">

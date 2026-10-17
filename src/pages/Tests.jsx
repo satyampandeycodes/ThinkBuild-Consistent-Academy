@@ -30,6 +30,7 @@ import {
 import { testsData } from '../data/academyData';
 import { questionsBank } from '../data/testQuestions';
 import Button from '../components/Button';
+import SEO from '../components/SEO';
 
 export default function Tests() {
   // Auth state
@@ -305,6 +306,23 @@ export default function Tests() {
   if (!currentUser) {
     return (
       <div className="min-h-[85vh] flex items-center justify-center py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-brand-soft/25 to-purple-50/40 relative overflow-hidden w-full max-w-full">
+        <SEO
+          title="Diagnostic English Tests & Skill Assessment | The Consistent Academy"
+          description="Take free English proficiency tests, grammar diagnostics, and leadership communication assessments designed by master trainers at The Consistent Academy."
+          keywords="English proficiency test, IELTS practice test, grammar diagnostic test, leadership communication assessment, free English test Pune"
+          canonical="/tests"
+          schema={{
+            '@context': 'https://schema.org',
+            '@type': 'EducationalApplication',
+            name: 'The Consistent Academy English Diagnostic Tests',
+            applicationCategory: 'EducationalApplication',
+            description: 'Online diagnostic tests for evaluating English grammar, vocabulary, and communication proficiency.',
+            provider: {
+              '@type': 'EducationalOrganization',
+              name: 'The Consistent Academy'
+            }
+          }}
+        />
         {/* Subtle Ambient Backlight Glows - Clipped to prevent horizontal overflow */}
         <div className="absolute top-1/4 -left-32 w-80 h-80 rounded-full bg-brand-primary/10 blur-3xl pointer-events-none overflow-hidden" />
         <div className="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-purple-500/10 blur-3xl pointer-events-none overflow-hidden" />
@@ -459,6 +477,23 @@ export default function Tests() {
   // 2. LOGGED IN: TEST SELECTION / ACTIVE TEST
   return (
     <div className="py-8 sm:py-16 space-y-8 sm:space-y-12 max-w-7xl mx-auto px-4 sm:px-8 w-full">
+      <SEO
+        title="Diagnostic English Tests & Skill Assessment | The Consistent Academy"
+        description="Take free English proficiency tests, grammar diagnostics, and leadership communication assessments designed by master trainers at The Consistent Academy."
+        keywords="English proficiency test, IELTS practice test, grammar diagnostic test, leadership communication assessment, free English test Pune"
+        canonical="/tests"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'EducationalApplication',
+          name: 'The Consistent Academy English Diagnostic Tests',
+          applicationCategory: 'EducationalApplication',
+          description: 'Online diagnostic tests for evaluating English grammar, vocabulary, and communication proficiency.',
+          provider: {
+            '@type': 'EducationalOrganization',
+            name: 'The Consistent Academy'
+          }
+        }}
+      />
       {/* Top Welcome Bar (Capped width, no horizontal spill) */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-5 shadow-xs w-full max-w-full overflow-hidden">
         <div className="flex items-center gap-3 sm:gap-4 text-left w-full sm:w-auto justify-start min-w-0">

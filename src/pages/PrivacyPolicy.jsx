@@ -2,10 +2,17 @@ import React from 'react';
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import { ShieldCheck, Lock, FileText } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function PrivacyPolicy() {
   return (
     <div className="py-12 sm:py-16 max-w-4xl mx-auto px-4 sm:px-8 space-y-12">
+      <SEO
+        title="Privacy Policy | The Consistent Academy"
+        description="Privacy policy, student data protection guidelines, and transparency terms for The Consistent Academy in Pune."
+        keywords="privacy policy, The Consistent Academy terms, student data protection"
+        canonical="/privacy-policy"
+      />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">
           Compliance & Transparency

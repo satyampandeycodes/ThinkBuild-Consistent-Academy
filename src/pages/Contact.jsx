@@ -5,6 +5,7 @@ import { academyInfo } from '../data/academyData';
 import SectionHeading from '../components/SectionHeading';
 import ContactForm from '../components/ContactForm';
 import MapEmbed from '../components/MapEmbed';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   const location = useLocation();
@@ -13,6 +14,30 @@ export default function Contact() {
 
   return (
     <div className="py-12 sm:py-16 space-y-16 max-w-7xl mx-auto px-4 sm:px-8">
+      <SEO
+        title="Contact Admissions Desk & Location | The Consistent Academy Pune"
+        description="Contact The Consistent Academy in Pune for IELTS coaching, English courses, fee inquiries, or book a consultation with Founder Vidya Wankhade."
+        keywords="contact Consistent Academy, IELTS coaching Pune contact, English institute phone number Pune, Vidya Wankhade contact, English classes enquiry Pune"
+        canonical="/contact"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ContactPage',
+          name: 'Contact The Consistent Academy',
+          description: 'Admissions desk and direct contact coordinates for The Consistent Academy in Pune',
+          mainEntity: {
+            '@type': 'EducationalOrganization',
+            name: 'The Consistent Academy',
+            telephone: academyInfo.phone,
+            email: academyInfo.email,
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Pune',
+              addressRegion: 'Maharashtra',
+              addressCountry: 'IN'
+            }
+          }
+        }}
+      />
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">

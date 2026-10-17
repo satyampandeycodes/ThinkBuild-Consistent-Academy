@@ -4,10 +4,43 @@ import SectionHeading from '../components/SectionHeading';
 import TestimonialCard from '../components/TestimonialCard';
 import Button from '../components/Button';
 import { Award, Globe2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Testimonials() {
   return (
     <div className="py-12 sm:py-16 space-y-16 max-w-7xl mx-auto px-4 sm:px-8">
+      <SEO
+        title="Student Success Stories & Verified IELTS Band Scores | The Consistent Academy"
+        description="Read authentic student testimonials and verified IELTS band 7.5 - 8.5 outcomes from learners at The Consistent Academy securing university admissions and PR abroad."
+        keywords="IELTS student reviews, IELTS band score 8 results, The Consistent Academy reviews Pune, Vidya Wankhade student feedback"
+        canonical="/testimonials"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Student Reviews & Success Stories',
+          itemListElement: testimonials.map((t, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'Review',
+              author: {
+                '@type': 'Person',
+                name: t.name
+              },
+              reviewBody: t.quote,
+              reviewRating: {
+                '@type': 'Rating',
+                ratingValue: t.rating || 5,
+                bestRating: 5
+              },
+              itemReviewed: {
+                '@type': 'EducationalOrganization',
+                name: 'The Consistent Academy'
+              }
+            }
+          }))
+        }}
+      />
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">

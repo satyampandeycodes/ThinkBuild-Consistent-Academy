@@ -3,10 +3,39 @@ import { founderProfile, academyInfo } from '../data/academyData';
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import { Award, BookOpen, Calendar, CheckCircle2, HeartHandshake, Compass } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
     <div className="py-12 sm:py-16 space-y-24 max-w-7xl mx-auto px-4 sm:px-8">
+      <SEO
+        title="Meet Founder Vidya Wankhade | The Consistent Academy"
+        description="Learn about Vidya Wankhade, Author, certified IELTS Master Trainer, and Founder of The Consistent Academy with 19+ years experience mentoring students and professionals in Pune."
+        keywords="Vidya Wankhade, IELTS Master Trainer Pune, Author Vidya Wankhade, The Consistent Academy founder, English coach Pune, IELTS Band 8 mentor"
+        canonical="/about"
+        type="profile"
+        image={founderProfile.image}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: founderProfile.name,
+          jobTitle: founderProfile.role,
+          description: founderProfile.bio,
+          image: `https://www.theconsistentacademy.in${founderProfile.image}`,
+          worksFor: {
+            '@type': 'EducationalOrganization',
+            name: 'The Consistent Academy',
+            url: 'https://www.theconsistentacademy.in/'
+          },
+          knowsAbout: [
+            'IELTS Preparation',
+            'Spoken English',
+            'Corporate Communication',
+            'Business English',
+            'Interview Coaching'
+          ]
+        }}
+      />
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">

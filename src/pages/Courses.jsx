@@ -4,6 +4,7 @@ import SectionHeading from '../components/SectionHeading';
 import CourseCard from '../components/CourseCard';
 import Button from '../components/Button';
 import { BookOpen, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Courses() {
   const [filter, setFilter] = useState('all');
@@ -16,6 +17,32 @@ export default function Courses() {
 
   return (
     <div className="py-10 sm:py-16 space-y-12 sm:space-y-16 max-w-7xl mx-auto px-4 sm:px-8 w-full">
+      <SEO
+        title="Courses & Learning Programmes | The Consistent Academy"
+        description="Explore verified English courses at The Consistent Academy in Pune: IELTS Academic & General, PTE, TOEFL, CELPIP, Spoken English, Corporate Leadership, and Kids Reading Club."
+        keywords="IELTS coaching Pune, PTE Academic classes Pune, CELPIP preparation, Spoken English training, Corporate Communication courses, English speaking courses Pune"
+        canonical="/courses"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'English Language Courses & Programmes',
+          description: 'Comprehensive course offerings at The Consistent Academy Pune',
+          itemListElement: allCourses.map((c, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+              '@type': 'Course',
+              name: c.title,
+              description: c.description,
+              provider: {
+                '@type': 'EducationalOrganization',
+                name: 'The Consistent Academy',
+                url: 'https://www.theconsistentacademy.in/'
+              }
+            }
+          }))
+        }}
+      />
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-soft border border-brand-border text-brand-primary mb-3">

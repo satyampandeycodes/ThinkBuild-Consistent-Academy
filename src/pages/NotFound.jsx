@@ -2,10 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { Home, Compass } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function NotFound() {
   return (
     <div className="py-24 max-w-xl mx-auto px-4 text-center space-y-6">
+      <SEO
+        title="404 - Page Not Found | The Consistent Academy"
+        description="The page you are looking for does not exist or has been moved. Explore courses and resources at The Consistent Academy."
+        canonical="/404"
+        noindex={true}
+      />
       <div className="w-20 h-20 rounded-full bg-brand-soft text-brand-primary flex items-center justify-center mx-auto border-2 border-brand-border">
         <Compass className="w-10 h-10 animate-spin-slow" />
       </div>

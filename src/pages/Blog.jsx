@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { sampleBlogPosts } from '../data/academyData';
 import Button from '../components/Button';
+import SEO from '../components/SEO';
 
 export default function Blog() {
   const [posts] = useState(sampleBlogPosts);
@@ -14,6 +15,29 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen pt-12 pb-20 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-brand-soft/20 to-purple-50/30">
+      <SEO
+        title="Community Blogs & English Learning Insights | The Consistent Academy"
+        description="Read articles, study tips, and expert guides on IELTS preparation, Spoken English mastery, vocabulary improvement, and language learning from The Consistent Academy."
+        keywords="IELTS preparation tips, Spoken English blog, English learning insights Pune, language study guide, IELTS Band 8 tips"
+        canonical="/blog"
+        type="blog"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: 'The Consistent Academy Community Blogs',
+          description: 'Educational articles and insights on IELTS and English mastery',
+          blogPost: posts.map((p) => ({
+            '@type': 'BlogPosting',
+            headline: p.title,
+            description: p.excerpt,
+            author: {
+              '@type': 'Person',
+              name: p.author
+            },
+            datePublished: p.date
+          }))
+        }}
+      />
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
